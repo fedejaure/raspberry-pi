@@ -1,0 +1,12 @@
+---
+# Security configuration.
+security_sudoers_passwordless: ['pi']
+firewall_allowed_tcp_ports:
+  - 22
+  - 80
+  - 443
+
+# Python configuration.
+pip_package: python3-pip
+pip_executable: pip3
+docker_pip_executable: '{{ pip_executable }}'
