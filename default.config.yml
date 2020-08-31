@@ -10,3 +10,7 @@ firewall_allowed_tcp_ports:
 pip_package: python3-pip
 pip_executable: pip3
 docker_pip_executable: '{{ pip_executable }}'
+
+# LCD configuration.
+lcd_type: MPI3501
+lcd_rotate: 270
