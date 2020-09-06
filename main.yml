@@ -1,2 +1,2 @@
 ---
-import_playbook: lcd.yml
+- import_playbook: lcd.yml
