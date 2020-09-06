@@ -1,5 +1,5 @@
 ---
-- hosts: all
+- hosts: lcd
 
   vars_files:
     - default.config.yml
