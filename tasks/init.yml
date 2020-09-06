@@ -18,6 +18,15 @@
     update_cache: true
     cache_valid_time: 86400
 
+- name: Ensure dev packages are instaled.
+  apt:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - build-essential
+    - libssl-dev
+    - libffi-dev
+
 - name: Change locale
   shell: "raspi-config nonint do_change_locale {{ rpi_locale }}"
 
