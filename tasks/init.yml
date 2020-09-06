@@ -1,0 +1,33 @@
+---
+- name: Check unpartitioned space
+  shell: /sbin/parted /dev/mmcblk0 unit gb print free | grep 'Free Space' | tail -n1 | awk '{print $3}'
+  register: unpartitioned
+  changed_when: false
+  failed_when: unpartitioned.stderr != ""
+
+- name: Expand filesystem to fill disk
+  command: raspi-config --expand-rootfs
+  when: unpartitioned.stdout != "0.00GB"
+
+- name: Reboot after file system change
+  reboot:
+  when: unpartitioned.stdout != "0.00GB"
+
+- name: Update apt cache if needed.
+  apt:
+    update_cache: true
+    cache_valid_time: 86400
+
+- name: Ensure dev packages are instaled.
+  apt:
+    name:
+      - build-essential
+      - libssl-dev
+      - libffi-dev
+    state: present
+
+- name: Change locale
+  shell: "raspi-config nonint do_change_locale {{ rpi_locale }}"
+
+- name: Change keyboard layout
+  shell: "raspi-config nonint do_configure_keyboard {{ rpi_layout }}"

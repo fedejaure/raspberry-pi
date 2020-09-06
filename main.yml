@@ -1,11 +1,2 @@
 ---
-- hosts: all
-
-  vars_files:
-    - default.config.yml
-
-  pre_tasks: []
-
-  roles: []
-
-  tasks: []
+- import_playbook: lcd.yml

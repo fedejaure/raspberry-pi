@@ -1,4 +1,8 @@
 ---
+# RPI setup.
+rpi_locale: en_US.UTF-8
+rpi_layout: us
+
 # Security configuration.
 security_sudoers_passwordless: ['pi']
 firewall_allowed_tcp_ports:
@@ -10,3 +14,7 @@ firewall_allowed_tcp_ports:
 pip_package: python3-pip
 pip_executable: pip3
 docker_pip_executable: '{{ pip_executable }}'
+
+# LCD configuration.
+lcd_type: MPI3501
+lcd_rotate: 270
