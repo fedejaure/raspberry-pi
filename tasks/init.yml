@@ -20,12 +20,11 @@
 
 - name: Ensure dev packages are instaled.
   apt:
-    name: "{{ item }}"
+    name:
+      - build-essential
+      - libssl-dev
+      - libffi-dev
     state: present
-  with_items:
-    - build-essential
-    - libssl-dev
-    - libffi-dev
 
 - name: Change locale
   shell: "raspi-config nonint do_change_locale {{ rpi_locale }}"
