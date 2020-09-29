@@ -19,6 +19,11 @@
     update_cache: true
     cache_valid_time: 86400
 
+- name: Upgrade the OS.
+  apt:
+    upgrade: dist
+  when: rpi_dist_upgrade is defined and rpi_dist_upgrade
+
 - name: Ensure dev packages are instaled.
   apt:
     name:

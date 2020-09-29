@@ -2,6 +2,7 @@
 # RPI setup.
 rpi_locale: en_US.UTF-8
 rpi_layout: us
+rpi_dist_upgrade: no
 
 # Security configuration.
 security_sudoers_passwordless: ['pi']
