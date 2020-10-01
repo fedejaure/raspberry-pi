@@ -5,4 +5,3 @@
 - src: geerlingguy.pip
 - src: geerlingguy.docker_arm
 - src: fedejaure.rpi_lcd
-  version: ">=0.2.0"
