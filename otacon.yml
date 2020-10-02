@@ -1,5 +1,5 @@
 ---
-- hosts: lcd
+- hosts: otacon
   become: yes
 
   vars_files:

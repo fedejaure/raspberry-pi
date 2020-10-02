@@ -1,7 +1,13 @@
 Raspberry Pi Playbook
 =====================
 
-Raspberry Pi setup and configuration via Ansible (use by your on risk).
+Setup and configuration of my own Raspberry Pi fleet via Ansible (use by your own risk).
+
+
+Fleet Members ([Metal Gear Characters][metal-gear-characters])
+-------------
+
+* [Otacon][otacon]
 
 Quickstart
 ----------
@@ -29,7 +35,7 @@ Quickstart
     ```
 4. Configure the `inventory` file, e.g.:
     ```
-    [lcd]
+    [otacon]
     127.0.0.1 ansible_python_interpreter=/usr/bin/python3 ansible_user=pi
     ```
 5. Run the playbook:
@@ -75,3 +81,5 @@ Author Information
 This role was created in 2020 by [Federico Jaureguialzo][fedejaure].
 
 [fedejaure]: https://github.com/fedejaure
+[metal-gear-characters]: https://en.wikipedia.org/wiki/List_of_Metal_Gear_characters
+[otacon]: https://en.wikipedia.org/wiki/Otacon
