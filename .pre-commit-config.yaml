@@ -14,4 +14,7 @@ repos:
     sha: v4.3.5
     hooks:
       - id: ansible-lint
-        files: \.(yaml|yml)$
+        always_run: true
+        pass_filenames: false
+        verbose: true
+        entry: ansible-lint --force-color -p -v .
