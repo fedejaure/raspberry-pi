@@ -47,3 +47,7 @@
 
 - name: Change keyboard layout
   shell: "raspi-config nonint do_configure_keyboard {{ rpi_layout }}"
+
+- name: Set a hostname
+  hostname:
+    name: "{{ rpi_hostname }}"

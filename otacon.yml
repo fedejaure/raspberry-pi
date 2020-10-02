@@ -5,6 +5,9 @@
   vars_files:
     - default.config.yml
 
+  vars:
+    - rpi_hostname: otacon
+
   pre_tasks:
     - name: Include config override file, if it exists
       include_vars: "{{ item }}"
