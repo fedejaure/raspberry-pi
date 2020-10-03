@@ -3,7 +3,7 @@
   shell: /sbin/parted /dev/mmcblk0 unit gb print free | grep 'Free Space' | tail -n1 | awk '{print $3}'
   register: unpartitioned
   changed_when: false
-  failed_when: unpartitioned.stderr != ""
+  failed_when: unpartitioned.stderr
 
 - name: Expand filesystem to fill disk
   command: raspi-config --expand-rootfs
@@ -11,14 +11,30 @@
 
 - name: Reboot after file system change
   reboot:
+    reboot_timeout: 300
   when: unpartitioned.stdout != "0.00GB"
 
-- name: Update apt cache if needed.
+- name: Update apt cache if needed
   apt:
     update_cache: true
     cache_valid_time: 86400
 
-- name: Ensure dev packages are instaled.
+- name: Upgrade the OS
+  apt:
+    upgrade: dist
+  when: rpi_dist_upgrade is defined and rpi_dist_upgrade
+
+- name: Check if reboot is needed
+  stat:
+    path: /var/run/reboot-required
+  register: reboot_required
+
+- name: Reboot if needed
+  reboot:
+    reboot_timeout: 300
+  when: reboot_required.stat.exists
+
+- name: Ensure dev packages are instaled
   apt:
     name:
       - build-essential
@@ -31,3 +47,13 @@
 
 - name: Change keyboard layout
   shell: "raspi-config nonint do_configure_keyboard {{ rpi_layout }}"
+
+- name: Set a hostname
+  hostname:
+    name: "{{ rpi_hostname }}"
+  register: hostname
+
+- name: Reboot if needed
+  reboot:
+    reboot_timeout: 300
+  when: hostname.changed

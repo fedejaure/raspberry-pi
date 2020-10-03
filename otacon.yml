@@ -1,11 +1,19 @@
 ---
-- hosts: lcd
+- hosts: otacon
+  become: yes
 
   vars_files:
     - default.config.yml
 
+  vars:
+    - rpi_hostname: otacon
+    - rpi_docker_compose_project: "{{ rpi_hostname }}"
+    - rpi_docker_compose_project_templates:
+      - src: "{{ rpi_docker_compose_project }}/docker-compose.yml"
+        project_dest: "docker-compose.yml"
+
   pre_tasks:
-    - name: Include config override file, if it exists.
+    - name: Include config override file, if it exists
       include_vars: "{{ item }}"
       with_fileglob:
         - config.yml
@@ -32,4 +40,6 @@
     - role: fedejaure.rpi_lcd
       tags: ['lcd']
 
-  tasks: []
+  tasks:
+
+    - import_tasks: tasks/docker_compose.yml

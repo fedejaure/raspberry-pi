@@ -1,0 +1,34 @@
+---
+- name: Check if docker compose project exists
+  stat:
+    path: "~/{{ rpi_docker_compose_project }}"
+  register: docker_compose_project
+
+- name: Stop service
+  community.general.docker_compose:
+    project_src: "{{ rpi_docker_compose_project }}"
+    state: absent
+  when: docker_compose_project.stat.exists
+
+- name: "Ensures {{ rpi_docker_compose_project }} dir exists"
+  file:
+    path: "{{ rpi_docker_compose_project }}"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: u=rwx,g=rx,o=x
+    state: directory
+
+- name: Copy docker compose project files
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ rpi_docker_compose_project }}/{{ item.project_dest }}"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: u=rwx,g=rx,o=x
+  with_items: "{{ rpi_docker_compose_project_templates }}"
+
+- name: Create and start services
+  community.general.docker_compose:
+    project_src: "{{ rpi_docker_compose_project }}"
+    build: yes
+    state: present
