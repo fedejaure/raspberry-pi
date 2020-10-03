@@ -10,6 +10,11 @@ firewall_allowed_tcp_ports:
   - 22
   - 80
   - 443
+  - 548
+firewall_allowed_udp_ports:
+  - 5353
+  - 5354
+firewall_flush_rules_and_chains: no
 
 # Python configuration.
 pip_package: python3-pip
