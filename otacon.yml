@@ -16,6 +16,8 @@
         virtual_hosts:
           whoami: "whoami.{{ rpi_hostname }}.local"
 
+    - rpi_virtual_hosts_aliases: "{{ rpi_docker_compose_project_config.virtual_hosts.values() | list }}"
+
   pre_tasks:
     - name: Include config override file, if it exists
       include_vars: "{{ item }}"
@@ -52,4 +54,7 @@
   tasks:
 
     - import_tasks: tasks/docker_compose.yml
-      tags: ['rpi-service']
+      tags: ['docker-compose']
+
+    - import_tasks: tasks/avahi_aliases.yml
+      tags: ['avahi-aliases']
