@@ -1,7 +1,7 @@
 ---
 - name: Check if docker compose project exists
   stat:
-    path: "~/{{ rpi_docker_compose_project }}"
+    path: "{{ rpi_docker_compose_project }}"
   register: docker_compose_project
 
 - name: Stop service
