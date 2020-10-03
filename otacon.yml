@@ -20,6 +20,7 @@
       tags: ['always']
 
     - import_tasks: tasks/init.yml
+      tags: ['init']
 
   roles:
     - role: geerlingguy.security
@@ -47,3 +48,4 @@
   tasks:
 
     - import_tasks: tasks/docker_compose.yml
+      tags: ['rpi-service']
