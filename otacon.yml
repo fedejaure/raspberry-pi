@@ -8,9 +8,13 @@
   vars:
     - rpi_hostname: otacon
     - rpi_docker_compose_project: "{{ rpi_hostname }}"
-    - rpi_docker_compose_project_templates:
-      - src: "{{ rpi_docker_compose_project }}/docker-compose.yml"
-        project_dest: "docker-compose.yml"
+    - rpi_docker_compose_project_config:
+        templates:
+          - src: "{{ rpi_docker_compose_project }}/docker-compose.yml"
+            project_dest: "docker-compose.yml"
+
+        virtual_hosts:
+          whoami: "whoami.{{ rpi_hostname }}.local"
 
   pre_tasks:
     - name: Include config override file, if it exists

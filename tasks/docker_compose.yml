@@ -8,6 +8,7 @@
   community.general.docker_compose:
     project_src: "{{ rpi_docker_compose_project }}"
     state: absent
+    remove_volumes: yes
   when: docker_compose_project.stat.exists
 
 - name: "Ensures {{ rpi_docker_compose_project }} dir exists"
@@ -25,10 +26,11 @@
     owner: "{{ ansible_user }}"
     group: "{{ ansible_user }}"
     mode: u=rwx,g=rx,o=x
-  with_items: "{{ rpi_docker_compose_project_templates }}"
+  with_items: "{{ rpi_docker_compose_project_config.templates }}"
 
 - name: Create and start services
   community.general.docker_compose:
     project_src: "{{ rpi_docker_compose_project }}"
     build: yes
+    remove_orphans: yes
     state: present
