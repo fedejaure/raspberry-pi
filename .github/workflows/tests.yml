@@ -14,6 +14,8 @@ jobs:
       - name: Install system deps
         run: pip install pipenv
       - name: Install ansible requirements
-        run: pipenv sync --dev
+        run: |
+          pipenv sync --dev
+          pipenv run ansible-galaxy install -r requirements.yml
       - name: Linting
         run: pipenv run pre-commit run --all-files
