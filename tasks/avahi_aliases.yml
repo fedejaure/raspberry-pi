@@ -9,6 +9,15 @@
     name: git+git://github.com/airtonix/avahi-aliases.git
     virtualenv_python: python2.7
 
+- name: Copy alias service configuration file
+  copy:
+    src: etc/systemd/system/avahi-alias.service
+    dest: /etc/systemd/system/avahi-alias.service
+    owner: root
+    group: root
+    mode: u=rwx,g=rx,o=x
+  notify: Restart avahi alias service
+
 - name: Configure virtual hosts aliases
   lineinfile:
     path: /etc/avahi/aliases.d/default
@@ -19,16 +28,4 @@
     line: "{{ item }}"
     create: yes
   with_items: "{{ rpi_virtual_hosts_aliases }}"
-
-- name: Copy alias service configuration file
-  copy:
-    src: etc/systemd/system/avahi-alias.service
-    dest: /etc/systemd/system/avahi-alias.service
-    owner: root
-    group: root
-    mode: u=rwx,g=rx,o=x
-
-- name: Ensure avahi alias service is restarted
-  service:
-    name: avahi-alias
-    state: restarted
+  notify: Restart avahi alias service
