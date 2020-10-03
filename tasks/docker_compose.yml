@@ -13,14 +13,17 @@
 - name: "Ensures {{ rpi_docker_compose_project }} dir exists"
   file:
     path: "{{ rpi_docker_compose_project }}"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: u=rwx,g=rx,o=x
     state: directory
 
 - name: Copy docker compose project files
   template:
     src: "{{ item.src }}"
     dest: "{{ rpi_docker_compose_project }}/{{ item.project_dest }}"
-    owner: root
-    group: root
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
     mode: u=rwx,g=rx,o=x
   with_items: "{{ rpi_docker_compose_project_templates }}"
 
