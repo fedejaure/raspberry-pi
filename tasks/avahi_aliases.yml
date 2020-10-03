@@ -16,7 +16,7 @@
     owner: root
     group: root
     mode: u=rwx,g=rx,o=x
-  notify: Restart avahi alias service
+  notify: restart avahi alias
 
 - name: Configure virtual hosts aliases
   lineinfile:
@@ -28,4 +28,4 @@
     line: "{{ item }}"
     create: yes
   with_items: "{{ rpi_virtual_hosts_aliases }}"
-  notify: Restart avahi alias service
+  notify: restart avahi alias

@@ -8,3 +8,4 @@
   service:
     name: avahi-alias
     state: restarted
+  listen: "restart avahi alias"
