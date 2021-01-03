@@ -55,6 +55,3 @@
 
     - import_tasks: tasks/docker_compose.yml
       tags: ['docker-compose']
-
-    - import_tasks: tasks/avahi_aliases.yml
-      tags: ['avahi-aliases']
