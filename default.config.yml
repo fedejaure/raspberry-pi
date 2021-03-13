@@ -16,11 +16,6 @@ firewall_allowed_udp_ports:
   - 5354
 firewall_flush_rules_and_chains: no
 
-# Python configuration.
-pip_package: python3-pip
-pip_executable: pip3
-docker_pip_executable: '{{ pip_executable }}'
-
 # LCD configuration.
 lcd_type: MPI3501
 lcd_rotate: 270

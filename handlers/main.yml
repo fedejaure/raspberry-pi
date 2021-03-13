@@ -3,9 +3,3 @@
   reboot:
     reboot_timeout: 300
   listen: reboot raspi is required
-
-- name: Restart avahi alias service
-  service:
-    name: avahi-alias
-    state: restarted
-  listen: "restart avahi alias"

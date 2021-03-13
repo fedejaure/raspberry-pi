@@ -6,6 +6,11 @@
     - default.config.yml
 
   vars:
+    # Python configuration.
+    - pip_package: python3-pip
+    - pip_executable: pip3
+    - docker_pip_executable: '{{ pip_executable }}'
+
     - rpi_hostname: otacon
     - rpi_docker_compose_project: "{{ rpi_hostname }}"
     - rpi_docker_compose_project_config:
@@ -14,9 +19,28 @@
             project_dest: "docker-compose.yml"
 
         virtual_hosts:
+          host: "{{ rpi_hostname }}"
           whoami: "whoami.{{ rpi_hostname }}.local"
 
-    - rpi_virtual_hosts_aliases: "{{ rpi_docker_compose_project_config.virtual_hosts.values() | list }}"
+    - rpi_virtual_hosts_aliases: "{{ rpi_docker_compose_project_config.virtual_hosts.values() | map('replace', '.local', '')  | list }}"
+
+    - mdns_beacon_version: 0.3.0
+
+    - supervisor_programs:
+      - name: 'mdns-beacon'
+        command: "mdns-beacon blink {{ rpi_virtual_hosts_aliases | join(' --alias ') }} --address {{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }} --type http --protocol tcp"
+        state: present
+        configuration: |
+          autostart=true
+          autorestart=true
+          startretries=1
+          startsecs=1
+          redirect_stderr=true
+          stderr_logfile=/var/log/mdns-beacon-err.log
+          stdout_logfile=/var/log/mdns-beacon-out.log
+          user=root
+          killasgroup=true
+          stopasgroup=true
 
   pre_tasks:
     - name: Include config override file, if it exists
@@ -44,14 +68,18 @@
     - role: geerlingguy.docker_arm
       tags: ['docker']
 
+    - role: geerlingguy.supervisor
+      tags: ['supervisor', 'mdns-beacon']
+
     - role: fedejaure.rpi_lcd
       tags: ['lcd']
 
   handlers:
 
-    - import_tasks: handlers/main.yml
-
   tasks:
 
     - import_tasks: tasks/docker_compose.yml
       tags: ['docker-compose']
+
+    - import_tasks: tasks/mdns_beacon.yml
+      tags: ['mdns-beacon']
