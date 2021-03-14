@@ -6,6 +6,8 @@
   register: unpartitioned
   changed_when: false
   failed_when: unpartitioned.stderr
+  args:
+    executable: /usr/bin/bash
 
 - name: Expand filesystem to fill disk
   command: raspi-config --expand-rootfs
