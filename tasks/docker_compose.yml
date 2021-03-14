@@ -9,6 +9,7 @@
     project_src: "{{ rpi_docker_compose_project }}"
     state: absent
     remove_volumes: yes
+    remove_orphans: yes
   when: docker_compose_project.stat.exists
 
 - name: "Ensures {{ rpi_docker_compose_project }} dir exists"
