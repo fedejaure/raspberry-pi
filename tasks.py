@@ -12,9 +12,11 @@ from invoke.runners import Result
 
 ROOT_DIR = Path(__file__).parent
 TASKS_DIR = ROOT_DIR / 'tasks'
+HANDLERS_DIR = ROOT_DIR / 'handlers'
 ANSIBLE_TARGETS = [
     ROOT_DIR,
-    TASKS_DIR
+    TASKS_DIR,
+    HANDLERS_DIR
 ]
 ANSIBLE_TARGETS_STR = " ".join([str(t) for t in ANSIBLE_TARGETS])
 

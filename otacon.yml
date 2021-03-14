@@ -40,6 +40,10 @@
     - role: fedejaure.rpi_lcd
       tags: ['lcd']
 
+  handlers:
+
+    - import_tasks: handlers/main.yml
+
   tasks:
 
     - import_tasks: tasks/docker_compose.yml

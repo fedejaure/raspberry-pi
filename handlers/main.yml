@@ -1,0 +1,5 @@
+---
+- name: Reboot raspi
+  reboot:
+    reboot_timeout: 300
+  listen: reboot raspi is required
