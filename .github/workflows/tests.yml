@@ -1,21 +1,33 @@
 name: tests
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - master
+      - develop
+  pull_request:
+    branches:
+      - develop
+
 jobs:
 
   linting:
     name: Linting
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v2.3.4
+
       - name: Set up Python 3.9
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v2.2.1
         with:
           python-version: 3.9
+
       - name: Install system deps
         run: pip install pipenv
+
       - name: Install ansible requirements
         run: |
           pipenv sync --dev
           pipenv run ansible-galaxy install -r requirements.yml
+
       - name: Linting
         run: pipenv run pre-commit run --all-files
