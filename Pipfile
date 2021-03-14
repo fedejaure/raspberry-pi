@@ -9,7 +9,7 @@ yamllint = "~=1.26.0"
 ansible-lint = "~=5.0.3"
 
 [packages]
-ansible = "~=2.10.0"
+ansible = "~=3.1.0"
 
 [requires]
 python_version = "3.9"
