@@ -70,11 +70,12 @@
 - name: Set the hostname
   become: yes
   command: hostnamectl set-hostname "{{ rpi_hostname }}"
+  changed_when: false
 
 - name: Update /etc/hosts with new hostname
   become: yes
   lineinfile:
     dest: /etc/hosts
-    regexp: "^127.0.1.1\traspberrypi$"
-    line: "127.0.1.1\t{{ rpi_hostname }}"
+    regexp: "^127.0.1.1  raspberrypi$"
+    line: "127.0.1.1  {{ rpi_hostname }}"
     state: present
