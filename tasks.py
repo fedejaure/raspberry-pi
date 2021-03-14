@@ -99,4 +99,4 @@ def version(c, part, dry_run=False):
     # type: (Context, str, bool) -> None
     """Bump version."""
     bump_options = ["--dry-run"] if dry_run else []
-    _run(c, f"bump2version {' '.join(bump_options)} {part}")
+    _run(c, f"pipenv run bump2version {' '.join(bump_options)} {part}")
