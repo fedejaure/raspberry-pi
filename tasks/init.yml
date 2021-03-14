@@ -45,10 +45,10 @@
     state: present
 
 - name: Change locale
-  shell: "raspi-config nonint do_change_locale {{ rpi_locale }}"
+  command: "raspi-config nonint do_change_locale {{ rpi_locale }}"
 
 - name: Change keyboard layout
-  shell: "raspi-config nonint do_configure_keyboard {{ rpi_layout }}"
+  command: "raspi-config nonint do_configure_keyboard {{ rpi_layout }}"
 
 - name: Set a hostname
   hostname:
