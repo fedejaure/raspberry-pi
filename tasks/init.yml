@@ -44,11 +44,26 @@
       - libffi-dev
     state: present
 
+- name: Get current locale and layout configuration
+  command: localectl status
+  register: locale_status
+  changed_when: false
+
+- name: Parse 'LANG' from current locale and language configuration
+  set_fact:
+    current_locale: "{{ locale_status.stdout | regex_search('LANG=([^\n]+)', '\\1') | first }}"
+
+- name: Parse 'Layout' from X11 Layout
+  set_fact:
+    current_layout: "{{ locale_status.stdout | regex_search('X11 Layout: ([^\n]+)', '\\1') | first }}"
+
 - name: Change locale
   command: "raspi-config nonint do_change_locale {{ rpi_locale }}"
+  when: current_locale != rpi_locale
 
 - name: Change keyboard layout
   command: "raspi-config nonint do_configure_keyboard {{ rpi_layout }}"
+  when: current_layout != rpi_layout
 
 - name: Set a hostname
   hostname:
