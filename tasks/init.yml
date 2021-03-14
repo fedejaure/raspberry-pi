@@ -1,9 +1,13 @@
 ---
 - name: Check unpartitioned space
-  shell: /sbin/parted /dev/mmcblk0 unit gb print free | grep 'Free Space' | tail -n1 | awk '{print $3}'
+  shell: |
+    set -o pipefail
+    /sbin/parted /dev/mmcblk0 unit gb print free | grep 'Free Space' | tail -n1 | awk '{print $3}'
   register: unpartitioned
   changed_when: false
   failed_when: unpartitioned.stderr
+  args:
+    executable: /usr/bin/bash
 
 - name: Expand filesystem to fill disk
   command: raspi-config --expand-rootfs
@@ -42,18 +46,31 @@
       - libffi-dev
     state: present
 
+- name: Get current locale and layout configuration
+  command: localectl status
+  register: locale_status
+  changed_when: false
+
+- name: Parse 'LANG' from current locale and language configuration
+  set_fact:
+    current_locale: "{{ locale_status.stdout | regex_search('LANG=([^\n]+)', '\\1') | first }}"
+
+- name: Parse 'Layout' from X11 Layout
+  set_fact:
+    current_layout: "{{ locale_status.stdout | regex_search('X11 Layout: ([^\n]+)', '\\1') | first }}"
+
 - name: Change locale
-  shell: "raspi-config nonint do_change_locale {{ rpi_locale }}"
+  command: "raspi-config nonint do_change_locale {{ rpi_locale }}"
+  when: current_locale != rpi_locale
 
 - name: Change keyboard layout
-  shell: "raspi-config nonint do_configure_keyboard {{ rpi_layout }}"
+  command: "raspi-config nonint do_configure_keyboard {{ rpi_layout }}"
+  when: current_layout != rpi_layout
 
 - name: Set a hostname
   hostname:
     name: "{{ rpi_hostname }}"
-  register: hostname
+  notify: reboot raspi is required
 
-- name: Reboot if needed
-  reboot:
-    reboot_timeout: 300
-  when: hostname.changed
+- name: Force all notified handlers to run at this point, not waiting for normal sync points
+  meta: flush_handlers
