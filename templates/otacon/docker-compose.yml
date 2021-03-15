@@ -36,6 +36,10 @@ services:
       - /proc:/host/proc:ro
       - /sys:/host/sys:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /etc/os-release:/host/etc/os-release:ro
+      - netdataconfig:/etc/netdata
+      - netdatalib:/var/lib/netdata
+      - netdatacache:/var/cache/netdata
     cap_add:
       - SYS_PTRACE
     security_opt:
@@ -46,3 +50,8 @@ services:
       - PGID=999
       - VIRTUALIZATION=kvm
       - VIRTUAL_HOST={{ rpi_docker_compose_project_config.virtual_hosts.netdata }}
+
+volumes:
+  netdataconfig:
+  netdatalib:
+  netdatacache:
