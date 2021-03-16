@@ -1,0 +1,7 @@
+---
+- name: Ensure mdns-beacon is installed.
+  pip:
+    name: mdns-beacon
+    state: present
+    version: "{{ mdns_beacon_version | default(omit) }}"
+    executable: "{{ pip_executable }}"

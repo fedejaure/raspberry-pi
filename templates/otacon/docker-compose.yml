@@ -1,9 +1,57 @@
 version: "3.8"
 
 services:
-  nginx:
-    image: nginx:mainline-alpine
+
+  nginx-proxy:
+    image: budry/jwilder-nginx-proxy-arm
     restart: always
     ports:
-        - 80:80
-        - 443:443
+      - "80:80"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+
+  whoami:
+    image: containous/whoami
+    restart: always
+    environment:
+      - VIRTUAL_HOST={{ rpi_docker_compose_project_config.virtual_hosts.whoami }}
+      - WHOAMI_NAME={{ rpi_hostname }}
+
+  docker-proxy:
+    image: tecnativa/docker-socket-proxy
+    restart: always
+    volumes:
+     - /var/run/docker.sock:/var/run/docker.sock:ro
+    environment:
+      - CONTAINERS=1
+
+  netdata:
+    image: netdata/netdata:v1.29.3
+    restart: always
+    expose:
+      - "19999"
+    volumes:
+      - /etc/passwd:/host/etc/passwd:ro
+      - /etc/group:/host/etc/group:ro
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /etc/os-release:/host/etc/os-release:ro
+      - netdataconfig:/etc/netdata
+      - netdatalib:/var/lib/netdata
+      - netdatacache:/var/cache/netdata
+    cap_add:
+      - SYS_PTRACE
+    security_opt:
+      - apparmor=unconfined
+    environment:
+      - DOCKER_HOST=docker-proxy:2375
+      - PGID=999
+      - VIRTUAL_HOST={{ rpi_docker_compose_project_config.virtual_hosts.netdata }}
+      - VIRTUAL_PORT=19999
+      - VIRTUALIZATION=kvm
+
+volumes:
+  netdataconfig:
+  netdatalib:
+  netdatacache:

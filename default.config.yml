@@ -10,11 +10,11 @@ firewall_allowed_tcp_ports:
   - 22
   - 80
   - 443
-
-# Python configuration.
-pip_package: python3-pip
-pip_executable: pip3
-docker_pip_executable: '{{ pip_executable }}'
+  - 548
+firewall_allowed_udp_ports:
+  - 5353
+  - 5354
+firewall_flush_rules_and_chains: no
 
 # LCD configuration.
 lcd_type: MPI3501
