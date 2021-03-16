@@ -29,12 +29,14 @@
 
     - supervisor_programs:
       - name: startup
-        command: bash -c 'sleep 5 && exec supervisorctl start mdns-beacon'
-        startsecs: 0
-        autostart: true
-        autorestart: false
-        startretries: 1
-        priority: 1
+        command: "bash -c 'sleep 3m && exec supervisorctl start mdns-beacon'"
+        state: present
+        configuration: |
+          startsecs=0
+          autostart=true
+          autorestart=false
+          startretries=1
+          priority=1
 
       - name: 'mdns-beacon'
         command: "mdns-beacon blink {{ rpi_virtual_hosts_aliases | join(' --alias ') }} --address {{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }} --type http --protocol tcp"
