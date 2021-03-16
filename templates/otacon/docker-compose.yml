@@ -45,11 +45,11 @@ services:
     security_opt:
       - apparmor=unconfined
     environment:
-      - VIRTUAL_PORT=19999
       - DOCKER_HOST=docker-proxy:2375
       - PGID=999
-      - VIRTUALIZATION=kvm
       - VIRTUAL_HOST={{ rpi_docker_compose_project_config.virtual_hosts.netdata }}
+      - VIRTUAL_PORT=19999
+      - VIRTUALIZATION=kvm
 
 volumes:
   netdataconfig:
