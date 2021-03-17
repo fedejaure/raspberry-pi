@@ -3,6 +3,7 @@ version: "3.8"
 services:
 
   nginx-proxy:
+    container_name: nginx-proxy
     image: budry/jwilder-nginx-proxy-arm
     restart: always
     ports:
@@ -11,6 +12,7 @@ services:
       - /var/run/docker.sock:/tmp/docker.sock:ro
 
   whoami:
+    container_name: whoami
     image: containous/whoami
     restart: always
     environment:
@@ -18,6 +20,7 @@ services:
       - WHOAMI_NAME={{ rpi_hostname }}
 
   docker-proxy:
+    container_name: docker-proxy
     image: tecnativa/docker-socket-proxy
     restart: always
     volumes:
@@ -26,6 +29,7 @@ services:
       - CONTAINERS=1
 
   netdata:
+    container_name: netdata
     image: netdata/netdata:v1.29.3
     restart: always
     expose:
