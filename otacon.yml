@@ -22,8 +22,10 @@
           host: "{{ rpi_hostname }}"
           whoami: "whoami.{{ rpi_hostname }}.local"
           netdata: "netdata.{{ rpi_hostname }}.local"
+          pihole: "pihole.{{ rpi_hostname }}.local"
 
     - rpi_virtual_hosts_aliases: "{{ rpi_docker_compose_project_config.virtual_hosts.values() | map('replace', '.local', '')  | list }}"
+    - rpi_ipv4_address: "{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}"
 
     - mdns_beacon_version: 0.3.0
 
@@ -39,7 +41,7 @@
           priority=1
 
       - name: 'mdns-beacon'
-        command: "mdns-beacon blink {{ rpi_virtual_hosts_aliases | join(' --alias ') }} --address {{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }} --type http --protocol tcp"
+        command: "mdns-beacon blink {{ rpi_virtual_hosts_aliases | join(' --alias ') }} --address {{ rpi_ipv4_address }} --type http --protocol tcp"
         state: present
         configuration: |
           numprocs=1
