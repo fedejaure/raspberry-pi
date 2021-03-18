@@ -4,6 +4,7 @@ services:
 
   nginx-proxy:
     container_name: nginx-proxy
+    hostname: nginx-proxy.{{ rpi_hostname }}
     image: budry/jwilder-nginx-proxy-arm
     restart: always
     ports:
@@ -11,25 +12,28 @@ services:
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
 
+  docker-proxy:
+    container_name: docker-proxy
+    hostname: docker-proxy.{{ rpi_hostname }}
+    image: tecnativa/docker-socket-proxy
+    restart: always
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    environment:
+      - CONTAINERS=2
+
   whoami:
     container_name: whoami
+    hostname: whoami.{{ rpi_hostname }}
     image: containous/whoami
     restart: always
     environment:
       - VIRTUAL_HOST={{ rpi_docker_compose_project_config.virtual_hosts.whoami }}
       - WHOAMI_NAME={{ rpi_hostname }}
 
-  docker-proxy:
-    container_name: docker-proxy
-    image: tecnativa/docker-socket-proxy
-    restart: always
-    volumes:
-     - /var/run/docker.sock:/var/run/docker.sock:ro
-    environment:
-      - CONTAINERS=1
-
   netdata:
     container_name: netdata
+    hostname: netdata.{{ rpi_hostname }}
     image: netdata/netdata:v1.29.3
     restart: always
     expose:
@@ -50,12 +54,38 @@ services:
       - apparmor=unconfined
     environment:
       - DOCKER_HOST=docker-proxy:2375
-      - PGID=999
       - VIRTUAL_HOST={{ rpi_docker_compose_project_config.virtual_hosts.netdata }}
       - VIRTUAL_PORT=19999
       - VIRTUALIZATION=kvm
+      - PGID=999
+
+  pihole:
+    container_name: pihole
+    hostname: pihole.{{ rpi_hostname }}
+    image: pihole/pihole:v5.7
+    restart: always
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+      - "67:67/udp"
+      - "8053:80/tcp"
+      - "443:443/tcp"
+    volumes:
+      - 'pihole/:/etc/pihole/'
+      - 'dnsmasq.d/:/etc/dnsmasq.d/'
+    cap_add:
+      - NET_ADMIN
+    environment:
+      - DOCKER_HOST=docker-proxy:2375
+      - VIRTUAL_HOST={{ rpi_docker_compose_project_config.virtual_hosts.pihole }}
+      - VIRTUAL_PORT=80
+      - TZ={{ rpi_tz }}
+      - WEBPASSWORD={{ rpi_pihole_password }}
+      - ServerIP={{ rpi_ipv4_address }}
 
 volumes:
   netdataconfig:
   netdatalib:
   netdatacache:
+  pihole:
+  dnsmasq.d:
