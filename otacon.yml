@@ -27,7 +27,7 @@
     - rpi_virtual_hosts_aliases: "{{ rpi_docker_compose_project_config.virtual_hosts.values() | map('replace', '.local', '')  | list }}"
     - rpi_ipv4_address: "{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}"
 
-    - mdns_beacon_version: 0.3.0
+    - mdns_beacon_version: 0.4.0
 
     - supervisor_programs:
       - name: startup
