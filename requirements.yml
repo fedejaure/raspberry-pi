@@ -1,0 +1,8 @@
+---
+- src: geerlingguy.security
+- src: geerlingguy.firewall
+- src: geerlingguy.git
+- src: geerlingguy.pip
+- src: geerlingguy.supervisor
+- src: geerlingguy.docker_arm
+- src: fedejaure.rpi_lcd

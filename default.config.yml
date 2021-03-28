@@ -1,0 +1,25 @@
+---
+# RPI setup.
+rpi_locale: en_US.UTF-8
+rpi_layout: us
+rpi_dist_upgrade: no
+rpi_tz: 'Europe/Amsterdam'
+
+# Security configuration.
+security_sudoers_passwordless: ['pi']
+firewall_allowed_tcp_ports:
+  - 22
+  - 53
+  - 80
+  - 443
+  - 548
+firewall_allowed_udp_ports:
+  - 53
+  - 67
+  - 5353
+  - 5354
+firewall_flush_rules_and_chains: no
+
+# LCD configuration.
+lcd_type: MPI3501
+lcd_rotate: 270

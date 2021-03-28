@@ -1,0 +1,92 @@
+---
+- hosts: otacon
+  become: yes
+
+  vars_files:
+    - default.config.yml
+
+  vars:
+    # Python configuration.
+    - pip_package: python3-pip
+    - pip_executable: pip3
+    - docker_pip_executable: '{{ pip_executable }}'
+
+    - rpi_hostname: otacon
+    - rpi_docker_compose_project: "{{ rpi_hostname }}"
+    - rpi_docker_compose_project_config:
+        templates:
+          - src: "{{ rpi_docker_compose_project }}/docker-compose.yml"
+            project_dest: "docker-compose.yml"
+
+        virtual_hosts:
+          host: "{{ rpi_hostname }}"
+          whoami: "whoami.{{ rpi_hostname }}.local"
+          netdata: "netdata.{{ rpi_hostname }}.local"
+          pihole: "pihole.{{ rpi_hostname }}.local"
+
+    - rpi_virtual_hosts_aliases: "{{ rpi_docker_compose_project_config.virtual_hosts.values() | map('replace', '.local', '')  | list }}"
+    - rpi_ipv4_address: "{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}"
+
+    - mdns_beacon_version: 0.4.0
+
+    - supervisor_programs:
+      - name: 'mdns-beacon'
+        command: "mdns-beacon blink {{ rpi_virtual_hosts_aliases | join(' --alias ') }} --address {{ rpi_ipv4_address }} --type http --protocol tcp --delay-startup 180"
+        state: present
+        configuration: |
+          numprocs=1
+          autostart=true
+          autorestart=true
+          startsecs=240
+          startretries=3
+          redirect_stderr=true
+          stderr_logfile=/var/log/mdns-beacon-err.log
+          stdout_logfile=/var/log/mdns-beacon-out.log
+          stopsignal=INT
+          user=root
+          killasgroup=true
+          stopasgroup=true
+
+  pre_tasks:
+    - name: Include config override file, if it exists
+      include_vars: "{{ item }}"
+      with_fileglob:
+        - config.yml
+      tags: ['always']
+
+    - import_tasks: tasks/init.yml
+      tags: ['init']
+
+  roles:
+    - role: geerlingguy.security
+      tags: ['security', 'ssh']
+
+    - role: geerlingguy.firewall
+      tags: ['security', 'firewall']
+
+    - role: geerlingguy.git
+      tags: ['git']
+
+    - role: geerlingguy.pip
+      tags: ['pip']
+
+    - role: geerlingguy.docker_arm
+      tags: ['docker']
+
+    - role: geerlingguy.supervisor
+      tags: ['supervisor', 'mdns-beacon']
+
+    - role: fedejaure.rpi_lcd
+      tags: ['lcd']
+
+  handlers:
+
+    - import_tasks: handlers/main.yml
+
+  tasks:
+
+    - import_tasks: tasks/docker_compose.yml
+      tags: ['docker-compose']
+
+    - import_tasks: tasks/mdns_beacon.yml
+      tags: ['mdns-beacon']
