@@ -1,20 +1,20 @@
 ---
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v3.4.0
+    rev: v3.0.0
     hooks:
-      - id: trailing-whitespace
+      - id: check-toml
+      - id: check-yaml
+      - id: check-json
+      - id: check-merge-conflict
       - id: end-of-file-fixer
       - id: check-added-large-files
   - repo: https://github.com/adrienverge/yamllint.git
     rev: v1.26.0
     hooks:
       - id: yamllint
-  - repo: https://github.com/ansible/ansible-lint.git
-    sha: v5.0.3
+  - repo: https://github.com/ansible-community/ansible-lint.git
+    sha: v5.0.6
     hooks:
       - id: ansible-lint
-        always_run: true
-        pass_filenames: false
-        verbose: true
-        entry: ansible-lint --force-color -p -v
+        files: \.(yaml|yml)$
