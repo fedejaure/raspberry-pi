@@ -30,24 +30,14 @@
     - mdns_beacon_version: 0.4.0
 
     - supervisor_programs:
-      - name: startup
-        command: "bash -c 'sleep 3m && exec supervisorctl start mdns-beacon'"
-        state: present
-        configuration: |
-          startsecs=0
-          autostart=true
-          autorestart=false
-          startretries=1
-          priority=1
-
       - name: 'mdns-beacon'
-        command: "mdns-beacon blink {{ rpi_virtual_hosts_aliases | join(' --alias ') }} --address {{ rpi_ipv4_address }} --type http --protocol tcp"
+        command: "mdns-beacon blink {{ rpi_virtual_hosts_aliases | join(' --alias ') }} --address {{ rpi_ipv4_address }} --type http --protocol tcp --delay-startup 180"
         state: present
         configuration: |
           numprocs=1
-          autostart=false
+          autostart=true
           autorestart=true
-          startsecs=60
+          startsecs=240
           startretries=3
           redirect_stderr=true
           stderr_logfile=/var/log/mdns-beacon-err.log
