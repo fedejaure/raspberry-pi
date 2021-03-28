@@ -2,14 +2,13 @@ name: tests
 on:
   push:
     branches:
-      - master
+      - main
       - develop
   pull_request:
     branches:
       - develop
 
 jobs:
-
   linting:
     name: Linting
     runs-on: ubuntu-latest
@@ -21,13 +20,7 @@ jobs:
         with:
           python-version: 3.9
 
-      - name: Install system deps
-        run: pip install pipenv
-
-      - name: Install ansible requirements
-        run: |
-          pipenv sync --dev
-          pipenv run ansible-galaxy install -r requirements.yml
-
       - name: Linting
-        run: pipenv run pre-commit run --all-files
+        run: |
+          pip install pre-commit
+          pre-commit run --all-files
