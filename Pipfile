@@ -9,6 +9,7 @@ invoke = "~=1.5.0"
 bump2version = "~=1.0.1"
 yamllint = "~=1.26.0"
 ansible-lint = "~=5.0.6"
+molecule = {version = "~=3.3.0", extras = ["docker", "lint"]}
 
 [packages]
 ansible = "~=3.2.0"
