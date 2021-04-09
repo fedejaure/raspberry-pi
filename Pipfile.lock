@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "9b801fc2a87e887e4a71745cb9f66c6d01a24030a1d2787eebcde511e3f78178"
+            "sha256": "515c11ef2a06aba36e28ab0fe74ae338fbc997a5cac60629a688102c6b17495f"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -320,11 +320,11 @@
         },
         "pre-commit": {
             "hashes": [
-                "sha256:94c82f1bf5899d56edb1d926732f4e75a7df29a0c8c092559c77420c9d62428b",
-                "sha256:de55c5c72ce80d79106e48beb1b54104d16495ce7f95b0c7b13d4784193a00af"
+                "sha256:029d53cb83c241fe7d66eeee1e24db426f42c858f15a38d20bcefd8d8e05c9da",
+                "sha256:46b6ffbab37986c47d0a35e40906ae029376deed89a0eb2e446fb6e67b220427"
             ],
             "index": "pypi",
-            "version": "==2.11.1"
+            "version": "==2.12.0"
         },
         "pygments": {
             "hashes": [
@@ -376,10 +376,10 @@
         },
         "rich": {
             "hashes": [
-                "sha256:bd13f71c32692d08489f1dd90993308f6ab10d24b1cd28a71db8af771d8ee9f9",
-                "sha256:d5f620a067e5d5f9c6e8039d9b09d8bb7b730bca5c696ca7e32788b37c0b9fa5"
+                "sha256:60cd6d6ea697a1704f2057e791e3062b506b5c74a6e2ad2ced71eccb37557259",
+                "sha256:8f05431091601888c50341697cfc421dc398ce37b12bca0237388ef9c7e2c9e9"
             ],
-            "version": "==10.0.1"
+            "version": "==10.1.0"
         },
         "ruamel.yaml": {
             "hashes": [
