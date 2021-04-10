@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - Refactor tasks modules.
 
+### Added
+- molecule tests.
+
 ## [0.1.0] - 2021-03-29
 ### Added
 - First `otacon` release.
