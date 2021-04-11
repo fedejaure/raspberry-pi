@@ -24,3 +24,40 @@ jobs:
         run: |
           pip install pre-commit
           pre-commit run --all-files
+
+  tests:
+    needs: linting
+    name: molecule-${{ matrix.distro }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        distro:
+          - debian10
+      fail-fast: false
+
+    steps:
+      - uses: actions/checkout@v2.3.4
+
+      - name: Set up Python 3.9
+        uses: actions/setup-python@v2.2.1
+        with:
+          python-version: 3.9
+
+      - name: Install system deps
+        shell: bash
+        run: pip install pipenv
+
+      - name: Install dev requirements
+        shell: bash
+        run: pipenv sync --dev
+
+      - name: Install playbooks requirements
+        shell: bash
+        run: pipenv run ansible-galaxy install -r requirements.yml
+
+      - name: Run Molecule tests.
+        run: pipenv run molecule test
+        env:
+          PY_COLORS: '1'
+          ANSIBLE_FORCE_COLOR: '1'
+          MOLECULE_DISTRO: ${{ matrix.distro }}

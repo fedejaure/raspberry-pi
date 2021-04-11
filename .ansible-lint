@@ -1,6 +1,6 @@
 exclude_paths:
   - .github/
   - ./roles/
-  - templates/otacon/
+  - .cache/roles/
 skip_list:
   - '106'

@@ -15,7 +15,7 @@
     - rpi_docker_compose_project: "{{ rpi_hostname }}"
     - rpi_docker_compose_project_config:
         templates:
-          - src: "{{ rpi_docker_compose_project }}/docker-compose.yml"
+          - src: "{{ rpi_docker_compose_project }}/docker-compose.yml.j2"
             project_dest: "docker-compose.yml"
 
         virtual_hosts:
@@ -54,6 +54,12 @@
         - config.yml
       tags: ['always']
 
+    - import_tasks: tasks/raspbian-init.yml
+      when:
+        - ansible_os_family == 'Debian'
+        - molecule_yml is not defined
+      tags: ['init']
+
     - import_tasks: tasks/init.yml
       tags: ['init']
 
@@ -85,8 +91,8 @@
 
   tasks:
 
-    - import_tasks: tasks/docker_compose.yml
+    - import_tasks: tasks/docker-compose.yml
       tags: ['docker-compose']
 
-    - import_tasks: tasks/mdns_beacon.yml
+    - import_tasks: tasks/mdns-beacon.yml
       tags: ['mdns-beacon']
