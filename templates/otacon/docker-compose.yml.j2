@@ -80,8 +80,8 @@ services:
       - VIRTUAL_HOST={{ rpi_docker_compose_project_config.virtual_hosts.pihole }}
       - VIRTUAL_PORT=80
       - TZ={{ rpi_tz }}
-      - WEBPASSWORD={{ rpi_pihole_password }}
       - ServerIP={{ rpi_ipv4_address }}
+      {% if rpi_pihole_password is defined %}- WEBPASSWORD={{ rpi_pihole_password }}{% endif %}
 
 volumes:
   netdataconfig:

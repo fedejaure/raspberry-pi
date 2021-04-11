@@ -4,14 +4,15 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
-pre-commit = "~=2.11.1"
+pre-commit = "~=2.12.0"
 invoke = "~=1.5.0"
 bump2version = "~=1.0.1"
 yamllint = "~=1.26.0"
 ansible-lint = "~=5.0.6"
+molecule = {version = "~=3.3.0", extras = ["docker", "lint"]}
 
 [packages]
-ansible = "~=3.1.0"
+ansible = "~=3.2.0"
 
 [requires]
 python_version = "3.9"
