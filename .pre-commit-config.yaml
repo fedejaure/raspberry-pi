@@ -5,10 +5,6 @@ repos:
     hooks:
       - id: check-toml
       - id: check-yaml
-        exclude: |
-            (?x)^(
-                templates/otacon/docker-compose.yml
-            )$
       - id: check-json
       - id: check-merge-conflict
       - id: end-of-file-fixer

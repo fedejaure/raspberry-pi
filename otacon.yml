@@ -15,7 +15,7 @@
     - rpi_docker_compose_project: "{{ rpi_hostname }}"
     - rpi_docker_compose_project_config:
         templates:
-          - src: "{{ rpi_docker_compose_project }}/docker-compose.yml"
+          - src: "{{ rpi_docker_compose_project }}/docker-compose.yml.j2"
             project_dest: "docker-compose.yml"
 
         virtual_hosts:

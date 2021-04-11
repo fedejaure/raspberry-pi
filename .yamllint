@@ -2,9 +2,6 @@
 # Based on ansible-lint config
 extends: default
 
-ignore: |
-  **/templates/otacon/docker-compose.yml
-
 rules:
   braces:
     max-spaces-inside: 1
