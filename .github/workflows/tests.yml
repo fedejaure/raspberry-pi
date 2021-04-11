@@ -32,10 +32,7 @@ jobs:
     strategy:
       matrix:
         distro:
-          - debian9
           - debian10
-          - ubuntu1804
-          - ubuntu2004
       fail-fast: false
 
     steps:
