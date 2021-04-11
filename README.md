@@ -13,7 +13,9 @@ Quickstart
 ----------
 
 1. Clone this repository.
+
 2. Install dependencies:
+
     ```shell
     $ pipenv sync
     Creating a virtualenv for this project…
@@ -22,40 +24,66 @@ Quickstart
     Alternatively, run a command inside the virtualenv with pipenv run.
     All dependencies are now up-to-date!
     ```
+
 3. Activate the virtual environment:
+
     ```shell
     $ pipenv shell
     Launching subshell in virtual environment…
     ...
     (raspberry-pi-playbook)$
     ```
+
 4.  Install required Ansible roles:
+
     ```shell
     (raspberry-pi-playbook)$ ansible-galaxy install -r requirements.yml
     ```
-4. Configure the `inventory` file, e.g.:
+
+    or
+
+    ```shell
+    (raspberry-pi-playbook)$ inv galaxy-install
+    ```
+
+5. Configure the `inventory` file, e.g.:
+
     ```
     [otacon]
-    127.0.0.1 ansible_python_interpreter=/usr/bin/python3 ansible_user=pi
+    127.0.0.1 ansible_python_interpreter=/usr/bin/python3 ansible_user=pi ansible_password=somepassword ansible_become_password=somepassword
     ```
-5. Run the playbook:
+
+6. Run the playbook:
+
     ```shell
-    (raspberry-pi-playbook)$ ansible-playbook main.yml -i inventory -k -K
+    (raspberry-pi-playbook)$ ansible-playbook main.yml -i inventory
     ```
-    > Enter your account password when prompted.
+
+    or
+
+    ```shell
+    (raspberry-pi-playbook)$ inv playbook
+    ```
+
+7. Enjoy
 
 Running a specific set of tagged tasks
 --------------------------------------
 
 The tags available are:
-* `security`
-* `ssh`
-* `security`
+
+* `always`
+* `docker`
+* `docker-compose`
 * `firewall`
 * `git`
-* `pip`
-* `docker`
+* `init`
 * `lcd`
+* `mdns-beacon`
+* `pip`
+* `security`
+* `ssh`
+* `supervisor`
 
 Overriding Defaults
 -------------------
@@ -69,6 +97,25 @@ security_autoupdate_mail_to: example@example.com
 ```
 
 Any variable can be overridden in `config.yml`; see the supporting roles documentation for a complete list of available variables.
+
+Development
+-----------
+
+To know all invoke tasks run:
+
+```shell
+(raspberry-pi-playbook)$ inv --list
+Available tasks:
+
+ansible-lint     Run ansible linter.
+galaxy-install   Install ansible-galaxy requirements.
+hooks            Run pre-commit hooks.
+install-hooks    Install pre-commit hooks.
+lint             Run all linting.
+playbook         Runs Ansible playbooks, executing the defined tasks on the targeted hosts.
+version          Bump version.
+yamllint         Run yamllint, a linter for YAML files.
+```
 
 License
 -------
