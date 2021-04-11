@@ -1,6 +1,11 @@
 Raspberry Pi Playbook
 =====================
 
+[![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/fedejaure/raspberry-pi-playbook?logo=github)](https://github.com/fedejaure/raspberry-pi-playbook/releases)
+[![tests](https://github.com/fedejaure/raspberry-pi-playbook/actions/workflows/tests.yml/badge.svg)](https://github.com/fedejaure/raspberry-pi-playbook/actions/workflows/tests.yml)
+[![License](https://img.shields.io/badge/license-MIT-brightgreen)](https://opensource.org/licenses/MIT)
+[![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
+
 Setup and configuration of my own Raspberry Pi fleet via Ansible (use by your own risk).
 
 
@@ -8,6 +13,30 @@ Fleet Members ([Metal Gear Characters][metal-gear-characters])
 -------------
 
 * [Otacon][otacon]
+    
+    > Pi-hole DNS sinkhole instance.
+    
+    - services:
+        
+        + [pihole][pihole]: The Pi-hole DNS sinkhole instance. Available at [pihole.otacon.local](http://pihole.otacon.local)
+        
+        + [whoami][whoami]: Tiny Go webserver that prints os information and HTTP request to output. Available at [whoami.otacon.local](http://whoami.otacon.local)
+
+        + [netdata][netdata]: Monitor everything in real time. Available at [netdata.otacon.local](http://netdata.otacon.local)
+
+    - variables:
+        
+        + rpi_locale: Raspberry Pi locale config. (Default: `en_US.UTF-8`)
+        
+        + rpi_layout: Raspberry Pi keyboard layout config. (Default: `us`)
+        
+        + rpi_dist_upgrade: If Raspberry Pi should do a dist-upgrade. (Default: `no`)
+        
+        + rpi_tz: Raspberry Pi Time Zone config. (Default: `'Europe/Amsterdam'`)
+
+        + rpi_pihole_password: [pihole.otacon.local](http://pihole.otacon.local) `Admin password`. (Default: `random`)
+
+* more coming ...
 
 Quickstart
 ----------
@@ -130,3 +159,6 @@ This role was created in 2020 by [Federico Jaureguialzo][fedejaure].
 [fedejaure]: https://github.com/fedejaure
 [metal-gear-characters]: https://en.wikipedia.org/wiki/List_of_Metal_Gear_characters
 [otacon]: https://en.wikipedia.org/wiki/Otacon
+[pihole]: https://pi-hole.net/
+[whoami]: https://github.com/traefik/whoami
+[netdata]: https://www.netdata.cloud/
