@@ -55,7 +55,7 @@ def galaxy_install(c, force=False):
 def yamllint(c):
     # type: (Context) -> None
     """Run yamllint, a linter for YAML files."""
-    _run(c, f"yamllint -c {ROOT_DIR / '.yamllint'} {ROOT_DIR}")
+    _run(c, f"pipenv run yamllint -c {ROOT_DIR / '.yamllint'} {ROOT_DIR}")
 
 
 @task()
@@ -69,7 +69,7 @@ def ansible_lint(c):
         '--project-dir' ,
         str(ROOT_DIR)
     ]
-    _run(c, f"ansible-lint {' '.join(lint_options)} {ANSIBLE_TARGETS_STR}")
+    _run(c, f"pipenv run ansible-lint {' '.join(lint_options)} {ANSIBLE_TARGETS_STR}")
 
 
 @task(pre=[yamllint, ansible_lint])
