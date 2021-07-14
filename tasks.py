@@ -13,12 +13,6 @@ from invoke.runners import Result
 ROOT_DIR = Path(__file__).parent
 TASKS_DIR = ROOT_DIR / 'tasks'
 HANDLERS_DIR = ROOT_DIR / 'handlers'
-ANSIBLE_TARGETS = [
-    ROOT_DIR,
-    TASKS_DIR,
-    HANDLERS_DIR
-]
-ANSIBLE_TARGETS_STR = " ".join([str(t) for t in ANSIBLE_TARGETS])
 
 
 def _run(c: Context, command: str) -> Result:
@@ -55,7 +49,7 @@ def galaxy_install(c, force=False):
 def yamllint(c):
     # type: (Context) -> None
     """Run yamllint, a linter for YAML files."""
-    _run(c, f"yamllint -c {ROOT_DIR / '.yamllint'} {ROOT_DIR}")
+    _run(c, f"pipenv run yamllint -c {ROOT_DIR / '.yamllint'} {ROOT_DIR}")
 
 
 @task()
@@ -69,7 +63,7 @@ def ansible_lint(c):
         '--project-dir' ,
         str(ROOT_DIR)
     ]
-    _run(c, f"ansible-lint {' '.join(lint_options)} {ANSIBLE_TARGETS_STR}")
+    _run(c, f"pipenv run ansible-lint {' '.join(lint_options)}")
 
 
 @task(pre=[yamllint, ansible_lint])

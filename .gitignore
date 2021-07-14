@@ -129,6 +129,6 @@ dmypy.json
 .pyre/
 
 # Ansible
-config.yml
+/config.yml
 inventory
 roles/*.*
