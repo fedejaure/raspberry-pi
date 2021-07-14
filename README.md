@@ -1,10 +1,16 @@
 Raspberry Pi Playbook
 =====================
 
+<div align="center">
+
 [![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/fedejaure/raspberry-pi-playbook?logo=github)](https://github.com/fedejaure/raspberry-pi-playbook/releases)
 [![tests](https://github.com/fedejaure/raspberry-pi-playbook/actions/workflows/tests.yml/badge.svg)](https://github.com/fedejaure/raspberry-pi-playbook/actions/workflows/tests.yml)
 [![License](https://img.shields.io/badge/license-MIT-brightgreen)](https://opensource.org/licenses/MIT)
+
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
+[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.0-4baaaa.svg)](https://www.contributor-covenant.org/version/2/0/code_of_conduct/)
+
+</div>
 
 Setup and configuration of my own Raspberry Pi fleet via Ansible (use by your own risk).
 
