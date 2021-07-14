@@ -17,4 +17,3 @@ repos:
     rev: v5.0.12
     hooks:
       - id: ansible-lint
-        files: \.(yaml|yml)$
