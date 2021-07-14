@@ -1,6 +1,6 @@
 exclude_paths:
   - .github/
   - ./roles/
-  - .cache/roles/
+  - .cache/
 skip_list:
   - '106'
