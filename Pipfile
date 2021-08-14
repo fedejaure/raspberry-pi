@@ -8,7 +8,7 @@ pre-commit = "~=2.13.0"
 invoke = "~=1.6.0"
 bump2version = "~=1.0.1"
 yamllint = "~=1.26.1"
-ansible-lint = "~=5.0.12"
+ansible-lint = "~=5.1.2"
 molecule = {extras = ["docker", "lint"],version = "~=3.3.4"}
 
 [packages]
