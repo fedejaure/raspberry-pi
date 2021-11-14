@@ -33,6 +33,7 @@ jobs:
       matrix:
         distro:
           - debian10
+          - debian11
       fail-fast: false
 
     steps:
