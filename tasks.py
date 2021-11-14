@@ -76,15 +76,18 @@ def lint(c):
     help={
         "target": "Ansible playbook to run. (default: main)",
         "tag": "Only run plays and tasks tagged with these values",
+        "skip_tags": "Only run plays and tasks whose tags do not match these values",
     },
-    iterable=['tag']
+    iterable=['tag', 'skip_tags']
 )
-def playbook(c, tag, target='main'):
-    # type: (Context, List[str], str) -> None
+def playbook(c, tag, skip_tags, target='main'):
+    # type: (Context, List[str], List[str], str) -> None
     """Runs Ansible playbooks, executing the defined tasks on the targeted hosts."""
     playbook_options = ['-i', 'inventory']
     if tag:
         playbook_options += ["--tags", f'"{ ",".join(tag) }"']
+    if skip_tags:
+        playbook_options += ["--skip-tags", f'"{ ",".join(skip_tags) }"']
     _run(c, f"pipenv run ansible-playbook {target}.yml {' '.join(playbook_options)}")
 
 
