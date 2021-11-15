@@ -31,13 +31,22 @@
   set_fact:
     current_layout: "{{ locale_status.stdout | regex_search('X11 Layout: ([^\n]+)', '\\1') | first }}"
 
-- name: Change locale
+- name: Set locale
   command: "raspi-config nonint do_change_locale {{ rpi_locale }}"
   when: current_locale != rpi_locale
 
-- name: Change keyboard layout
+- name: Set keyboard layout
   command: "raspi-config nonint do_configure_keyboard {{ rpi_layout }}"
   when: current_layout != rpi_layout
+
+- name: Get current wifi country
+  command: raspi-config nonint get_wifi_country
+  register: current_wifi_country
+  changed_when: false
+
+- name: Set wifi country
+  command: "raspi-config nonint do_wifi_country {{ rpi_wifi_country }}"
+  when: current_wifi_country.stdout != rpi_wifi_country
 
 - name: Set the hostname
   become: yes

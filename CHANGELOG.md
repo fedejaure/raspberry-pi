@@ -6,23 +6,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Changed
-- upgrade mdns-beacon version.
+- Upgrade mdns-beacon version.
 
 ### Added
-- invoke task playbook `skip-tags` option.
-- invoke task playbook `list-tags` option.
-- debian 11 "bullseye" support.
+- Invoke task playbook `skip-tags` option.
+- Invoke task playbook `list-tags` option.
+- Debian 11 "bullseye" support.
+
+### Fixed
+- Set wifi country.
 
 ## [0.2.1] - 2021-07-14
 ### Changed
-- updated deps.
+- Updated deps.
 
 ## [0.2.0] - 2021-04-11
 ### Changed
 - Refactor tasks modules.
 
 ### Added
-- molecule tests.
+- Molecule tests.
 
 ## [0.1.0] - 2021-03-29
 ### Added
