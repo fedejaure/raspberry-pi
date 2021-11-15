@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Upgrade Otacon mdns-beacon version.
 - Otacon `tecnativa/docker-socket-proxy` to `0.1.1`.
 - Otacon `netdata/netdata` to `v1.31.0`.
+- Otacon `pihole/pihole` to `2021.10.1`.
 
 ### Added
 - Invoke task playbook `skip-tag` option.
