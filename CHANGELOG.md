@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Changed
 - Upgrade mdns-beacon version.
+- `tecnativa/docker-socket-proxy` to `0.1.1`.
 
 ### Added
 - Invoke task playbook `skip-tag` option.

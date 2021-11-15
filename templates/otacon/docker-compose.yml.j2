@@ -15,7 +15,7 @@ services:
   docker-proxy:
     container_name: docker-proxy
     hostname: docker-proxy.{{ rpi_hostname }}
-    image: tecnativa/docker-socket-proxy
+    image: tecnativa/docker-socket-proxy:0.1.1
     restart: always
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
