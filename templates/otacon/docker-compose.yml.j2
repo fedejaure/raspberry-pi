@@ -25,7 +25,7 @@ services:
   whoami:
     container_name: whoami
     hostname: whoami.{{ rpi_hostname }}
-    image: containous/whoami
+    image: containous/whoami:v1.6.1
     restart: always
     environment:
       - VIRTUAL_HOST={{ rpi_docker_compose_project_config.virtual_hosts.whoami }}
