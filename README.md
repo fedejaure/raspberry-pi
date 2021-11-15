@@ -40,6 +40,8 @@ Fleet Members ([Metal Gear Characters][metal-gear-characters])
         
         + `rpi_tz`: Raspberry Pi Time Zone config. (Default: `'Europe/Amsterdam'`)
 
+        + `rpi_wifi_country`: Raspberry Pi Wifi Country config. (Default: `NL`)
+
         + `rpi_pihole_password`: [pihole.otacon.local](http://pihole.otacon.local) `Admin password`. (Default: `random`)
 
 * more coming ...
@@ -142,14 +144,14 @@ To display available tasks run:
 (raspberry-pi-playbook)$ inv --list
 Available tasks:
 
-ansible-lint     Run ansible linter.
-galaxy-install   Install ansible-galaxy requirements.
-hooks            Run pre-commit hooks.
-install-hooks    Install pre-commit hooks.
-lint             Run all linting.
-playbook         Runs Ansible playbooks, executing the defined tasks on the targeted hosts.
-version          Bump version.
-yamllint         Run yamllint, a linter for YAML files.
+  ansible-lint     Run ansible linter.
+  galaxy-install   Install ansible-galaxy requirements.
+  hooks            Run pre-commit hooks.
+  install-hooks    Install pre-commit hooks.
+  lint             Run all linting.
+  playbook         Runs Ansible playbooks, executing the defined tasks on the targeted hosts.
+  version          Bump version.
+  yamllint         Run yamllint, a linter for YAML files.
 ```
 
 License

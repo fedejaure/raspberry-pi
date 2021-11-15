@@ -5,7 +5,7 @@ services:
   nginx-proxy:
     container_name: nginx-proxy
     hostname: nginx-proxy.{{ rpi_hostname }}
-    image: budry/jwilder-nginx-proxy-arm
+    image: nginxproxy/nginx-proxy:0.9.3
     restart: always
     ports:
       - "80:80"
@@ -15,7 +15,7 @@ services:
   docker-proxy:
     container_name: docker-proxy
     hostname: docker-proxy.{{ rpi_hostname }}
-    image: tecnativa/docker-socket-proxy
+    image: tecnativa/docker-socket-proxy:0.1.1
     restart: always
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
@@ -25,7 +25,7 @@ services:
   whoami:
     container_name: whoami
     hostname: whoami.{{ rpi_hostname }}
-    image: containous/whoami
+    image: traefik/whoami:v1.6.1
     restart: always
     environment:
       - VIRTUAL_HOST={{ rpi_docker_compose_project_config.virtual_hosts.whoami }}
@@ -34,7 +34,7 @@ services:
   netdata:
     container_name: netdata
     hostname: netdata.{{ rpi_hostname }}
-    image: netdata/netdata:v1.29.3
+    image: netdata/netdata:v1.31.0
     restart: always
     expose:
       - "19999"
@@ -62,7 +62,7 @@ services:
   pihole:
     container_name: pihole
     hostname: pihole.{{ rpi_hostname }}
-    image: pihole/pihole:v5.7
+    image: pihole/pihole:2021.10.1
     restart: always
     ports:
       - "53:53/tcp"

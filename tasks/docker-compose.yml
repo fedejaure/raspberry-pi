@@ -17,7 +17,7 @@
   with_items: "{{ rpi_docker_compose_project_config.templates }}"
 
 - name: Create and start services
-  community.general.docker_compose:
+  community.docker.docker_compose:
     project_src: "{{ rpi_docker_compose_project }}"
     build: yes
     remove_orphans: yes
