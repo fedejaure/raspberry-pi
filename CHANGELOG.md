@@ -10,7 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Otacon `tecnativa/docker-socket-proxy` to `0.1.1`.
 - Otacon `netdata/netdata` to `v1.31.0`.
 - Otacon `pihole/pihole` to `2021.10.1`.
-- Otacon `containous/whoami` to `v1.6.1`.
+- Otacon `traefik/whoami` to `v1.6.1`.
 - Otacon `nginxproxy/nginx-proxy` to `0.9.3`.
 
 ### Added
