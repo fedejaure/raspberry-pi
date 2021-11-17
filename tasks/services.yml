@@ -22,4 +22,4 @@
     build: yes
     remove_orphans: yes
     restarted: yes
-  changed_when: False
+  changed_when: false
