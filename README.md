@@ -111,7 +111,6 @@ The tags available are:
 
 * `always`
 * `docker`
-* `docker-compose`
 * `firewall`
 * `git`
 * `init`
