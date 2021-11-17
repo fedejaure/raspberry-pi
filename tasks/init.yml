@@ -1,26 +1,26 @@
 ---
 - name: Update apt cache if needed
-  apt:
+  ansible.builtin.apt:
     update_cache: true
     cache_valid_time: 86400
 
 - name: Upgrade the OS
-  apt:
+  ansible.builtin.apt:
     upgrade: dist
   when: rpi_dist_upgrade is defined and rpi_dist_upgrade
 
 - name: Check if reboot is needed
-  stat:
+  ansible.builtin.stat:
     path: /var/run/reboot-required
   register: reboot_required
 
 - name: Reboot if needed
-  reboot:
+  ansible.builtin.reboot:
     reboot_timeout: 300
   when: reboot_required.stat.exists
 
 - name: Ensure dev packages are instaled
-  apt:
+  ansible.builtin.apt:
     name:
       - build-essential
       - libssl-dev

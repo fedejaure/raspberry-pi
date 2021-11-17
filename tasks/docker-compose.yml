@@ -1,6 +1,6 @@
 ---
 - name: "Ensures {{ rpi_docker_compose_project }} dir exists"
-  file:
+  ansible.builtin.file:
     path: "{{ rpi_docker_compose_project }}"
     owner: "{{ ansible_user }}"
     group: "{{ ansible_user }}"
@@ -8,7 +8,7 @@
     state: directory
 
 - name: Copy docker compose project files
-  template:
+  ansible.builtin.template:
     src: "{{ item.src }}"
     dest: "{{ rpi_docker_compose_project }}/{{ item.project_dest }}"
     owner: "{{ ansible_user }}"

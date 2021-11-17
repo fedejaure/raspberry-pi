@@ -1,2 +1,2 @@
 ---
-- import_playbook: otacon.yml
+- ansible.builtin.import_playbook: otacon.yml

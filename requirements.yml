@@ -1,8 +1,13 @@
 ---
-- src: geerlingguy.security
-- src: geerlingguy.firewall
-- src: geerlingguy.git
-- src: geerlingguy.pip
-- src: geerlingguy.supervisor
-- src: geerlingguy.docker_arm
-- src: fedejaure.rpi_lcd
+roles:
+  - geerlingguy.security
+  - geerlingguy.firewall
+  - geerlingguy.git
+  - geerlingguy.pip
+  - geerlingguy.supervisor
+  - geerlingguy.docker_arm
+  - fedejaure.rpi_lcd
+
+collections:
+  - community.docker
+  - community.general

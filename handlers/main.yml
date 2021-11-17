@@ -1,5 +1,5 @@
 ---
 - name: Reboot raspi
-  reboot:
+  ansible.builtin.reboot:
     reboot_timeout: 300
   listen: reboot raspi is required
