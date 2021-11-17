@@ -15,6 +15,7 @@
     group: "{{ ansible_user }}"
     mode: u=rwx,g=rx,o=x
   with_items: "{{ rpi_docker_compose_project_config.templates }}"
+  register: services
 
 - name: Create and start services
   community.docker.docker_compose:
@@ -22,4 +23,6 @@
     build: yes
     remove_orphans: yes
     restarted: yes
-  changed_when: false
+  when: services.changed # noqa 503
+  notify:
+    - prune services is required
