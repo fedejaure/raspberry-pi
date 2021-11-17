@@ -9,13 +9,13 @@
 
   tasks:
     - name: Update apt cache (on Debian).
-      apt:
+      ansible.builtin.apt:
         update_cache: true
         cache_valid_time: 3600
       when: ansible_os_family == 'Debian'
 
     - name: Ensure build dependencies are installed (Debian).
-      package:
+      ansible.builtin.package:
         name:
           - openssh-server
           - openssh-client
@@ -23,11 +23,11 @@
       when: ansible_os_family == 'Debian'
 
     - name: Ensure auth.log file is present.
-      copy:
+      ansible.builtin.copy:
         dest: /var/log/auth.log
         content: ""
         force: false
         mode: 0644
       when: ansible_distribution == 'Debian'
 
-- import_playbook: ../../main.yml
+- ansible.builtin.import_playbook: ../../main.yml

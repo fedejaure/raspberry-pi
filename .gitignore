@@ -131,4 +131,5 @@ dmypy.json
 # Ansible
 /config.yml
 inventory
-roles/*.*
+.roles/**
+.collections/**
