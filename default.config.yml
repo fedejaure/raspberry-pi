@@ -5,6 +5,11 @@ rpi_layout: us
 rpi_dist_upgrade: no
 rpi_tz: 'Europe/Amsterdam'
 rpi_wifi_country: NL
+rpi_swap_config:
+  CONF_SWAPSIZE: 100
+  # CONF_SWAPFILE: /var/swap
+  # CONF_SWAPFACTOR: 2
+  # CONF_MAXSWAP: 2048
 
 # Security configuration.
 security_sudoers_passwordless: ['pi']

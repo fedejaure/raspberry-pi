@@ -12,11 +12,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Otacon `pihole/pihole` to `2021.10.1`.
 - Otacon `traefik/whoami` to `v1.6.1`.
 - Otacon `nginxproxy/nginx-proxy` to `0.9.3`.
+- Tasks `docker-compose.yml` by `services.yml`.
+- Restart services only if they are modified.
 
 ### Added
 - Invoke task playbook `skip-tag` option.
 - Invoke task playbook `list-tags` option.
 - Debian 11 "bullseye" support.
+- Raspbian swap config.
 
 ### Fixed
 - Set wifi country.
