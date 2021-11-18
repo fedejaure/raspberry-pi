@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Invoke task playbook `skip-tag` option.
 - Invoke task playbook `list-tags` option.
 - Debian 11 "bullseye" support.
+- Raspbian swap config.
 
 ### Fixed
 - Set wifi country.

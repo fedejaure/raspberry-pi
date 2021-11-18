@@ -44,6 +44,8 @@ Fleet Members ([Metal Gear Characters][metal-gear-characters])
 
         + `rpi_pihole_password`: [pihole.otacon.local](http://pihole.otacon.local) `Admin password`. (Default: `random`)
 
+        + `rpi_swap_config`: Raspberry Pi swap config. (Default: `CONF_SWAPSIZE: 100`)
+
 * more coming ...
 
 Quickstart
@@ -118,6 +120,7 @@ The tags available are:
 * `mdns-beacon`
 * `pip`
 * `security`
+* `services`
 * `ssh`
 * `supervisor`
 

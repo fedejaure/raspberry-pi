@@ -12,3 +12,14 @@
     volumes: yes
     builder_cache: yes
   listen: prune services is required
+
+- name: Setup swap file
+  ansible.builtin.command: dphys-swapfile setup
+  register: swap_setup
+  changed_when: "'generating swapfile' in swap_setup.stdout"
+  listen: setup swap file is required
+  notify: activate swap is required
+
+- name: Activate swap
+  ansible.builtin.command: dphys-swapfile swapon
+  listen: activate swap is required

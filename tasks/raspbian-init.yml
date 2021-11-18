@@ -60,3 +60,16 @@
     regexp: "^127.0.1.1  raspberrypi$"
     line: "127.0.1.1  {{ rpi_hostname }}"
     state: present
+
+- name: Configure swap file
+  community.general.ini_file:
+    path: /etc/dphys-swapfile
+    section: ""
+    option: "{{ item.key }}"
+    value: "{{ item.value }}"
+    no_extra_spaces: true
+    owner: root
+    group: root
+    mode: 0644
+  loop: "{{ rpi_swap_config | dict2items }}"
+  notify: setup swap file is required
