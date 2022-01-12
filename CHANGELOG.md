@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Changed
-- Upgrade Otacon mdns-beacon version.
+- Upgrade Otacon mdns-beacon version to `0.6.0`.
 - Otacon `tecnativa/docker-socket-proxy` to `0.1.1`.
 - Otacon `netdata/netdata` to `v1.31.0`.
 - Otacon `pihole/pihole` to `2021.10.1`.
