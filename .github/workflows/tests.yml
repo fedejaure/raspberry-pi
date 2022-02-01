@@ -54,10 +54,10 @@ jobs:
 
       - name: Install playbooks requirements
         shell: bash
-        run: pipenv run ansible-galaxy install -r requirements.yml
+        run: pipenv run inv galaxy-install
 
-      - name: Run Molecule tests.
-        run: pipenv run molecule test
+      - name: Run Molecule tests
+        run: pipenv run inv tests
         env:
           PY_COLORS: '1'
           ANSIBLE_FORCE_COLOR: '1'

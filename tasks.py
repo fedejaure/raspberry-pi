@@ -5,18 +5,24 @@ Execute 'invoke --list' for guidance on using Invoke
 """
 import platform
 from pathlib import Path
+from typing import Dict, List, Optional
 
 from invoke import task
 from invoke.context import Context
 from invoke.runners import Result
 
 ROOT_DIR = Path(__file__).parent
-TASKS_DIR = ROOT_DIR / 'tasks'
-HANDLERS_DIR = ROOT_DIR / 'handlers'
+TASKS_DIR = ROOT_DIR / "tasks"
+HANDLERS_DIR = ROOT_DIR / "handlers"
+MOLECULE_DIR = ROOT_DIR / "molecule"
+ANSIBLE_TARGETS = [ROOT_DIR, TASKS_DIR, HANDLERS_DIR, MOLECULE_DIR]
+ANSIBLE_TARGETS_STR = " ".join([str(t) for t in ANSIBLE_TARGETS])
+ANSIBLE_ROLES_PATH = f"{ROOT_DIR / '.roles'}:{ROOT_DIR / 'roles'}"
 
 
-def _run(c: Context, command: str) -> Result:
-    return c.run(command, pty=platform.system() != "Windows")
+def _run(c, command, env=None):
+    # type: (Context, str, Optional[Dict]) -> Result
+    return c.run(command, pty=platform.system() != "Windows", env=env)
 
 
 @task()
@@ -41,7 +47,7 @@ def hooks(c):
 def galaxy_install(c, force=False):
     # type: (Context, bool) -> None
     """Install ansible-galaxy requirements."""
-    install_options = ['--force'] if force else []
+    install_options = ["--force"] if force else []
     _run(c, f"pipenv run ansible-galaxy install -r requirements.yml {' '.join(install_options)}")
 
 
@@ -56,20 +62,21 @@ def yamllint(c):
 def ansible_lint(c):
     # type: (Context) -> None
     """Run ansible linter."""
-    lint_options = [
-        '--force-color',
-        '-p',
-        '-v',
-        '--project-dir' ,
-        str(ROOT_DIR)
-    ]
-    _run(c, f"pipenv run ansible-lint {' '.join(lint_options)}")
+    lint_options = ["--force-color", "-p", "-v", "--project-dir", str(ROOT_DIR)]
+    _run(c, f"pipenv run ansible-lint {' '.join(lint_options)} {ANSIBLE_TARGETS_STR}")
 
 
 @task(pre=[yamllint, ansible_lint])
 def lint(c):
     # type: (Context) -> None
     """Run all linting."""
+
+
+@task()
+def tests(c):
+    # type: (Context) -> None
+    """Run ansible molecule test."""
+    _run(c, "pipenv run molecule test", env={"ANSIBLE_ROLES_PATH": ANSIBLE_ROLES_PATH})
 
 
 @task(
@@ -79,12 +86,12 @@ def lint(c):
         "skip_tag": "Only run plays and tasks whose tags do not match these values",
         "list_tags": "List all available tags",
     },
-    iterable=['tag', 'skip_tag']
+    iterable=["tag", "skip_tag"],
 )
-def playbook(c, tag, skip_tag, list_tags=False, target='main'):
+def playbook(c, tag, skip_tag, list_tags=False, target="main"):
     # type: (Context, List[str], List[str], bool, str) -> None
-    """Runs Ansible playbooks, executing the defined tasks on the targeted hosts."""
-    playbook_options = ['-i', 'inventory']
+    """Run Ansible playbooks, executing the defined tasks on the targeted hosts."""
+    playbook_options = ["-i", "inventory"]
     if tag:
         playbook_options += ["--tags", f'"{ ",".join(tag) }"']
     if skip_tag:
