@@ -5,6 +5,7 @@ Execute 'invoke --list' for guidance on using Invoke
 """
 import platform
 from pathlib import Path
+from typing import Optional, Dict
 
 from invoke import task
 from invoke.context import Context
@@ -21,9 +22,12 @@ ANSIBLE_TARGETS = [
     MOLECULE_DIR
 ]
 ANSIBLE_TARGETS_STR = " ".join([str(t) for t in ANSIBLE_TARGETS])
+ANSIBLE_ROLES_PATH = f"{ROOT_DIR / '.roles'}:{ROOT_DIR / 'roles'}"
 
-def _run(c: Context, command: str) -> Result:
-    return c.run(command, pty=platform.system() != "Windows")
+
+def _run(c, command, env=None):
+    # type: (Context, str, Optional[Dict]) -> Result
+    return c.run(command, pty=platform.system() != "Windows", env=env)
 
 
 @task()
@@ -83,7 +87,7 @@ def lint(c):
 def tests(c):
     # type: (Context) -> None
     """Run ansible molecule test."""
-    _run(c, f"pipenv run molecule test")
+    _run(c, f"pipenv run molecule test", env={"ANSIBLE_ROLES_PATH": ANSIBLE_ROLES_PATH})
 
 
 @task(
