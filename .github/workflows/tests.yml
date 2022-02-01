@@ -57,7 +57,7 @@ jobs:
         run: pipenv run inv galaxy-install
 
       - name: Run Molecule tests
-        run: pipenv run inv test
+        run: pipenv run inv tests
         env:
           PY_COLORS: '1'
           ANSIBLE_FORCE_COLOR: '1'
