@@ -13,7 +13,14 @@ from invoke.runners import Result
 ROOT_DIR = Path(__file__).parent
 TASKS_DIR = ROOT_DIR / 'tasks'
 HANDLERS_DIR = ROOT_DIR / 'handlers'
-
+MOLECULE_DIR = ROOT_DIR / 'molecule'
+ANSIBLE_TARGETS = [
+    ROOT_DIR,
+    TASKS_DIR,
+    HANDLERS_DIR,
+    MOLECULE_DIR
+]
+ANSIBLE_TARGETS_STR = " ".join([str(t) for t in ANSIBLE_TARGETS])
 
 def _run(c: Context, command: str) -> Result:
     return c.run(command, pty=platform.system() != "Windows")
@@ -60,16 +67,23 @@ def ansible_lint(c):
         '--force-color',
         '-p',
         '-v',
-        '--project-dir' ,
+        '--project-dir',
         str(ROOT_DIR)
     ]
-    _run(c, f"pipenv run ansible-lint {' '.join(lint_options)}")
+    _run(c, f"pipenv run ansible-lint {' '.join(lint_options)} {ANSIBLE_TARGETS_STR}")
 
 
 @task(pre=[yamllint, ansible_lint])
 def lint(c):
     # type: (Context) -> None
     """Run all linting."""
+
+
+@task()
+def tests(c):
+    # type: (Context) -> None
+    """Run ansible molecule test."""
+    _run(c, f"pipenv run molecule test")
 
 
 @task(
