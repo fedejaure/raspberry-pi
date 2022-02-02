@@ -13,10 +13,10 @@ jobs:
     name: Linting
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2.3.4
+      - uses: actions/checkout@v2.4.0
 
       - name: Set up Python 3.9
-        uses: actions/setup-python@v2.2.2
+        uses: actions/setup-python@v2.3.1
         with:
           python-version: 3.9
 
@@ -33,13 +33,14 @@ jobs:
       matrix:
         distro:
           - debian10
+          - debian11
       fail-fast: false
 
     steps:
-      - uses: actions/checkout@v2.3.4
+      - uses: actions/checkout@v2.4.0
 
       - name: Set up Python 3.9
-        uses: actions/setup-python@v2.2.2
+        uses: actions/setup-python@v2.3.1
         with:
           python-version: 3.9
 
@@ -53,10 +54,10 @@ jobs:
 
       - name: Install playbooks requirements
         shell: bash
-        run: pipenv run ansible-galaxy install -r requirements.yml
+        run: pipenv run inv galaxy-install
 
-      - name: Run Molecule tests.
-        run: pipenv run molecule test
+      - name: Run Molecule tests
+        run: pipenv run inv tests
         env:
           PY_COLORS: '1'
           ANSIBLE_FORCE_COLOR: '1'

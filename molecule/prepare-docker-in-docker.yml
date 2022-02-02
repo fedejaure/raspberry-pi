@@ -2,12 +2,12 @@
 - hosts: otacon
   tasks:
     - name: create /etc/docker.
-      file:
+      ansible.builtin.file:
         state: directory
         path: /etc/docker
 
     - name: Set storage-driver to vfs via daemon.json.
-      copy:
+      ansible.builtin.copy:
         content: |
           {
             "storage-driver": "vfs"

@@ -1,6 +1,6 @@
 ---
 - name: Ensure mdns-beacon is installed.
-  pip:
+  ansible.builtin.pip:
     name: mdns-beacon
     state: present
     version: "{{ mdns_beacon_version | default(omit) }}"

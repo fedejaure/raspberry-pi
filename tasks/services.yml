@@ -1,6 +1,6 @@
 ---
 - name: "Ensures {{ rpi_docker_compose_project }} dir exists"
-  file:
+  ansible.builtin.file:
     path: "{{ rpi_docker_compose_project }}"
     owner: "{{ ansible_user }}"
     group: "{{ ansible_user }}"
@@ -8,18 +8,21 @@
     state: directory
 
 - name: Copy docker compose project files
-  template:
+  ansible.builtin.template:
     src: "{{ item.src }}"
     dest: "{{ rpi_docker_compose_project }}/{{ item.project_dest }}"
     owner: "{{ ansible_user }}"
     group: "{{ ansible_user }}"
     mode: u=rwx,g=rx,o=x
   with_items: "{{ rpi_docker_compose_project_config.templates }}"
+  register: services
 
 - name: Create and start services
-  community.general.docker_compose:
+  community.docker.docker_compose:
     project_src: "{{ rpi_docker_compose_project }}"
     build: yes
     remove_orphans: yes
     restarted: yes
-  changed_when: False
+  when: services.changed # noqa 503
+  notify:
+    - prune services is required

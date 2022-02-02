@@ -27,7 +27,7 @@
     - rpi_virtual_hosts_aliases: "{{ rpi_docker_compose_project_config.virtual_hosts.values() | map('replace', '.local', '')  | list }}"
     - rpi_ipv4_address: "{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}"
 
-    - mdns_beacon_version: 0.4.0
+    - mdns_beacon_version: 0.6.1
 
     - supervisor_programs:
       - name: 'mdns-beacon'
@@ -49,18 +49,18 @@
 
   pre_tasks:
     - name: Include config override file, if it exists
-      include_vars: "{{ item }}"
+      ansible.builtin.include_vars: "{{ item }}"
       with_fileglob:
         - config.yml
       tags: ['always']
 
-    - import_tasks: tasks/raspbian-init.yml
+    - ansible.builtin.import_tasks: tasks/raspbian-init.yml
       when:
         - ansible_os_family == 'Debian'
         - molecule_yml is not defined
       tags: ['init']
 
-    - import_tasks: tasks/init.yml
+    - ansible.builtin.import_tasks: tasks/init.yml
       tags: ['init']
 
   roles:
@@ -87,12 +87,12 @@
 
   handlers:
 
-    - import_tasks: handlers/main.yml
+    - ansible.builtin.import_tasks: handlers/main.yml
 
   tasks:
 
-    - import_tasks: tasks/docker-compose.yml
-      tags: ['docker-compose']
+    - ansible.builtin.import_tasks: tasks/services.yml
+      tags: ['services']
 
-    - import_tasks: tasks/mdns-beacon.yml
+    - ansible.builtin.import_tasks: tasks/mdns-beacon.yml
       tags: ['mdns-beacon']

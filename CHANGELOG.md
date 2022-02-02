@@ -6,22 +6,44 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.0] - 2022-02-02
+### Changed
+- Upgrade Otacon mdns-beacon version to `0.6.1`.
+- Otacon `tecnativa/docker-socket-proxy` to `0.1.1`.
+- Otacon `netdata/netdata` to `v1.33.0`.
+- Otacon `pihole/pihole` to `2022.01.1`.
+- Otacon `traefik/whoami` to `v1.7.1`.
+- Otacon `nginxproxy/nginx-proxy` to `0.10.0`.
+- Tasks `docker-compose.yml` by `services.yml`.
+- Restart services only if they are modified.
+
+### Added
+- Invoke task playbook `skip-tag` option.
+- Invoke task playbook `list-tags` option.
+- Debian 11 "bullseye" support.
+- Raspbian swap config.
+
+### Fixed
+- Set wifi country.
+- Use collections.
+
 ## [0.2.1] - 2021-07-14
 ### Changed
-- updated deps.
+- Updated deps.
 
 ## [0.2.0] - 2021-04-11
 ### Changed
 - Refactor tasks modules.
 
 ### Added
-- molecule tests.
+- Molecule tests.
 
 ## [0.1.0] - 2021-03-29
 ### Added
 - First `otacon` release.
 
-[Unreleased]: https://github.com/fedejaure/raspberry-pi-playbook/compare/v0.2.1...develop
+[Unreleased]: https://github.com/fedejaure/raspberry-pi-playbook/compare/v0.3.0...develop
+[0.3.0]: https://github.com/fedejaure/raspberry-pi-playbook/compare/v0.2.1...v0.3.0
 [0.2.1]: https://github.com/fedejaure/raspberry-pi-playbook/compare/v0.2.0...v0.2.1
 [0.2.0]: https://github.com/fedejaure/raspberry-pi-playbook/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/fedejaure/raspberry-pi-playbook/compare/releases/tag/v0.1.0
