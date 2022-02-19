@@ -12,10 +12,9 @@ from invoke.context import Context
 from invoke.runners import Result
 
 ROOT_DIR = Path(__file__).parent
-TASKS_DIR = ROOT_DIR / "tasks"
-HANDLERS_DIR = ROOT_DIR / "handlers"
 MOLECULE_DIR = ROOT_DIR / "molecule"
-ANSIBLE_TARGETS = [ROOT_DIR, TASKS_DIR, HANDLERS_DIR, MOLECULE_DIR]
+PLAYBOOKS_DIR = ROOT_DIR / "playbooks"
+ANSIBLE_TARGETS = [MOLECULE_DIR, PLAYBOOKS_DIR]
 ANSIBLE_TARGETS_STR = " ".join([str(t) for t in ANSIBLE_TARGETS])
 ANSIBLE_ROLES_PATH = f"{ROOT_DIR / '.roles'}:{ROOT_DIR / 'roles'}"
 
@@ -98,7 +97,7 @@ def playbook(c, tag, skip_tag, list_tags=False, target="main"):
         playbook_options += ["--skip-tags", f'"{ ",".join(skip_tag) }"']
     if list_tags:
         playbook_options.append("--list-tags")
-    _run(c, f"pipenv run ansible-playbook {target}.yml {' '.join(playbook_options)}")
+    _run(c, f"pipenv run ansible-playbook playbooks/{target}.yml {' '.join(playbook_options)}")
 
 
 @task(

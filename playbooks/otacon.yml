@@ -3,7 +3,7 @@
   become: yes
 
   vars_files:
-    - default.config.yml
+    - ../default.config.yml
 
   vars:
     # Python configuration.
@@ -51,16 +51,18 @@
     - name: Include config override file, if it exists
       ansible.builtin.include_vars: "{{ item }}"
       with_fileglob:
-        - config.yml
+        - ../config.yml
       tags: ['always']
 
-    - ansible.builtin.import_tasks: tasks/raspbian-init.yml
+    - name: Init Raspbian
+      ansible.builtin.import_tasks: tasks/raspbian-init.yml
       when:
         - ansible_os_family == 'Debian'
         - molecule_yml is not defined
       tags: ['init']
 
-    - ansible.builtin.import_tasks: tasks/init.yml
+    - name: Upgrade OS
+      ansible.builtin.import_tasks: tasks/upgrade.yml
       tags: ['init']
 
   roles:
@@ -87,12 +89,15 @@
 
   handlers:
 
-    - ansible.builtin.import_tasks: handlers/main.yml
+    - name: Setup Handlers
+      ansible.builtin.import_tasks: handlers/main.yml
 
   tasks:
 
-    - ansible.builtin.import_tasks: tasks/services.yml
+    - name: Configure Services
+      ansible.builtin.import_tasks: tasks/services.yml
       tags: ['services']
 
-    - ansible.builtin.import_tasks: tasks/mdns-beacon.yml
+    - name: Configure mDNS
+      ansible.builtin.import_tasks: tasks/mdns-beacon.yml
       tags: ['mdns-beacon']
