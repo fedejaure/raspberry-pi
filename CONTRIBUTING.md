@@ -1,8 +1,8 @@
-# Contributing to Raspberry Pi Playbook
+# Contributing to Raspberry Pi
 
 👏🎉 First off all, Thanks for your interest in contributing to our project! 🎉👏
 
-The following is a set of guidelines for contributing to Raspberry Pi Playbook. These are
+The following is a set of guidelines for contributing to Raspberry Pi. These are
 mostly guidelines, not rules. Use your best judgment, and feel free to propose changes to this document in a pull request.
 
 ## Code of Conduct

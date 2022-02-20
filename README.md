@@ -1,10 +1,10 @@
-Raspberry Pi Playbook
-=====================
+Raspberry Pi
+============
 
 <div align="center">
 
-[![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/fedejaure/raspberry-pi-playbook?logo=github)](https://github.com/fedejaure/raspberry-pi-playbook/releases)
-[![tests](https://github.com/fedejaure/raspberry-pi-playbook/actions/workflows/tests.yml/badge.svg)](https://github.com/fedejaure/raspberry-pi-playbook/actions/workflows/tests.yml)
+[![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/fedejaure/raspberry-pi?logo=github)](https://github.com/fedejaure/raspberry-pi/releases)
+[![tests](https://github.com/fedejaure/raspberry-pi/actions/workflows/tests.yml/badge.svg)](https://github.com/fedejaure/raspberry-pi/actions/workflows/tests.yml)
 [![License](https://img.shields.io/badge/license-MIT-brightgreen)](https://opensource.org/licenses/MIT)
 
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
@@ -12,7 +12,7 @@ Raspberry Pi Playbook
 
 </div>
 
-Setup and configuration of my own Raspberry Pi fleet via Ansible (use by your own risk).
+Setup and configuration of my own Raspberry Pi fleet via Ansible Collection (use by your own risk).
 
 
 Fleet Members ([Metal Gear Characters][metal-gear-characters])
@@ -70,19 +70,19 @@ Quickstart
     $ pipenv shell
     Launching subshell in virtual environment…
     ...
-    (raspberry-pi-playbook)$
+    (raspberry-pi)$
     ```
 
 4.  Install required Ansible roles:
 
     ```shell
-    (raspberry-pi-playbook)$ ansible-galaxy install -r requirements.yml
+    (raspberry-pi)$ ansible-galaxy install -r requirements.yml
     ```
 
     or
 
     ```shell
-    (raspberry-pi-playbook)$ inv galaxy-install
+    (raspberry-pi)$ inv galaxy-install
     ```
 
 5. Configure the `inventory` file, e.g.:
@@ -95,13 +95,13 @@ Quickstart
 6. Run the playbook:
 
     ```shell
-    (raspberry-pi-playbook)$ ansible-playbook main.yml -i inventory
+    (raspberry-pi)$ ansible-playbook main.yml -i inventory
     ```
 
     or
 
     ```shell
-    (raspberry-pi-playbook)$ inv playbook
+    (raspberry-pi)$ inv playbook
     ```
 
 7. Enjoy!
@@ -143,7 +143,7 @@ Development
 To display available tasks run:
 
 ```shell
-(raspberry-pi-playbook)$ inv --list
+(raspberry-pi)$ inv --list
 Available tasks:
 
   ansible-lint     Run ansible linter.
