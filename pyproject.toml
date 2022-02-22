@@ -1,7 +1,7 @@
 [tool.poetry]
-name = "dev-setup"
-version = "0.1.0"
-description = "My own Ansible collection for development setup."
+name = "raspberry-pi"
+version = "0.3.0"
+description = "Setup and configuration of my own Raspberry Pi fleet via Ansible Collection."
 authors = ["Federico Jaureguialzo <fedejaure@gmail.com>"]
 readme = "README.md"
 homepage = "https://github.com/fedejaure/dev-setup"
