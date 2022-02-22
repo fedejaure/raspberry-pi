@@ -13,20 +13,20 @@ We take our open source community seriously and hold ourselves and other contrib
 
 ### Requirements
 
-We use `pipenv` to manage and install dependencies. [pipenv](https://pipenv.pypa.io/en/latest/) provides a custom installer that will install `pipenv` isolated from the rest of your system.
+We use `poetry` to manage and install dependencies. [Poetry](https://python-poetry.org/) provides a custom installer that will install `poetry` isolated from the rest of your system.
 
 ```
-curl https://raw.githubusercontent.com/pypa/pipenv/master/get-pipenv.py | python
+curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/install-poetry.py | python -
 ```
 
 To install the local development requirements inside a virtual environment run:
 
 ```
-$ pipenv sync --dev
-$ pipenv run inv install-hooks
+$ poetry install --no-root
+$ poetry run inv install-hooks
 ```
 
-> For more information about `pipenv` check the [docs](https://pipenv.pypa.io/en/latest/basics/).
+> For more information about `poetry` check the [docs](https://python-poetry.org/docs/).
 
 We use [invoke](http://www.pyinvoke.org/) to wrap up some useful tasks like formatting, linting, testing and more.
 

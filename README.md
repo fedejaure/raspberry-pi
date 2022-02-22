@@ -56,20 +56,21 @@ Quickstart
 2. Install dependencies:
 
     ```shell
-    $ pipenv sync
-    Creating a virtualenv for this project…
+    $ poetry install --no-root
+    Creating virtualenv raspberry-pi in .venv
+    Using virtualenv: .venv
+    Installing dependencies from lock file
+
+    Package operations: 95 installs, 0 updates, 0 removals
+
     ...
-    To activate this project's virtualenv, run pipenv shell.
-    Alternatively, run a command inside the virtualenv with pipenv run.
-    All dependencies are now up-to-date!
     ```
 
 3. Activate the virtual environment:
 
     ```shell
-    $ pipenv shell
-    Launching subshell in virtual environment…
-    ...
+    $ poetry shell
+    Spawning shell within .venv
     (raspberry-pi)$
     ```
 
