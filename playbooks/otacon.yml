@@ -85,6 +85,7 @@
       tags: ['supervisor', 'mdns-beacon']
 
     - role: fedejaure.rpi_lcd
+      when: enable_lcd|bool
       tags: ['lcd']
 
   handlers:

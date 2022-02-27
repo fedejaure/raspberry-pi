@@ -27,6 +27,7 @@ firewall_allowed_udp_ports:
 firewall_flush_rules_and_chains: no
 
 # LCD configuration.
+enable_lcd: true
 lcd_type: MPI3501
 lcd_rotate: 270
 
