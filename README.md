@@ -46,6 +46,30 @@ Fleet Members ([Metal Gear Characters][metal-gear-characters])
 
         + `rpi_swap_config`: Raspberry Pi swap config. (Default: `CONF_SWAPSIZE: 100`)
 
+* Ocelot ([Revolver Ocelot][ocelot])
+
+    > OctoPrint an snappy web interface for my 3D printer.
+
+    - services:
+
+        + [whoami][whoami]: Tiny Go webserver that prints os information and HTTP request to output. Available at [whoami.ocelot.local](http://whoami.ocelot.local)
+
+        + [netdata][netdata]: Monitor everything in real time. Available at [netdata.ocelot.local](http://netdata.ocelot.local)
+
+    - variables:
+
+        + `rpi_locale`: Raspberry Pi locale config. (Default: `en_US.UTF-8`)
+
+        + `rpi_layout`: Raspberry Pi keyboard layout config. (Default: `us`)
+
+        + `rpi_dist_upgrade`: If Raspberry Pi should do a dist-upgrade. (Default: `no`)
+
+        + `rpi_tz`: Raspberry Pi Time Zone config. (Default: `'Europe/Amsterdam'`)
+
+        + `rpi_wifi_country`: Raspberry Pi Wifi Country config. (Default: `NL`)
+
+        + `rpi_swap_config`: Raspberry Pi swap config. (Default: `CONF_SWAPSIZE: 100`)
+
 * more coming ...
 
 Quickstart
@@ -173,3 +197,4 @@ This playbook was created in 2020 by [Federico Jaureguialzo][fedejaure].
 [pihole]: https://pi-hole.net/
 [whoami]: https://github.com/traefik/whoami
 [netdata]: https://www.netdata.cloud/
+[ocelot]: https://en.wikipedia.org/wiki/Revolver_Ocelot

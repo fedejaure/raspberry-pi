@@ -1,0 +1,32 @@
+---
+# RPI setup.
+rpi_locale: en_US.UTF-8
+rpi_layout: us
+rpi_dist_upgrade: no
+rpi_tz: 'Europe/Amsterdam'
+rpi_wifi_country: NL
+rpi_swap_config:
+  CONF_SWAPSIZE: 100
+  # CONF_SWAPFILE: /var/swap
+  # CONF_SWAPFACTOR: 2
+  # CONF_MAXSWAP: 2048
+
+# Security configuration.
+security_sudoers_passwordless: ['pi']
+firewall_allowed_tcp_ports:
+  - 22
+  - 53
+  - 80
+  - 443
+  - 548
+firewall_allowed_udp_ports:
+  - 53
+  - 67
+  - 5353
+  - 5354
+firewall_flush_rules_and_chains: no
+
+# Docker versions
+docker_version_armv6: "5:20.10.0~3-0~raspbian-{{ansible_distribution_release}}"
+docker_version_armv7: "5:20.10.10~3-0~raspbian-{{ansible_distribution_release}}"
+docker_version_arm64: "5:20.10.10~3-0~debian-{{ansible_distribution_release}}"
