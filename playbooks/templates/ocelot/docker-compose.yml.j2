@@ -59,8 +59,23 @@ services:
       - VIRTUALIZATION=kvm
       - PGID=999
 
+  octoprint:
+    container_name: octoprint
+    hostname: octoprint.{{ rpi_hostname }}
+    image: octoprint/octoprint:1.7.3
+    restart: always
+    environment:
+      - VIRTUAL_HOST={{ rpi_docker_compose_project_config.virtual_hosts.octoprint }}
+      - ENABLE_MJPG_STREAMER=true
+    volumes:
+      - octoprint:/octoprint
+    devices:
+      - /dev/ttyUSB0:/dev/ttyUSB0
+      - /dev/video0:/dev/video0
+
 volumes:
   netdataconfig:
   netdatalib:
   netdatacache:
+  octoprint:
   dnsmasq.d:

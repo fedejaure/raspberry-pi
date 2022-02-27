@@ -52,6 +52,8 @@ Fleet Members ([Metal Gear Characters][metal-gear-characters])
 
     - services:
 
+        + [octoprint][octoprint]: The snappy web interface for your 3D printer! [octoprint.ocelot.local](http://octoprint.ocelot.local)
+
         + [whoami][whoami]: Tiny Go webserver that prints os information and HTTP request to output. Available at [whoami.ocelot.local](http://whoami.ocelot.local)
 
         + [netdata][netdata]: Monitor everything in real time. Available at [netdata.ocelot.local](http://netdata.ocelot.local)
@@ -198,3 +200,4 @@ This playbook was created in 2020 by [Federico Jaureguialzo][fedejaure].
 [whoami]: https://github.com/traefik/whoami
 [netdata]: https://www.netdata.cloud/
 [ocelot]: https://en.wikipedia.org/wiki/Revolver_Ocelot
+[octoprint]: https://octoprint.org/
