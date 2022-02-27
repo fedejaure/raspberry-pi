@@ -128,7 +128,7 @@ The tags available are:
 Overriding Defaults
 -------------------
 
-You can override the defaults configured in `default.config.yml` by creating a `config.yml` file and setting the overrides in that file. e.g.:
+You can override the defaults configured in `default.<fleet-member>.config.yml` by creating a `<fleet-member>.config.yml` file and setting the overrides in that file. e.g.:
 
 ```yaml
 security_ssh_password_authentication: "yes"
@@ -136,7 +136,7 @@ security_ssh_permit_root_login: "yes"
 security_autoupdate_mail_to: example@example.com
 ```
 
-Any variable can be overridden in `config.yml`; see the supporting roles documentation for a complete list of available variables.
+Any variable can be overridden in `<fleet-member>.config.yml`; see the supporting roles documentation for a complete list of available variables.
 
 Development
 -----------

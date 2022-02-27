@@ -3,7 +3,7 @@
   become: yes
 
   vars_files:
-    - ../default.config.yml
+    - ../default.otacon.config.yml
 
   vars:
     # Python configuration.
@@ -51,7 +51,7 @@
     - name: Include config override file, if it exists
       ansible.builtin.include_vars: "{{ item }}"
       with_fileglob:
-        - ../config.yml
+        - ../otacon.config.yml
       tags: ['always']
 
     - name: Init Raspbian
