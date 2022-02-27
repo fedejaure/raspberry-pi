@@ -26,13 +26,16 @@ jobs:
           pre-commit run --all-files
   tests:
     needs: linting
-    name: molecule-${{ matrix.distro }}
+    name: molecule-${{ matrix.target }}-${{ matrix.distro }}
     runs-on: ubuntu-latest
     strategy:
       matrix:
         distro:
           - debian10
           - debian11
+        target:
+          - otacon
+          - ocelot
       fail-fast: true
 
     steps:
@@ -58,7 +61,7 @@ jobs:
         run: poetry run inv safety
 
       - name: Run Molecule tests
-        run: poetry run inv tests
+        run: poetry run inv tests --target ${{ matrix.target }}
         env:
           PY_COLORS: '1'
           ANSIBLE_FORCE_COLOR: '1'
