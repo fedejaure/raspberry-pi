@@ -7,12 +7,6 @@
     mode: u=rwx,g=rx,o=x
     state: directory
 
-- name: Check if there are configs to copy
-  ansible.builtin.stat:
-    path: "{{ rpi_docker_compose_project }}/nginx/conf.d"
-  delegate_to: localhost
-  register: local_config
-
 - name: Ensures nginx conf dir exists
   ansible.builtin.file:
     path: "{{ rpi_docker_compose_project }}/nginx/conf.d"
@@ -20,7 +14,7 @@
     group: "{{ ansible_user }}"
     mode: u=rwx,g=rx,o=x
     state: directory
-  when: local_config.stat.exists and local_config.stat.isdir
+  when: should_copy_nginx_conf_files is defined and should_copy_nginx_conf_files|bool
 
 - name: Copy proxy configuration files
   ansible.builtin.copy:
@@ -31,7 +25,7 @@
     mode: u=rwx,g=rx,o=x
   with_fileglob:
     - "{{ rpi_docker_compose_project }}/nginx/conf.d/*"
-  when: local_config.stat.exists and local_config.stat.isdir
+  when: should_copy_nginx_conf_files is defined and should_copy_nginx_conf_files|bool
 
 - name: Copy docker compose project files
   ansible.builtin.template:

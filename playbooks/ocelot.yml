@@ -23,6 +23,7 @@
           whoami: "whoami.{{ rpi_hostname }}.local"
           netdata: "netdata.{{ rpi_hostname }}.local"
           octoprint: "octoprint.{{ rpi_hostname }}.local"
+    - should_copy_nginx_conf_files: true
 
     - rpi_virtual_hosts_aliases: "{{ rpi_docker_compose_project_config.virtual_hosts.values() | map('replace', '.local', '')  | list }}"
     - rpi_ipv4_address: "{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}"
