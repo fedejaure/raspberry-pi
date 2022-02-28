@@ -11,6 +11,7 @@ services:
       - "80:80"
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
+      - ./nginx/conf.d:/etc/nginx/conf.d:ro
 
   docker-proxy:
     container_name: docker-proxy
