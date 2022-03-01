@@ -14,18 +14,17 @@
     group: "{{ ansible_user }}"
     mode: u=rwx,g=rx,o=x
     state: directory
-  when: should_copy_nginx_conf_files is defined and should_copy_nginx_conf_files|bool
+  when: rpi_docker_compose_project_config.nginx_conf_files is defined and rpi_docker_compose_project_config.nginx_conf_files|length>0
 
 - name: Copy proxy configuration files
   ansible.builtin.copy:
-    src: "{{ item }}"
+    src: "{{ rpi_docker_compose_project }}/nginx/conf.d/{{ item }}"
     dest: "{{ rpi_docker_compose_project }}/nginx/conf.d"
     owner: "{{ ansible_user }}"
     group: "{{ ansible_user }}"
     mode: u=rwx,g=rx,o=x
-  with_fileglob:
-    - "{{ rpi_docker_compose_project }}/nginx/conf.d/*"
-  when: should_copy_nginx_conf_files is defined and should_copy_nginx_conf_files|bool
+  with_items: "{{ rpi_docker_compose_project_config.nginx_conf_files }}"
+  when: rpi_docker_compose_project_config.nginx_conf_files is defined and rpi_docker_compose_project_config.nginx_conf_files|length>0
 
 - name: Copy docker compose project files
   ansible.builtin.template:

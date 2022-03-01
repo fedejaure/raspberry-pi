@@ -11,7 +11,9 @@ services:
       - "80:80"
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
-      - ./nginx/conf.d:/etc/nginx/conf.d:ro
+{% for f in rpi_docker_compose_project_config.nginx_conf_files %}
+      - ./nginx/conf.d/{{ f }}:/etc/nginx/conf.d/{{ f }}:ro
+{% endfor %}
 
   docker-proxy:
     container_name: docker-proxy
@@ -71,8 +73,8 @@ services:
     volumes:
       - octoprint:/octoprint
     devices:
-      - /dev/ttyUSB0:/dev/ttyUSB0
       - /dev/video0:/dev/video0
+    #  - /dev/ttyUSB0:/dev/ttyUSB0
 
 volumes:
   netdataconfig:
