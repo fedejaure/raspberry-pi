@@ -133,11 +133,16 @@ def mypy(c):
     _run(c, f"poetry run mypy {PYTHON_TARGETS_STR}")
 
 
-@task()
-def tests(c):
-    # type: (Context) -> None
+@task(help={"target": "Name of the scenario to target."})
+def tests(c, target="default"):
+    # type: (Context, str) -> None
     """Run ansible molecule test."""
-    _run(c, "poetry run molecule test", env={"ANSIBLE_ROLES_PATH": ANSIBLE_ROLES_PATH})
+    molecule_options = ["-s", target]
+    _run(
+        c,
+        f"poetry run molecule test {' '.join(molecule_options)}",
+        env={"ANSIBLE_ROLES_PATH": ANSIBLE_ROLES_PATH},
+    )
 
 
 @task(

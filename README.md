@@ -46,6 +46,32 @@ Fleet Members ([Metal Gear Characters][metal-gear-characters])
 
         + `rpi_swap_config`: Raspberry Pi swap config. (Default: `CONF_SWAPSIZE: 100`)
 
+* Ocelot ([Revolver Ocelot][ocelot])
+
+    > OctoPrint an snappy web interface for my 3D printer.
+
+    - services:
+
+        + [octoprint][octoprint]: The snappy web interface for your 3D printer! [octoprint.ocelot.local](http://octoprint.ocelot.local)
+
+        + [whoami][whoami]: Tiny Go webserver that prints os information and HTTP request to output. Available at [whoami.ocelot.local](http://whoami.ocelot.local)
+
+        + [netdata][netdata]: Monitor everything in real time. Available at [netdata.ocelot.local](http://netdata.ocelot.local)
+
+    - variables:
+
+        + `rpi_locale`: Raspberry Pi locale config. (Default: `en_US.UTF-8`)
+
+        + `rpi_layout`: Raspberry Pi keyboard layout config. (Default: `us`)
+
+        + `rpi_dist_upgrade`: If Raspberry Pi should do a dist-upgrade. (Default: `no`)
+
+        + `rpi_tz`: Raspberry Pi Time Zone config. (Default: `'Europe/Amsterdam'`)
+
+        + `rpi_wifi_country`: Raspberry Pi Wifi Country config. (Default: `NL`)
+
+        + `rpi_swap_config`: Raspberry Pi swap config. (Default: `CONF_SWAPSIZE: 100`)
+
 * more coming ...
 
 Quickstart
@@ -128,7 +154,7 @@ The tags available are:
 Overriding Defaults
 -------------------
 
-You can override the defaults configured in `default.config.yml` by creating a `config.yml` file and setting the overrides in that file. e.g.:
+You can override the defaults configured in `default.<fleet-member>.config.yml` by creating a `<fleet-member>.config.yml` file and setting the overrides in that file. e.g.:
 
 ```yaml
 security_ssh_password_authentication: "yes"
@@ -136,7 +162,7 @@ security_ssh_permit_root_login: "yes"
 security_autoupdate_mail_to: example@example.com
 ```
 
-Any variable can be overridden in `config.yml`; see the supporting roles documentation for a complete list of available variables.
+Any variable can be overridden in `<fleet-member>.config.yml`; see the supporting roles documentation for a complete list of available variables.
 
 Development
 -----------
@@ -173,3 +199,5 @@ This playbook was created in 2020 by [Federico Jaureguialzo][fedejaure].
 [pihole]: https://pi-hole.net/
 [whoami]: https://github.com/traefik/whoami
 [netdata]: https://www.netdata.cloud/
+[ocelot]: https://en.wikipedia.org/wiki/Revolver_Ocelot
+[octoprint]: https://octoprint.org/

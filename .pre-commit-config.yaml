@@ -38,7 +38,8 @@ repos:
           'flake8-annotations~=2.6.2',
           'flake8-docstrings~=1.6.0',
           'flake8-bandit~=2.1.2',
-          'darglint~=1.8.0'
+          'darglint~=1.8.0',
+          'bandit==1.7.2'  # https://github.com/tylerwince/flake8-bandit/issues/21
         ]
   - repo: https://github.com/adrienverge/yamllint.git
     rev: v1.26.3

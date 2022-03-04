@@ -1,5 +1,7 @@
 ---
-- hosts: otacon
+- hosts:
+    - otacon
+    - ocelot
   tasks:
     - name: create /etc/docker.
       ansible.builtin.file:

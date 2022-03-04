@@ -1,9 +1,9 @@
 ---
-- hosts: otacon
+- hosts: ocelot
   become: yes
 
   vars_files:
-    - ../default.otacon.config.yml
+    - ../default.ocelot.config.yml
 
   vars:
     # Python configuration.
@@ -11,7 +11,7 @@
     - pip_executable: pip3
     - docker_pip_executable: '{{ pip_executable }}'
 
-    - rpi_hostname: otacon
+    - rpi_hostname: ocelot
     - rpi_docker_compose_project: "{{ rpi_hostname }}"
     - rpi_docker_compose_project_config:
         templates:
@@ -22,7 +22,10 @@
           host: "{{ rpi_hostname }}"
           whoami: "whoami.{{ rpi_hostname }}.local"
           netdata: "netdata.{{ rpi_hostname }}.local"
-          pihole: "pihole.{{ rpi_hostname }}.local"
+          octoprint: "octoprint.{{ rpi_hostname }}.local"
+
+        nginx_conf_files:
+          - client_max_body_size.conf
 
     - rpi_virtual_hosts_aliases: "{{ rpi_docker_compose_project_config.virtual_hosts.values() | map('replace', '.local', '')  | list }}"
     - rpi_ipv4_address: "{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}"
@@ -51,7 +54,7 @@
     - name: Include config override file, if it exists
       ansible.builtin.include_vars: "{{ item }}"
       with_fileglob:
-        - ../../otacon.config.yml
+        - ../../ocelot.config.yml
       tags: ['always']
 
     - name: Init Raspbian
@@ -83,10 +86,6 @@
 
     - role: geerlingguy.supervisor
       tags: ['supervisor', 'mdns-beacon']
-
-    - role: fedejaure.rpi_lcd
-      when: enable_lcd|bool
-      tags: ['lcd']
 
   handlers:
 
