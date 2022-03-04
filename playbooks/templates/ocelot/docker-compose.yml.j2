@@ -72,9 +72,15 @@ services:
       - ENABLE_MJPG_STREAMER=true
     volumes:
       - octoprint:/octoprint
+{% if video_device.stat.exists or printer_device.stat.exists %}
     devices:
+{% if video_device.stat.exists %}
       - /dev/video0:/dev/video0
-    #  - /dev/ttyUSB0:/dev/ttyUSB0
+{% endif %}
+{% if printer_device.stat.exists %}
+      - /dev/ttyUSB0:/dev/ttyUSB0
+{% endif %}
+{% endif %}
 
 volumes:
   netdataconfig:
