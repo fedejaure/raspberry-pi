@@ -1,10 +1,10 @@
-Raspberry Pi Playbook
-=====================
+Raspberry Pi
+============
 
 <div align="center">
 
-[![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/fedejaure/raspberry-pi-playbook?logo=github)](https://github.com/fedejaure/raspberry-pi-playbook/releases)
-[![tests](https://github.com/fedejaure/raspberry-pi-playbook/actions/workflows/tests.yml/badge.svg)](https://github.com/fedejaure/raspberry-pi-playbook/actions/workflows/tests.yml)
+[![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/fedejaure/raspberry-pi?logo=github)](https://github.com/fedejaure/raspberry-pi/releases)
+[![tests](https://github.com/fedejaure/raspberry-pi/actions/workflows/tests.yml/badge.svg)](https://github.com/fedejaure/raspberry-pi/actions/workflows/tests.yml)
 [![License](https://img.shields.io/badge/license-MIT-brightgreen)](https://opensource.org/licenses/MIT)
 
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
@@ -12,7 +12,7 @@ Raspberry Pi Playbook
 
 </div>
 
-Setup and configuration of my own Raspberry Pi fleet via Ansible (use by your own risk).
+Setup and configuration of my own Raspberry Pi fleet via Ansible Collection (use by your own risk).
 
 
 Fleet Members ([Metal Gear Characters][metal-gear-characters])
@@ -46,6 +46,32 @@ Fleet Members ([Metal Gear Characters][metal-gear-characters])
 
         + `rpi_swap_config`: Raspberry Pi swap config. (Default: `CONF_SWAPSIZE: 100`)
 
+* Ocelot ([Revolver Ocelot][ocelot])
+
+    > OctoPrint an snappy web interface for my 3D printer.
+
+    - services:
+
+        + [octoprint][octoprint]: The snappy web interface for your 3D printer! [octoprint.ocelot.local](http://octoprint.ocelot.local)
+
+        + [whoami][whoami]: Tiny Go webserver that prints os information and HTTP request to output. Available at [whoami.ocelot.local](http://whoami.ocelot.local)
+
+        + [netdata][netdata]: Monitor everything in real time. Available at [netdata.ocelot.local](http://netdata.ocelot.local)
+
+    - variables:
+
+        + `rpi_locale`: Raspberry Pi locale config. (Default: `en_US.UTF-8`)
+
+        + `rpi_layout`: Raspberry Pi keyboard layout config. (Default: `us`)
+
+        + `rpi_dist_upgrade`: If Raspberry Pi should do a dist-upgrade. (Default: `no`)
+
+        + `rpi_tz`: Raspberry Pi Time Zone config. (Default: `'Europe/Amsterdam'`)
+
+        + `rpi_wifi_country`: Raspberry Pi Wifi Country config. (Default: `NL`)
+
+        + `rpi_swap_config`: Raspberry Pi swap config. (Default: `CONF_SWAPSIZE: 100`)
+
 * more coming ...
 
 Quickstart
@@ -56,33 +82,34 @@ Quickstart
 2. Install dependencies:
 
     ```shell
-    $ pipenv sync
-    Creating a virtualenv for this project…
+    $ poetry install --no-root
+    Creating virtualenv raspberry-pi in .venv
+    Using virtualenv: .venv
+    Installing dependencies from lock file
+
+    Package operations: 95 installs, 0 updates, 0 removals
+
     ...
-    To activate this project's virtualenv, run pipenv shell.
-    Alternatively, run a command inside the virtualenv with pipenv run.
-    All dependencies are now up-to-date!
     ```
 
 3. Activate the virtual environment:
 
     ```shell
-    $ pipenv shell
-    Launching subshell in virtual environment…
-    ...
-    (raspberry-pi-playbook)$
+    $ poetry shell
+    Spawning shell within .venv
+    (raspberry-pi)$
     ```
 
 4.  Install required Ansible roles:
 
     ```shell
-    (raspberry-pi-playbook)$ ansible-galaxy install -r requirements.yml
+    (raspberry-pi)$ ansible-galaxy install -r requirements.yml
     ```
 
     or
 
     ```shell
-    (raspberry-pi-playbook)$ inv galaxy-install
+    (raspberry-pi)$ inv galaxy-install
     ```
 
 5. Configure the `inventory` file, e.g.:
@@ -95,13 +122,13 @@ Quickstart
 6. Run the playbook:
 
     ```shell
-    (raspberry-pi-playbook)$ ansible-playbook main.yml -i inventory
+    (raspberry-pi)$ ansible-playbook main.yml -i inventory
     ```
 
     or
 
     ```shell
-    (raspberry-pi-playbook)$ inv playbook
+    (raspberry-pi)$ inv playbook
     ```
 
 7. Enjoy!
@@ -127,7 +154,7 @@ The tags available are:
 Overriding Defaults
 -------------------
 
-You can override the defaults configured in `default.config.yml` by creating a `config.yml` file and setting the overrides in that file. e.g.:
+You can override the defaults configured in `default.<fleet-member>.config.yml` by creating a `<fleet-member>.config.yml` file and setting the overrides in that file. e.g.:
 
 ```yaml
 security_ssh_password_authentication: "yes"
@@ -135,7 +162,7 @@ security_ssh_permit_root_login: "yes"
 security_autoupdate_mail_to: example@example.com
 ```
 
-Any variable can be overridden in `config.yml`; see the supporting roles documentation for a complete list of available variables.
+Any variable can be overridden in `<fleet-member>.config.yml`; see the supporting roles documentation for a complete list of available variables.
 
 Development
 -----------
@@ -143,7 +170,7 @@ Development
 To display available tasks run:
 
 ```shell
-(raspberry-pi-playbook)$ inv --list
+(raspberry-pi)$ inv --list
 Available tasks:
 
   ansible-lint     Run ansible linter.
@@ -172,3 +199,5 @@ This playbook was created in 2020 by [Federico Jaureguialzo][fedejaure].
 [pihole]: https://pi-hole.net/
 [whoami]: https://github.com/traefik/whoami
 [netdata]: https://www.netdata.cloud/
+[ocelot]: https://en.wikipedia.org/wiki/Revolver_Ocelot
+[octoprint]: https://octoprint.org/

@@ -6,6 +6,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.0] - 2022-03-13
+### Added
+- Ocelot.
+
+### Changed
+- Move playbooks into playbooks dir.
+- Pipenv by poetry.
+- Otacon/Ocelot `nginxproxy/nginx-proxy` to `1.0.0`.
+- Otacon/Ocelot `traefik/whoami` to `v1.8.0`.
+- Otacon/Ocelot `netdata/netdata` to `v1.33.1`.
+- Otacon `pihole/pihole` to `2022.02.1`.
+
 ## [0.3.0] - 2022-02-02
 ### Changed
 - Upgrade Otacon mdns-beacon version to `0.6.1`.
@@ -42,8 +54,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - First `otacon` release.
 
-[Unreleased]: https://github.com/fedejaure/raspberry-pi-playbook/compare/v0.3.0...develop
-[0.3.0]: https://github.com/fedejaure/raspberry-pi-playbook/compare/v0.2.1...v0.3.0
-[0.2.1]: https://github.com/fedejaure/raspberry-pi-playbook/compare/v0.2.0...v0.2.1
-[0.2.0]: https://github.com/fedejaure/raspberry-pi-playbook/compare/v0.1.0...v0.2.0
-[0.1.0]: https://github.com/fedejaure/raspberry-pi-playbook/compare/releases/tag/v0.1.0
+[Unreleased]: https://github.com/fedejaure/raspberry-pi/compare/v0.4.0...develop
+[0.4.0]: https://github.com/fedejaure/raspberry-pi/compare/v0.3.0...v0.4.0
+[0.3.0]: https://github.com/fedejaure/raspberry-pi/compare/v0.2.1...v0.3.0
+[0.2.1]: https://github.com/fedejaure/raspberry-pi/compare/v0.2.0...v0.2.1
+[0.2.0]: https://github.com/fedejaure/raspberry-pi/compare/v0.1.0...v0.2.0
+[0.1.0]: https://github.com/fedejaure/raspberry-pi/compare/releases/tag/v0.1.0

@@ -1,0 +1,91 @@
+version: "3.8"
+
+services:
+
+  nginx-proxy:
+    container_name: nginx-proxy
+    hostname: nginx-proxy.{{ rpi_hostname }}
+    image: nginxproxy/nginx-proxy:1.0.0
+    restart: always
+    ports:
+      - "80:80"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+
+  docker-proxy:
+    container_name: docker-proxy
+    hostname: docker-proxy.{{ rpi_hostname }}
+    image: tecnativa/docker-socket-proxy:0.1.1
+    restart: always
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    environment:
+      - CONTAINERS=2
+
+  whoami:
+    container_name: whoami
+    hostname: whoami.{{ rpi_hostname }}
+    image: traefik/whoami:v1.8.0
+    restart: always
+    environment:
+      - VIRTUAL_HOST={{ rpi_docker_compose_project_config.virtual_hosts.whoami }}
+      - WHOAMI_NAME={{ rpi_hostname }}
+
+  netdata:
+    container_name: netdata
+    hostname: netdata.{{ rpi_hostname }}
+    image: netdata/netdata:v1.33.1
+    restart: always
+    expose:
+      - "19999"
+    volumes:
+      - /etc/passwd:/host/etc/passwd:ro
+      - /etc/group:/host/etc/group:ro
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /etc/os-release:/host/etc/os-release:ro
+      - netdataconfig:/etc/netdata
+      - netdatalib:/var/lib/netdata
+      - netdatacache:/var/cache/netdata
+    cap_add:
+      - SYS_PTRACE
+    security_opt:
+      - apparmor=unconfined
+    environment:
+      - DOCKER_HOST=docker-proxy:2375
+      - VIRTUAL_HOST={{ rpi_docker_compose_project_config.virtual_hosts.netdata }}
+      - VIRTUAL_PORT=19999
+      - VIRTUALIZATION=kvm
+      - PGID=999
+
+  pihole:
+    container_name: pihole
+    hostname: pihole.{{ rpi_hostname }}
+    image: pihole/pihole:2022.02.1
+    restart: always
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+      - "67:67/udp"
+      - "8053:80/tcp"
+      - "443:443/tcp"
+    volumes:
+      - 'pihole/:/etc/pihole/'
+      - 'dnsmasq.d/:/etc/dnsmasq.d/'
+    cap_add:
+      - NET_ADMIN
+    environment:
+      - DOCKER_HOST=docker-proxy:2375
+      - VIRTUAL_HOST={{ rpi_docker_compose_project_config.virtual_hosts.pihole }}
+      - VIRTUAL_PORT=80
+      - TZ={{ rpi_tz }}
+      - ServerIP={{ rpi_ipv4_address }}
+      {% if rpi_pihole_password is defined %}- WEBPASSWORD={{ rpi_pihole_password }}{% endif %}
+
+volumes:
+  netdataconfig:
+  netdatalib:
+  netdatacache:
+  pihole:
+  dnsmasq.d:

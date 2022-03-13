@@ -1,0 +1,57 @@
+---
+- name: "Ensures {{ rpi_docker_compose_project }} dir exists"
+  ansible.builtin.file:
+    path: "{{ rpi_docker_compose_project }}"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: u=rwx,g=rx,o=x
+    state: directory
+
+- name: Ensures nginx conf dir exists
+  ansible.builtin.file:
+    path: "{{ rpi_docker_compose_project }}/nginx/conf.d"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: u=rwx,g=rx,o=x
+    state: directory
+  when: rpi_docker_compose_project_config.nginx_conf_files is defined and rpi_docker_compose_project_config.nginx_conf_files|length>0
+
+- name: Copy proxy configuration files
+  ansible.builtin.copy:
+    src: "{{ rpi_docker_compose_project }}/nginx/conf.d/{{ item }}"
+    dest: "{{ rpi_docker_compose_project }}/nginx/conf.d"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: u=rwx,g=rx,o=x
+  with_items: "{{ rpi_docker_compose_project_config.nginx_conf_files }}"
+  when: rpi_docker_compose_project_config.nginx_conf_files is defined and rpi_docker_compose_project_config.nginx_conf_files|length>0
+
+- name: Check if video device is available  # TODO: replace with udev
+  ansible.builtin.stat:
+    path: /dev/video0
+  register: video_device
+
+- name: Check if printer device is available # TODO: replace with udev
+  ansible.builtin.stat:
+    path: /dev/ttyUSB0
+  register: printer_device
+
+- name: Copy docker compose project files
+  ansible.builtin.template:
+    src: "{{ item.src }}"
+    dest: "{{ rpi_docker_compose_project }}/{{ item.project_dest }}"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: u=rwx,g=rx,o=x
+  with_items: "{{ rpi_docker_compose_project_config.templates }}"
+  register: services
+
+- name: Create and start services
+  community.docker.docker_compose:
+    project_src: "{{ rpi_docker_compose_project }}"
+    build: yes
+    remove_orphans: yes
+    restarted: yes
+  when: services.changed # noqa 503
+  notify:
+    - prune services is required

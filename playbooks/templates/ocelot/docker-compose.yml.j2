@@ -5,12 +5,15 @@ services:
   nginx-proxy:
     container_name: nginx-proxy
     hostname: nginx-proxy.{{ rpi_hostname }}
-    image: nginxproxy/nginx-proxy:0.10.0
+    image: nginxproxy/nginx-proxy:1.0.0
     restart: always
     ports:
       - "80:80"
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
+{% for f in rpi_docker_compose_project_config.nginx_conf_files %}
+      - ./nginx/conf.d/{{ f }}:/etc/nginx/conf.d/{{ f }}:ro
+{% endfor %}
 
   docker-proxy:
     container_name: docker-proxy
@@ -25,7 +28,7 @@ services:
   whoami:
     container_name: whoami
     hostname: whoami.{{ rpi_hostname }}
-    image: traefik/whoami:v1.7.1
+    image: traefik/whoami:v1.8.0
     restart: always
     environment:
       - VIRTUAL_HOST={{ rpi_docker_compose_project_config.virtual_hosts.whoami }}
@@ -34,7 +37,7 @@ services:
   netdata:
     container_name: netdata
     hostname: netdata.{{ rpi_hostname }}
-    image: netdata/netdata:v1.33.0
+    image: netdata/netdata:v1.33.1
     restart: always
     expose:
       - "19999"
@@ -59,33 +62,29 @@ services:
       - VIRTUALIZATION=kvm
       - PGID=999
 
-  pihole:
-    container_name: pihole
-    hostname: pihole.{{ rpi_hostname }}
-    image: pihole/pihole:2022.01.1
+  octoprint:
+    container_name: octoprint
+    hostname: octoprint.{{ rpi_hostname }}
+    image: octoprint/octoprint:1.7.3
     restart: always
-    ports:
-      - "53:53/tcp"
-      - "53:53/udp"
-      - "67:67/udp"
-      - "8053:80/tcp"
-      - "443:443/tcp"
-    volumes:
-      - 'pihole/:/etc/pihole/'
-      - 'dnsmasq.d/:/etc/dnsmasq.d/'
-    cap_add:
-      - NET_ADMIN
     environment:
-      - DOCKER_HOST=docker-proxy:2375
-      - VIRTUAL_HOST={{ rpi_docker_compose_project_config.virtual_hosts.pihole }}
-      - VIRTUAL_PORT=80
-      - TZ={{ rpi_tz }}
-      - ServerIP={{ rpi_ipv4_address }}
-      {% if rpi_pihole_password is defined %}- WEBPASSWORD={{ rpi_pihole_password }}{% endif %}
+      - VIRTUAL_HOST={{ rpi_docker_compose_project_config.virtual_hosts.octoprint }}
+      - ENABLE_MJPG_STREAMER=true
+    volumes:
+      - octoprint:/octoprint
+{% if video_device.stat.exists or printer_device.stat.exists %}
+    devices:
+{% if video_device.stat.exists %}
+      - /dev/video0:/dev/video0
+{% endif %}
+{% if printer_device.stat.exists %}
+      - /dev/ttyUSB0:/dev/ttyUSB0
+{% endif %}
+{% endif %}
 
 volumes:
   netdataconfig:
   netdatalib:
   netdatacache:
-  pihole:
+  octoprint:
   dnsmasq.d:

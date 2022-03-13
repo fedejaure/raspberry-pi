@@ -15,20 +15,11 @@ platforms:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
     privileged: true
     pre_build_image: true
-  - name: ocelot
-    image: geerlingguy/docker-${MOLECULE_DISTRO:-debian10}-ansible:latest
-    command: ""
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
-    privileged: true
-    pre_build_image: true
 provisioner:
   name: ansible
   inventory:
     host_vars:
       otacon:
-        ansible_user: root
-      ocelot:
         ansible_user: root
   playbooks:
     prepare: ../prepare-docker-in-docker.yml

@@ -1,9 +1,9 @@
 ---
-- hosts: otacon
+- hosts: ocelot
   become: yes
 
   vars_files:
-    - default.config.yml
+    - ../default.ocelot.config.yml
 
   vars:
     # Python configuration.
@@ -11,7 +11,7 @@
     - pip_executable: pip3
     - docker_pip_executable: '{{ pip_executable }}'
 
-    - rpi_hostname: otacon
+    - rpi_hostname: ocelot
     - rpi_docker_compose_project: "{{ rpi_hostname }}"
     - rpi_docker_compose_project_config:
         templates:
@@ -22,7 +22,10 @@
           host: "{{ rpi_hostname }}"
           whoami: "whoami.{{ rpi_hostname }}.local"
           netdata: "netdata.{{ rpi_hostname }}.local"
-          pihole: "pihole.{{ rpi_hostname }}.local"
+          octoprint: "octoprint.{{ rpi_hostname }}.local"
+
+        nginx_conf_files:
+          - client_max_body_size.conf
 
     - rpi_virtual_hosts_aliases: "{{ rpi_docker_compose_project_config.virtual_hosts.values() | map('replace', '.local', '')  | list }}"
     - rpi_ipv4_address: "{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}"
@@ -51,16 +54,18 @@
     - name: Include config override file, if it exists
       ansible.builtin.include_vars: "{{ item }}"
       with_fileglob:
-        - config.yml
+        - ../../ocelot.config.yml
       tags: ['always']
 
-    - ansible.builtin.import_tasks: tasks/raspbian-init.yml
+    - name: Init Raspbian
+      ansible.builtin.import_tasks: tasks/raspbian-init.yml
       when:
         - ansible_os_family == 'Debian'
         - molecule_yml is not defined
       tags: ['init']
 
-    - ansible.builtin.import_tasks: tasks/init.yml
+    - name: Upgrade OS
+      ansible.builtin.import_tasks: tasks/upgrade.yml
       tags: ['init']
 
   roles:
@@ -82,17 +87,17 @@
     - role: geerlingguy.supervisor
       tags: ['supervisor', 'mdns-beacon']
 
-    - role: fedejaure.rpi_lcd
-      tags: ['lcd']
-
   handlers:
 
-    - ansible.builtin.import_tasks: handlers/main.yml
+    - name: Setup Handlers
+      ansible.builtin.import_tasks: handlers/main.yml
 
   tasks:
 
-    - ansible.builtin.import_tasks: tasks/services.yml
+    - name: Configure Services
+      ansible.builtin.import_tasks: tasks/services.yml
       tags: ['services']
 
-    - ansible.builtin.import_tasks: tasks/mdns-beacon.yml
+    - name: Configure mDNS
+      ansible.builtin.import_tasks: tasks/mdns-beacon.yml
       tags: ['mdns-beacon']
