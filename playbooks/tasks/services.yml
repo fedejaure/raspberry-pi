@@ -16,7 +16,7 @@
     state: directory
   when: rpi_docker_compose_project_config.nginx_conf_files is defined and rpi_docker_compose_project_config.nginx_conf_files|length>0
 
-- name: Copy proxy configuration files
+- name: Copy nginx conf files
   ansible.builtin.copy:
     src: "{{ rpi_docker_compose_project }}/nginx/conf.d/{{ item }}"
     dest: "{{ rpi_docker_compose_project }}/nginx/conf.d"
@@ -25,6 +25,35 @@
     mode: u=rwx,g=rx,o=x
   with_items: "{{ rpi_docker_compose_project_config.nginx_conf_files }}"
   when: rpi_docker_compose_project_config.nginx_conf_files is defined and rpi_docker_compose_project_config.nginx_conf_files|length>0
+
+- name: Ensures jump dirs exists
+  ansible.builtin.file:
+    path: "{{ rpi_docker_compose_project }}/jump/{{ item }}"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: u=rwx,g=rx,o=x
+    state: directory
+  with_items:
+    - backgrounds
+    - sites
+
+- name: Copy jump backgrounds
+  ansible.builtin.copy:
+    src: "{{ item }}"
+    dest: "{{ rpi_docker_compose_project }}/jump/backgrounds/{{ item|basename }}"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: u=rwx,g=rx,o=x
+  with_fileglob:
+    - "{{ rpi_docker_compose_project }}/jump/backgrounds/*"
+
+- name: Copy jump conf file
+  ansible.builtin.template:
+    src: "{{ rpi_docker_compose_project }}/jump/sites/sites.json.j2"
+    dest: "{{ rpi_docker_compose_project }}/jump/sites/sites.json"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: u=rwx,g=rx,o=x
 
 - name: Check if video device is available  # TODO: replace with udev
   ansible.builtin.stat:

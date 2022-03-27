@@ -19,7 +19,7 @@
             project_dest: "docker-compose.yml"
 
         virtual_hosts:
-          host: "{{ rpi_hostname }}"
+          jump: "{{ rpi_hostname }}.local"
           whoami: "whoami.{{ rpi_hostname }}.local"
           netdata: "netdata.{{ rpi_hostname }}.local"
           pihole: "pihole.{{ rpi_hostname }}.local"

@@ -25,6 +25,29 @@ services:
     environment:
       - CONTAINERS=2
 
+  jump:
+    container_name: jump
+    hostname: jump.{{ rpi_hostname }}
+    restart: always
+    image: daledavies/jump
+    expose:
+      - 8080
+    volumes:
+      - ./jump/backgrounds:/backgrounds
+      - ./jump/sites:/sites
+    environment:
+      - VIRTUAL_HOST={{ rpi_docker_compose_project_config.virtual_hosts.jump }}
+      - VIRTUAL_PORT=8080
+      - SHOWCLOCK=true
+      - AMPMCLOCK=false
+      - SITENAME={{ rpi_docker_compose_project|title }}
+{% if rpi_open_weather_map_key is defined %}
+      - OWMAPIKEY={{ rpi_open_weather_map_key }}
+{% endif %}
+{% if rpi_latlong is defined %}
+      - LATLONG={{ rpi_latlong }}
+{% endif %}
+
   whoami:
     container_name: whoami
     hostname: whoami.{{ rpi_hostname }}
