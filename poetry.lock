@@ -436,7 +436,7 @@ pycodestyle = "*"
 
 [[package]]
 name = "flake8-blind-except"
-version = "0.2.0"
+version = "0.2.1"
 description = "A flake8 extension that checks for blind except: statements"
 category = "dev"
 optional = false
@@ -1175,7 +1175,7 @@ pyyaml = "*"
 [metadata]
 lock-version = "1.1"
 python-versions = "<3.11,>=3.10"
-content-hash = "bd02a890d0fad595337fe171a421528033752cdb56770ddb4cc5c7c8fa4ef429"
+content-hash = "fdfb58f32a0e3007b37b6a22f7a5a74f4c77ae90217b46a260436c1c1ae98125"
 
 [metadata.files]
 ansible = [
@@ -1411,7 +1411,7 @@ flake8-bandit = [
     {file = "flake8_bandit-3.0.0.tar.gz", hash = "sha256:54d19427e6a8d50322a7b02e1841c0a7c22d856975f3459803320e0e18e2d6a1"},
 ]
 flake8-blind-except = [
-    {file = "flake8-blind-except-0.2.0.tar.gz", hash = "sha256:02a860a1a19cb602c006a3fe0778035b0d14d3f57929b4b798bc7d6684f204e5"},
+    {file = "flake8-blind-except-0.2.1.tar.gz", hash = "sha256:f25a575a9dcb3eeb3c760bf9c22db60b8b5a23120224ed1faa9a43f75dd7dd16"},
 ]
 flake8-bugbear = [
     {file = "flake8-bugbear-22.1.11.tar.gz", hash = "sha256:4c2a4136bd4ecb8bf02d5159af302ffc067642784c9d0488b33ce4610da825ee"},
