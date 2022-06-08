@@ -22,6 +22,7 @@ ROLES_DIR = ROOT_DIR / "roles"
 PLAYBOOKS_DIR = ROOT_DIR / "playbooks"
 ANSIBLE_TARGETS = [MOLECULE_DIR, PLAYBOOKS_DIR]
 ANSIBLE_TARGETS_STR = " ".join([str(t) for t in ANSIBLE_TARGETS])
+ANSIBLE_ROLES_PATH = f"{ROOT_DIR / '.roles'}:{ROLES_DIR}"
 
 SAFETY_IGNORE = [42923]
 
@@ -137,7 +138,11 @@ def tests(c, target="default"):
     # type: (Context, str) -> None
     """Run ansible molecule test."""
     molecule_options = ["-s", target]
-    _run(c, f"poetry run molecule test {' '.join(molecule_options)}")
+    _run(
+        c,
+        f"poetry run molecule test {' '.join(molecule_options)}",
+        env={"ANSIBLE_ROLES_PATH": ANSIBLE_ROLES_PATH},
+    )
 
 
 @task(

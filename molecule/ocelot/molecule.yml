@@ -6,7 +6,7 @@ driver:
 lint: |
   set -e
   yamllint .
-  ansible-lint
+  ansible-lint --force-color -p -v --offline
 platforms:
   - name: ocelot
     image: geerlingguy/docker-${MOLECULE_DISTRO:-debian10}-ansible:latest
@@ -21,7 +21,5 @@ provisioner:
     host_vars:
       ocelot:
         ansible_user: root
-  playbooks:
-    prepare: ../prepare-docker-in-docker.yml
 verifier:
   name: ansible
