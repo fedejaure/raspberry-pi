@@ -986,17 +986,18 @@ python-versions = ">=3.5"
 
 [[package]]
 name = "safety"
-version = "1.10.3"
-description = "Checks installed dependencies for known vulnerabilities."
+version = "2.0.0"
+description = "Checks installed dependencies for known vulnerabilities and licenses."
 category = "dev"
 optional = false
-python-versions = ">=3.5"
+python-versions = "*"
 
 [package.dependencies]
-Click = ">=6.0"
+Click = ">=8.0.2"
 dparse = ">=0.5.1"
-packaging = "*"
+packaging = ">=21.0"
 requests = "*"
+"ruamel.yaml" = ">=0.17.21"
 
 [[package]]
 name = "selinux"
@@ -1168,7 +1169,7 @@ pyyaml = "*"
 [metadata]
 lock-version = "1.1"
 python-versions = "<3.11,>=3.10"
-content-hash = "2ec0779a036eee28e619ac62b3167152a4af1adba3f906e807be8f6d57096e65"
+content-hash = "d768f36217ff3fcc7871e7d1e04d7287aee157fa1ede73b99bb40c3a9044d3e8"
 
 [metadata.files]
 ansible = []
