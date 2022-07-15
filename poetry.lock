@@ -682,7 +682,7 @@ test = ["molecule"]
 
 [[package]]
 name = "mypy"
-version = "0.960"
+version = "0.961"
 description = "Optional static typing for Python"
 category = "dev"
 optional = false
@@ -1169,7 +1169,7 @@ pyyaml = "*"
 [metadata]
 lock-version = "1.1"
 python-versions = "<3.11,>=3.10"
-content-hash = "d768f36217ff3fcc7871e7d1e04d7287aee157fa1ede73b99bb40c3a9044d3e8"
+content-hash = "2c53123d6b351f26c5090b50e57e44198cf8428258bd0f4f76f382f8174a5136"
 
 [metadata.files]
 ansible = []
