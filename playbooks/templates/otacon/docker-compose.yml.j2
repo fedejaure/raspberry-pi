@@ -5,7 +5,7 @@ services:
   nginx-proxy:
     container_name: nginx-proxy
     hostname: nginx-proxy.{{ rpi_hostname }}
-    image: nginxproxy/nginx-proxy:1.0.0
+    image: nginxproxy/nginx-proxy:1.0.1
     restart: always
     ports:
       - "80:80"
@@ -48,7 +48,7 @@ services:
   whoami:
     container_name: whoami
     hostname: whoami.{{ rpi_hostname }}
-    image: traefik/whoami:v1.8.0
+    image: traefik/whoami:v1.8.6
     restart: always
     environment:
       - VIRTUAL_HOST={{ rpi_docker_compose_project_config.virtual_hosts.whoami }}
@@ -57,7 +57,7 @@ services:
   netdata:
     container_name: netdata
     hostname: netdata.{{ rpi_hostname }}
-    image: netdata/netdata:v1.33.1
+    image: netdata/netdata:v1.36.1
     restart: always
     expose:
       - "19999"
@@ -85,7 +85,7 @@ services:
   pihole:
     container_name: pihole
     hostname: pihole.{{ rpi_hostname }}
-    image: pihole/pihole:2022.02.1
+    image: pihole/pihole:2022.09.4
     restart: always
     ports:
       - "53:53/tcp"

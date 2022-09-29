@@ -8,6 +8,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Otacon/Ocelot jump start page.
 
+### Changed
+- Otacon/Ocelot `nginxproxy/nginx-proxy` to `1.0.1`.
+- Otacon/Ocelot `traefik/whoami` to `v1.8.6`.
+- Otacon/Ocelot `netdata/netdata` to `v1.36.1`.
+- Otacon `pihole/pihole` to `2022.09.4`.
+
 ### Removed
 - molecule lint step.
 
