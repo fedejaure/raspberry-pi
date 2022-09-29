@@ -29,7 +29,7 @@ services:
     container_name: jump
     hostname: jump.{{ rpi_hostname }}
     restart: always
-    image: daledavies/jump
+    image: daledavies/jump:v1.3.0
     expose:
       - 8080
     volumes:
