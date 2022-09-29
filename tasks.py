@@ -1,5 +1,4 @@
-"""
-Tasks for maintaining the project.
+"""Tasks for maintaining the project.
 
 Execute 'invoke --list' for guidance on using Invoke
 """
@@ -22,7 +21,6 @@ ROLES_DIR = ROOT_DIR / "roles"
 PLAYBOOKS_DIR = ROOT_DIR / "playbooks"
 ANSIBLE_TARGETS = [MOLECULE_DIR, PLAYBOOKS_DIR]
 ANSIBLE_TARGETS_STR = " ".join([str(t) for t in ANSIBLE_TARGETS])
-ANSIBLE_ROLES_PATH = f"{ROOT_DIR / '.roles'}:ROLES_DIR"
 
 SAFETY_IGNORE = [42923]
 
@@ -88,7 +86,7 @@ def format_(c, check=False):
 def flake8(c):
     # type: (Context) -> None
     """Run flake8."""
-    _run(c, f"poetry run flakehell lint {PYTHON_TARGETS_STR}")
+    _run(c, f"poetry run flakeheaven lint {PYTHON_TARGETS_STR}")
 
 
 @task()
@@ -138,11 +136,7 @@ def tests(c, target="default"):
     # type: (Context, str) -> None
     """Run ansible molecule test."""
     molecule_options = ["-s", target]
-    _run(
-        c,
-        f"poetry run molecule test {' '.join(molecule_options)}",
-        env={"ANSIBLE_ROLES_PATH": ANSIBLE_ROLES_PATH},
-    )
+    _run(c, f"poetry run molecule test {' '.join(molecule_options)}")
 
 
 @task(
