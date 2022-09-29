@@ -5,8 +5,22 @@
     },
     "sites": [
         {
-            "name": "Whoami",
-            "url" : "http://{{ rpi_docker_compose_project_config.virtual_hosts.whoami }}"
+            "name": "whoami",
+            "url" : "http://{{ rpi_docker_compose_project_config.virtual_hosts.whoami }}",
+            "description": "OS information about who I am",
+            "tags": ["all", "system"]
+        },
+        {
+            "name": "netdata",
+            "url" : "http://{{ rpi_docker_compose_project_config.virtual_hosts.netdata }}",
+            "description": "Real-time performance monitoring",
+            "tags": ["all", "system"]
+        },
+        {
+            "name": "octoprint",
+            "url" : "http://{{ rpi_docker_compose_project_config.virtual_hosts.octoprint }}",
+            "description": "OctoPrint is the snappy web interface for your 3D printer!",
+            "tags": ["all", "home"]
         }
     ]
 }
