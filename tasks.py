@@ -110,11 +110,13 @@ def yamllint(c):
     _run(c, f"poetry run yamllint -c {ROOT_DIR / '.yamllint'} {ROOT_DIR}")
 
 
-@task()
-def ansible_lint(c):
-    # type: (Context) -> None
+@task(help={"fix": "Allow ansible-lint to reformat YAML files and run rule transforms"})
+def ansible_lint(c, fix=False):
+    # type: (Context, bool) -> None
     """Run ansible linter."""
     lint_options = ["--force-color", "-p", "-v", "--project-dir", str(ROOT_DIR)]
+    if fix:
+        lint_options.append("--write")
     _run(c, f"poetry run ansible-lint {' '.join(lint_options)} {ANSIBLE_TARGETS_STR}")
 
 
