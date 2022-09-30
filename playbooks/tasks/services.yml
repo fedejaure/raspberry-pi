@@ -1,5 +1,5 @@
 ---
-- name: "Ensures {{ rpi_docker_compose_project }} dir exists"
+- name: Ensures {{ rpi_docker_compose_project }} dir exists
   ansible.builtin.file:
     path: "{{ rpi_docker_compose_project }}"
     owner: "{{ ansible_user }}"
@@ -77,7 +77,7 @@
     group: "{{ ansible_user }}"
     mode: u=rwx,g=rx,o=x
 
-- name: Check if video device is available  # TODO: replace with udev
+- name: Check if video device is available # TODO: replace with udev
   ansible.builtin.stat:
     path: /dev/video0
   register: video_device
@@ -100,9 +100,9 @@
 - name: Create and start services
   community.docker.docker_compose:
     project_src: "{{ rpi_docker_compose_project }}"
-    build: yes
-    remove_orphans: yes
-    restarted: yes
+    build: true
+    remove_orphans: true
+    restarted: true
   when: services.changed # noqa 503
   notify:
     - prune services is required

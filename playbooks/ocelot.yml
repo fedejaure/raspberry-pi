@@ -1,7 +1,7 @@
 ---
 - name: Ocelot playbook
   hosts: ocelot
-  become: yes
+  become: true
 
   vars_files:
     - ../default.ocelot.config.yml
@@ -10,20 +10,20 @@
     # Python configuration.
     - pip_package: python3-pip
     - pip_executable: pip3
-    - docker_pip_executable: '{{ pip_executable }}'
+    - docker_pip_executable: "{{ pip_executable }}"
 
     - rpi_hostname: ocelot
     - rpi_docker_compose_project: "{{ rpi_hostname }}"
     - rpi_docker_compose_project_config:
         templates:
           - src: "{{ rpi_docker_compose_project }}/docker-compose.yml.j2"
-            project_dest: "docker-compose.yml"
+            project_dest: docker-compose.yml
 
         virtual_hosts:
           jump: "{{ rpi_hostname }}.local"
-          whoami: "whoami.{{ rpi_hostname }}.local"
-          netdata: "netdata.{{ rpi_hostname }}.local"
-          octoprint: "octoprint.{{ rpi_hostname }}.local"
+          whoami: whoami.{{ rpi_hostname }}.local
+          netdata: netdata.{{ rpi_hostname }}.local
+          octoprint: octoprint.{{ rpi_hostname }}.local
 
         nginx_conf_files:
           - client_max_body_size.conf
@@ -34,71 +34,62 @@
     - mdns_beacon_version: 0.6.1
 
     - supervisor_programs:
-      - name: 'mdns-beacon'
-        command: "mdns-beacon blink {{ rpi_virtual_hosts_aliases | join(' --alias ') }} --address {{ rpi_ipv4_address }} --type http --protocol tcp --delay-startup 180"
-        state: present
-        configuration: |
-          numprocs=1
-          autostart=true
-          autorestart=true
-          startsecs=240
-          startretries=3
-          redirect_stderr=true
-          stderr_logfile=/var/log/mdns-beacon-err.log
-          stdout_logfile=/var/log/mdns-beacon-out.log
-          stopsignal=INT
-          user=root
-          killasgroup=true
-          stopasgroup=true
+        - name: mdns-beacon
+          command: |
+            mdns-beacon blink {{ rpi_virtual_hosts_aliases | join(' --alias ') }} --address {{ rpi_ipv4_address }} --type http --protocol tcp --delay-startup 180
+          state: present
+          configuration: |
+            numprocs=1
+            autostart=true
+            autorestart=true
+            startsecs=240
+            startretries=3
+            redirect_stderr=true
+            stderr_logfile=/var/log/mdns-beacon-err.log
+            stdout_logfile=/var/log/mdns-beacon-out.log
+            stopsignal=INT
+            user=root
+            killasgroup=true
+            stopasgroup=true
 
   pre_tasks:
     - name: Include config override file, if it exists
       ansible.builtin.include_vars: "{{ item }}"
       with_fileglob:
         - ../../ocelot.config.yml
-      tags: ['always']
-
+      tags: [always]
     - name: Init Raspbian
       ansible.builtin.import_tasks: tasks/raspbian-init.yml
       when:
         - ansible_os_family == 'Debian'
         - molecule_yml is not defined
-      tags: ['init']
-
+      tags: [init]
     - name: Upgrade OS
       ansible.builtin.import_tasks: tasks/upgrade.yml
-      tags: ['init']
+      tags: [init]
 
   roles:
     - role: geerlingguy.security
-      tags: ['security', 'ssh']
-
+      tags: [security, ssh]
     - role: geerlingguy.firewall
-      tags: ['security', 'firewall']
-
+      tags: [security, firewall]
     - role: geerlingguy.git
-      tags: ['git']
-
+      tags: [git]
     - role: geerlingguy.pip
-      tags: ['pip']
-
+      tags: [pip]
     - role: geerlingguy.docker_arm
-      tags: ['docker']
-
+      tags: [docker]
     - role: geerlingguy.supervisor
-      tags: ['supervisor', 'mdns-beacon']
+      tags: [supervisor, mdns-beacon]
 
   handlers:
-
     - name: Setup Handlers
       ansible.builtin.import_tasks: handlers/main.yml
 
   tasks:
-
     - name: Configure Services
       ansible.builtin.import_tasks: tasks/services.yml
-      tags: ['services']
-
+      tags: [services]
     - name: Configure mDNS
       ansible.builtin.import_tasks: tasks/mdns-beacon.yml
-      tags: ['mdns-beacon']
+      tags: [mdns-beacon]
