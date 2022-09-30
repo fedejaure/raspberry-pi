@@ -7,7 +7,6 @@
     - ../default.otacon.config.yml
 
   vars:
-    # Python configuration.
     - pip_package: python3-pip
     - pip_executable: pip3
     - docker_pip_executable: "{{ pip_executable }}"
@@ -25,7 +24,7 @@
           netdata: netdata.{{ rpi_hostname }}.local
           pihole: pihole.{{ rpi_hostname }}.local
 
-    - rpi_virtual_hosts_aliases: "{{ rpi_docker_compose_project_config.virtual_hosts.values() | map('replace', '.local', '')  | list }}"
+    - rpi_virtual_hosts_aliases: "{{ rpi_docker_compose_project_config.virtual_hosts.values() | map('replace', '.local', '') | list }}"
     - rpi_ipv4_address: "{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}"
 
     - mdns_beacon_version: 0.6.1
@@ -79,7 +78,7 @@
     - role: geerlingguy.supervisor
       tags: [supervisor, mdns-beacon]
     - role: fedejaure.rpi_lcd
-      when: enable_lcd|bool
+      when: enable_lcd | bool
       tags: [lcd]
 
   handlers:

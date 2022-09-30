@@ -7,7 +7,6 @@
     - ../default.ocelot.config.yml
 
   vars:
-    # Python configuration.
     - pip_package: python3-pip
     - pip_executable: pip3
     - docker_pip_executable: "{{ pip_executable }}"
@@ -28,7 +27,7 @@
         nginx_conf_files:
           - client_max_body_size.conf
 
-    - rpi_virtual_hosts_aliases: "{{ rpi_docker_compose_project_config.virtual_hosts.values() | map('replace', '.local', '')  | list }}"
+    - rpi_virtual_hosts_aliases: "{{ rpi_docker_compose_project_config.virtual_hosts.values() | map('replace', '.local', '') | list }}"
     - rpi_ipv4_address: "{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}"
 
     - mdns_beacon_version: 0.6.1

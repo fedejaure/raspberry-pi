@@ -14,7 +14,7 @@
     group: "{{ ansible_user }}"
     mode: u=rwx,g=rx,o=x
     state: directory
-  when: rpi_docker_compose_project_config.nginx_conf_files is defined and rpi_docker_compose_project_config.nginx_conf_files|length>0
+  when: rpi_docker_compose_project_config.nginx_conf_files is defined and rpi_docker_compose_project_config.nginx_conf_files | length > 0
 
 - name: Copy nginx conf files
   ansible.builtin.copy:
@@ -24,7 +24,7 @@
     group: "{{ ansible_user }}"
     mode: u=rwx,g=rx,o=x
   with_items: "{{ rpi_docker_compose_project_config.nginx_conf_files }}"
-  when: rpi_docker_compose_project_config.nginx_conf_files is defined and rpi_docker_compose_project_config.nginx_conf_files|length>0
+  when: rpi_docker_compose_project_config.nginx_conf_files is defined and rpi_docker_compose_project_config.nginx_conf_files | length > 0
 
 - name: Ensures jump dirs exists
   ansible.builtin.file:
@@ -42,7 +42,7 @@
 - name: Copy jump backgrounds
   ansible.builtin.copy:
     src: "{{ item }}"
-    dest: "{{ rpi_docker_compose_project }}/jump/backgrounds/{{ item|basename }}"
+    dest: "{{ rpi_docker_compose_project }}/jump/backgrounds/{{ item | basename }}"
     owner: "{{ ansible_user }}"
     group: "{{ ansible_user }}"
     mode: u=rwx,g=rx,o=x
@@ -52,7 +52,7 @@
 - name: Copy jump favicons
   ansible.builtin.copy:
     src: "{{ item }}"
-    dest: "{{ rpi_docker_compose_project }}/jump/favicon/{{ item|basename }}"
+    dest: "{{ rpi_docker_compose_project }}/jump/favicon/{{ item | basename }}"
     owner: "{{ ansible_user }}"
     group: "{{ ansible_user }}"
     mode: u=rwx,g=rx,o=x
@@ -62,7 +62,7 @@
 - name: Copy jump icons
   ansible.builtin.copy:
     src: "{{ item }}"
-    dest: "{{ rpi_docker_compose_project }}/jump/sites/icons/{{ item|basename }}"
+    dest: "{{ rpi_docker_compose_project }}/jump/sites/icons/{{ item | basename }}"
     owner: "{{ ansible_user }}"
     group: "{{ ansible_user }}"
     mode: u=rwx,g=rx,o=x
