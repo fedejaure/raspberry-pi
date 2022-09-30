@@ -37,6 +37,7 @@
     - backgrounds
     - favicon
     - sites
+    - sites/icons
 
 - name: Copy jump backgrounds
   ansible.builtin.copy:
@@ -57,6 +58,16 @@
     mode: u=rwx,g=rx,o=x
   with_fileglob:
     - "{{ rpi_docker_compose_project }}/jump/favicon/*"
+
+- name: Copy jump icons
+  ansible.builtin.copy:
+    src: "{{ item }}"
+    dest: "{{ rpi_docker_compose_project }}/jump/sites/icons/{{ item|basename }}"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: u=rwx,g=rx,o=x
+  with_fileglob:
+    - "{{ rpi_docker_compose_project }}/jump/sites/icons/*"
 
 - name: Copy jump conf file
   ansible.builtin.template:
