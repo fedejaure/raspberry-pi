@@ -1,3 +1,5 @@
 ---
-- ansible.builtin.import_playbook: otacon.yml
-- ansible.builtin.import_playbook: ocelot.yml
+- name: Import otacon playbook
+  ansible.builtin.import_playbook: otacon.yml
+- name: Import ocelot playbook
+  ansible.builtin.import_playbook: ocelot.yml

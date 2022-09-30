@@ -1,5 +1,6 @@
 ---
-- hosts: ocelot
+- name: Ocelot playbook
+  hosts: ocelot
   become: yes
 
   vars_files:
