@@ -10,6 +10,7 @@ rpi_swap_config:
   # CONF_SWAPFILE: /var/swap
   # CONF_SWAPFACTOR: 2
   # CONF_MAXSWAP: 2048
+rpi_latlong: 51.9812,5.6584
 
 # Security configuration.
 security_sudoers_passwordless: ['pi']

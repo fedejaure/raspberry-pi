@@ -15,4 +15,4 @@
             "storage-driver": "vfs"
           }
         dest: /etc/docker/daemon.json
-        mode: '600'
+        mode: "600"

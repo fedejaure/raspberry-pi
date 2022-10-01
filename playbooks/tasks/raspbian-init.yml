@@ -32,11 +32,11 @@
     current_layout: "{{ locale_status.stdout | regex_search('X11 Layout: ([^\n]+)', '\\1') | first }}"
 
 - name: Set locale
-  ansible.builtin.command: "raspi-config nonint do_change_locale {{ rpi_locale }}"
+  ansible.builtin.command: raspi-config nonint do_change_locale {{ rpi_locale }}
   when: current_locale != rpi_locale
 
 - name: Set keyboard layout
-  ansible.builtin.command: "raspi-config nonint do_configure_keyboard {{ rpi_layout }}"
+  ansible.builtin.command: raspi-config nonint do_configure_keyboard {{ rpi_layout }}
   when: current_layout != rpi_layout
 
 - name: Get current wifi country
@@ -45,20 +45,20 @@
   changed_when: false
 
 - name: Set wifi country
-  ansible.builtin.command: "raspi-config nonint do_wifi_country {{ rpi_wifi_country }}"
+  ansible.builtin.command: raspi-config nonint do_wifi_country {{ rpi_wifi_country }}
   when: current_wifi_country.stdout != rpi_wifi_country
 
 - name: Set the hostname
-  become: yes
+  become: true
   ansible.builtin.command: hostnamectl set-hostname "{{ rpi_hostname }}"
   changed_when: false
 
 - name: Update /etc/hosts with new hostname
-  become: yes
+  become: true
   ansible.builtin.lineinfile:
     dest: /etc/hosts
-    regexp: "^127.0.1.1  raspberrypi$"
-    line: "127.0.1.1  {{ rpi_hostname }}"
+    regexp: ^127.0.1.1  raspberrypi$
+    line: 127.0.1.1  {{ rpi_hostname }}
     state: present
 
 - name: Configure swap file
