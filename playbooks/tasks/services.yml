@@ -1,5 +1,5 @@
 ---
-- name: Ensures {{ rpi_docker_compose_project }} dir exists
+- name: Ensures docker compose project dir exists
   ansible.builtin.file:
     path: "{{ rpi_docker_compose_project }}"
     owner: "{{ ansible_user }}"
