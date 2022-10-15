@@ -52,7 +52,7 @@ services:
   whoami:
     container_name: whoami
     hostname: whoami.{{ rpi_hostname }}
-    image: traefik/whoami:v1.8.6
+    image: traefik/whoami:v1.8.7
     restart: always
     environment:
       - VIRTUAL_HOST={{ rpi_docker_compose_project_config.virtual_hosts.whoami }}
