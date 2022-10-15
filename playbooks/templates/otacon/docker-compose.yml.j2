@@ -5,7 +5,7 @@ services:
   nginx-proxy:
     container_name: nginx-proxy
     hostname: nginx-proxy.{{ rpi_hostname }}
-    image: nginxproxy/nginx-proxy:1.0.0
+    image: nginxproxy/nginx-proxy:1.0.1
     restart: always
     ports:
       - "80:80"
@@ -22,10 +22,34 @@ services:
     environment:
       - CONTAINERS=2
 
+  jump:
+    container_name: jump
+    hostname: jump.{{ rpi_hostname }}
+    restart: always
+    image: daledavies/jump:v1.3.0
+    expose:
+      - 8080
+    volumes:
+      - ./jump/backgrounds:/backgrounds
+      - ./jump/favicon:/favicon
+      - ./jump/sites:/sites
+    environment:
+      - VIRTUAL_HOST={{ rpi_docker_compose_project_config.virtual_hosts.jump }}
+      - VIRTUAL_PORT=8080
+      - SHOWCLOCK=true
+      - AMPMCLOCK=false
+      - SITENAME={{ rpi_docker_compose_project|title }}
+{% if rpi_open_weather_map_key is defined %}
+      - OWMAPIKEY={{ rpi_open_weather_map_key }}
+{% endif %}
+{% if rpi_latlong is defined %}
+      - LATLONG={{ rpi_latlong }}
+{% endif %}
+
   whoami:
     container_name: whoami
     hostname: whoami.{{ rpi_hostname }}
-    image: traefik/whoami:v1.8.0
+    image: traefik/whoami:v1.8.7
     restart: always
     environment:
       - VIRTUAL_HOST={{ rpi_docker_compose_project_config.virtual_hosts.whoami }}
@@ -34,7 +58,7 @@ services:
   netdata:
     container_name: netdata
     hostname: netdata.{{ rpi_hostname }}
-    image: netdata/netdata:v1.33.1
+    image: netdata/netdata:v1.36.1
     restart: always
     expose:
       - "19999"
@@ -62,7 +86,7 @@ services:
   pihole:
     container_name: pihole
     hostname: pihole.{{ rpi_hostname }}
-    image: pihole/pihole:2022.02.1
+    image: pihole/pihole:2022.10
     restart: always
     ports:
       - "53:53/tcp"

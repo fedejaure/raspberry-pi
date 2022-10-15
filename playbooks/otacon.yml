@@ -1,37 +1,38 @@
 ---
-- hosts: otacon
-  become: yes
+- name: Otacon playbook
+  hosts: otacon
+  become: true
 
   vars_files:
     - ../default.otacon.config.yml
 
   vars:
-    # Python configuration.
-    - pip_package: python3-pip
-    - pip_executable: pip3
-    - docker_pip_executable: '{{ pip_executable }}'
+    pip_package: python3-pip
+    pip_executable: pip3
+    docker_pip_executable: "{{ pip_executable }}"
 
-    - rpi_hostname: otacon
-    - rpi_docker_compose_project: "{{ rpi_hostname }}"
-    - rpi_docker_compose_project_config:
-        templates:
-          - src: "{{ rpi_docker_compose_project }}/docker-compose.yml.j2"
-            project_dest: "docker-compose.yml"
+    rpi_hostname: otacon
+    rpi_docker_compose_project: "{{ rpi_hostname }}"
+    rpi_docker_compose_project_config:
+      templates:
+        - src: "{{ rpi_docker_compose_project }}/docker-compose.yml.j2"
+          project_dest: docker-compose.yml
 
-        virtual_hosts:
-          host: "{{ rpi_hostname }}"
-          whoami: "whoami.{{ rpi_hostname }}.local"
-          netdata: "netdata.{{ rpi_hostname }}.local"
-          pihole: "pihole.{{ rpi_hostname }}.local"
+      virtual_hosts:
+        jump: "{{ rpi_hostname }}.local"
+        whoami: whoami.{{ rpi_hostname }}.local
+        netdata: netdata.{{ rpi_hostname }}.local
+        pihole: pihole.{{ rpi_hostname }}.local
 
-    - rpi_virtual_hosts_aliases: "{{ rpi_docker_compose_project_config.virtual_hosts.values() | map('replace', '.local', '')  | list }}"
-    - rpi_ipv4_address: "{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}"
+    rpi_virtual_hosts_aliases: "{{ rpi_docker_compose_project_config.virtual_hosts.values() | map('replace', '.local', '') | list }}"
+    rpi_ipv4_address: "{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}"
 
-    - mdns_beacon_version: 0.6.1
+    mdns_beacon_version: 0.6.1
 
-    - supervisor_programs:
-      - name: 'mdns-beacon'
-        command: "mdns-beacon blink {{ rpi_virtual_hosts_aliases | join(' --alias ') }} --address {{ rpi_ipv4_address }} --type http --protocol tcp --delay-startup 180"
+    supervisor_programs:
+      - name: mdns-beacon
+        command: |
+          mdns-beacon blink {{ rpi_virtual_hosts_aliases | join(' --alias ') }} --address {{ rpi_ipv4_address }} --type http --protocol tcp --delay-startup 180
         state: present
         configuration: |
           numprocs=1
@@ -52,53 +53,42 @@
       ansible.builtin.include_vars: "{{ item }}"
       with_fileglob:
         - ../../otacon.config.yml
-      tags: ['always']
-
+      tags: [always]
     - name: Init Raspbian
       ansible.builtin.import_tasks: tasks/raspbian-init.yml
       when:
         - ansible_os_family == 'Debian'
         - molecule_yml is not defined
-      tags: ['init']
-
+      tags: [init]
     - name: Upgrade OS
       ansible.builtin.import_tasks: tasks/upgrade.yml
-      tags: ['init']
+      tags: [init]
 
   roles:
     - role: geerlingguy.security
-      tags: ['security', 'ssh']
-
+      tags: [security, ssh]
     - role: geerlingguy.firewall
-      tags: ['security', 'firewall']
-
+      tags: [security, firewall]
     - role: geerlingguy.git
-      tags: ['git']
-
+      tags: [git]
     - role: geerlingguy.pip
-      tags: ['pip']
-
+      tags: [pip]
     - role: geerlingguy.docker_arm
-      tags: ['docker']
-
+      tags: [docker]
     - role: geerlingguy.supervisor
-      tags: ['supervisor', 'mdns-beacon']
-
+      tags: [supervisor, mdns-beacon]
     - role: fedejaure.rpi_lcd
-      when: enable_lcd|bool
-      tags: ['lcd']
+      when: enable_lcd | bool
+      tags: [lcd]
 
   handlers:
-
     - name: Setup Handlers
       ansible.builtin.import_tasks: handlers/main.yml
 
   tasks:
-
     - name: Configure Services
       ansible.builtin.import_tasks: tasks/services.yml
-      tags: ['services']
-
+      tags: [services]
     - name: Configure mDNS
       ansible.builtin.import_tasks: tasks/mdns-beacon.yml
-      tags: ['mdns-beacon']
+      tags: [mdns-beacon]

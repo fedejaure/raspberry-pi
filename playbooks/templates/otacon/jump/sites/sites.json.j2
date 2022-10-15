@@ -1,0 +1,29 @@
+{
+    "default": {
+        "nofollow": true,
+        "newtab": true
+    },
+    "sites": [
+        {
+            "name": "whoami",
+            "url" : "http://{{ rpi_docker_compose_project_config.virtual_hosts.whoami }}",
+            "icon": "whoami.png",
+            "description": "OS information about who I am",
+            "tags": ["all", "system"]
+        },
+        {
+            "name": "netdata",
+            "url" : "http://{{ rpi_docker_compose_project_config.virtual_hosts.netdata }}",
+            "icon": "netdata.webp",
+            "description": "Real-time performance monitoring",
+            "tags": ["all", "system"]
+        },
+        {
+            "name": "pihole",
+            "url" : "http://{{ rpi_docker_compose_project_config.virtual_hosts.pihole }}",
+            "icon": "pihole.png",
+            "description": "A black hole for Internet advertisements",
+            "tags": ["all", "home"]
+        }
+    ]
+}

@@ -1,13 +1,22 @@
 ---
 roles:
-  - geerlingguy.security
-  - geerlingguy.firewall
-  - geerlingguy.git
-  - geerlingguy.pip
-  - geerlingguy.supervisor
-  - geerlingguy.docker_arm
-  - fedejaure.rpi_lcd
+  - name: geerlingguy.security
+    version: 2.2.0
+  - name: geerlingguy.firewall
+    version: 2.5.0
+  - name: geerlingguy.git
+    version: 3.0.0
+  - name: geerlingguy.pip
+    version: 2.2.0
+  - name: geerlingguy.supervisor
+    version: 3.1.0
+  - name: geerlingguy.docker_arm
+    version: 5.0.0
+  - name: fedejaure.rpi_lcd
+    version: 0.1.9
 
 collections:
-  - community.docker
-  - community.general
+  - name: community.docker
+    version: 2.7.1
+  - name: community.general
+    version: 5.6.0

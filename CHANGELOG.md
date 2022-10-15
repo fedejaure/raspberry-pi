@@ -6,6 +6,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.0] - 2022-10-15
+### Added
+- Otacon/Ocelot jump start page.
+
+### Changed
+- Otacon/Ocelot `nginxproxy/nginx-proxy` to `1.0.1`.
+- Otacon/Ocelot `traefik/whoami` to `v1.8.7`.
+- Otacon/Ocelot `netdata/netdata` to `v1.36.1`.
+- Otacon `pihole/pihole` to `2022.10`.
+- Ocelot `octoprint/octoprint` to `1.8.4`.
+
+### Removed
+- molecule lint step.
+
 ## [0.4.0] - 2022-03-13
 ### Added
 - Ocelot.
@@ -54,7 +68,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - First `otacon` release.
 
-[Unreleased]: https://github.com/fedejaure/raspberry-pi/compare/v0.4.0...develop
+[Unreleased]: https://github.com/fedejaure/raspberry-pi/compare/v0.5.0...develop
+[0.5.0]: https://github.com/fedejaure/raspberry-pi/compare/v0.4.0...v0.5.0
 [0.4.0]: https://github.com/fedejaure/raspberry-pi/compare/v0.3.0...v0.4.0
 [0.3.0]: https://github.com/fedejaure/raspberry-pi/compare/v0.2.1...v0.3.0
 [0.2.1]: https://github.com/fedejaure/raspberry-pi/compare/v0.2.0...v0.2.1

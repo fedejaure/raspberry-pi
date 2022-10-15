@@ -23,6 +23,8 @@ Fleet Members ([Metal Gear Characters][metal-gear-characters])
     > Pi-hole DNS sinkhole instance.
     
     - services:
+
+        + [jump][jump]: Simple startpage. [otacon.local](http://otacon.local)
         
         + [pihole][pihole]: The Pi-hole DNS sinkhole instance. Available at [pihole.otacon.local](http://pihole.otacon.local)
         
@@ -46,11 +48,17 @@ Fleet Members ([Metal Gear Characters][metal-gear-characters])
 
         + `rpi_swap_config`: Raspberry Pi swap config. (Default: `CONF_SWAPSIZE: 100`)
 
+        + `rpi_open_weather_map_key`: An API key for Open Weather Map, LATLONG (below) must also be defined.
+
+        + `rpi_latlong`: A latitude and longitude for the default location. (Default: `51.9812,5.6584`)
+
 * Ocelot ([Revolver Ocelot][ocelot])
 
     > OctoPrint an snappy web interface for my 3D printer.
 
     - services:
+
+        + [jump][jump]: Simple startpage. [ocelot.local](http://ocelot.local)
 
         + [octoprint][octoprint]: The snappy web interface for your 3D printer! [octoprint.ocelot.local](http://octoprint.ocelot.local)
 
@@ -71,6 +79,10 @@ Fleet Members ([Metal Gear Characters][metal-gear-characters])
         + `rpi_wifi_country`: Raspberry Pi Wifi Country config. (Default: `NL`)
 
         + `rpi_swap_config`: Raspberry Pi swap config. (Default: `CONF_SWAPSIZE: 100`)
+
+        + `rpi_open_weather_map_key`: An API key for Open Weather Map, LATLONG (below) must also be defined.
+
+        + `rpi_latlong`: A latitude and longitude for the default location. (Default: `51.9812,5.6584`)
 
 * more coming ...
 
@@ -201,3 +213,4 @@ This playbook was created in 2020 by [Federico Jaureguialzo][fedejaure].
 [netdata]: https://www.netdata.cloud/
 [ocelot]: https://en.wikipedia.org/wiki/Revolver_Ocelot
 [octoprint]: https://octoprint.org/
+[jump]: https://github.com/daledavies/jump
