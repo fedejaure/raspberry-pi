@@ -86,7 +86,7 @@ services:
   pihole:
     container_name: pihole
     hostname: pihole.{{ rpi_hostname }}
-    image: pihole/pihole:2022.09.4
+    image: pihole/pihole:2022.10
     restart: always
     ports:
       - "53:53/tcp"
