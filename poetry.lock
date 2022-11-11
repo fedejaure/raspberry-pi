@@ -11,7 +11,7 @@ ansible-core = ">=2.13.6,<2.14.0"
 
 [[package]]
 name = "ansible-compat"
-version = "2.2.1"
+version = "2.2.4"
 description = "Ansible compatibility goodies"
 category = "dev"
 optional = false
@@ -19,12 +19,13 @@ python-versions = ">=3.8"
 
 [package.dependencies]
 jsonschema = ">=4.6.0"
+packaging = "*"
 PyYAML = "*"
 subprocess-tee = ">=0.3.5"
 
 [package.extras]
-docs = ["myst-parser", "sphinx (>=4.2.0,<5.0)", "sphinx-ansible-theme", "sphinx-autobuild (>=0.7.1,<1.0)"]
-test = ["coverage", "flaky", "pip-tools", "pytest", "pytest-markdown", "pytest-mock", "pytest-plus"]
+docs = ["myst-parser", "sphinx (>=5.3.0)", "sphinx-ansible-theme", "sphinx-autobuild (>=2021.3.14)"]
+test = ["coverage", "flaky", "pip-tools", "pytest (>=7.2.0)", "pytest-mock", "pytest-plus"]
 
 [[package]]
 name = "ansible-core"
@@ -43,17 +44,16 @@ resolvelib = ">=0.5.3,<0.9.0"
 
 [[package]]
 name = "ansible-lint"
-version = "6.7.0"
+version = "6.8.6"
 description = "Checks playbooks for practices and behavior that could potentially be improved"
 category = "dev"
 optional = false
 python-versions = ">=3.8"
 
 [package.dependencies]
-ansible-compat = ">=2.2.1"
+ansible-compat = ">=2.2.4"
 ansible-core = ">=2.12.0"
 black = ">=22.1.0"
-enrich = ">=1.2.6"
 filelock = "*"
 jsonschema = ">=4.9.0"
 packaging = "*"
@@ -65,7 +65,7 @@ yamllint = ">=1.25.0"
 
 [package.extras]
 docs = ["myst-parser (>=0.16.1)", "pipdeptree (>=2.2.1)", "sphinx (>=4.4.0)", "sphinx-ansible-theme (>=0.9.1)", "sphinx-rtd-theme (>=1.0.0,<2.0.0)", "sphinxcontrib-apidoc (>=0.3.0)", "sphinxcontrib-programoutput2 (>=2.0a1)", "yamllint (>=1.26.3)"]
-test = ["black", "coverage-enable-subprocess", "coverage[toml] (>=6.4.4)", "flake8", "flake8-future-annotations", "flaky (>=3.7.0)", "mypy", "psutil", "pylint", "pytest (>=6.0.1)", "pytest-plus (>=0.2)", "pytest-xdist (>=2.1.0)"]
+test = ["black", "coverage-enable-subprocess", "coverage[toml] (>=6.4.4)", "flake8", "flake8-future-annotations", "flaky (>=3.7.0)", "mypy", "psutil", "pylint", "pytest (>=7.2.0)", "pytest-mock", "pytest-plus (>=0.2)", "pytest-xdist (>=2.1.0)"]
 
 [[package]]
 name = "arrow"
@@ -1229,7 +1229,7 @@ setuptools = "*"
 [metadata]
 lock-version = "1.1"
 python-versions = "<3.11,>=3.10"
-content-hash = "fa6f80358a73c8016c5233d21e56969b53f8d871666d3c317736d41f28afe0d5"
+content-hash = "b2dd8b7a6bcd7d8b98c7de9b2008472005f860af9d620e87e6c0e6d734ca7888"
 
 [metadata.files]
 ansible = [
@@ -1237,16 +1237,16 @@ ansible = [
     {file = "ansible-6.6.0.tar.gz", hash = "sha256:e1b940a8d4f412123ede3c14b25cb99c3c8a4d535fd040aabf8e4fb7b0e4f092"},
 ]
 ansible-compat = [
-    {file = "ansible-compat-2.2.1.tar.gz", hash = "sha256:7a012753a0a02dab2f22b0e574e3e7b00399f660606154474ffe25621fa80d3b"},
-    {file = "ansible_compat-2.2.1-py3-none-any.whl", hash = "sha256:8857b317bf36a00dbb0b06640d19b68bb64f667bf2a5355189f3c5961f4b1c10"},
+    {file = "ansible-compat-2.2.4.tar.gz", hash = "sha256:6a2c3ade5005530cdfdd8e961c784b1718f17ad480a1be5a8014bff89c9c9c2e"},
+    {file = "ansible_compat-2.2.4-py3-none-any.whl", hash = "sha256:5589582a165a44a7ab012dabd91a28a897e63daf96ffea655b7e9db38517b648"},
 ]
 ansible-core = [
     {file = "ansible-core-2.13.6.tar.gz", hash = "sha256:31fe322b63290674a8f7386110df501f0044aa44890be3ab313a6e225b9a29cf"},
     {file = "ansible_core-2.13.6-py3-none-any.whl", hash = "sha256:e31fd550a5ea9423f1fc1391de6b41bb0d264a83bbfc9c7edfef0f78b7624fd3"},
 ]
 ansible-lint = [
-    {file = "ansible-lint-6.7.0.tar.gz", hash = "sha256:a111295152d2de812857cac6bb2c6b003315826d9cae1410a4f10e3eeb255b09"},
-    {file = "ansible_lint-6.7.0-py3-none-any.whl", hash = "sha256:62a579b50e6d40198cdfb7ba5c629e4f0e21d4719f844325b09b6789e9a91067"},
+    {file = "ansible-lint-6.8.6.tar.gz", hash = "sha256:171fe8dad62078b9819b5c74d60eb5afaa30ea9cb9c9ba8706149e56c55a9b6e"},
+    {file = "ansible_lint-6.8.6-py3-none-any.whl", hash = "sha256:bac923e2fa805973838390565e2ddd792ca4ffd33d66f21ab629dd6a84407d67"},
 ]
 arrow = [
     {file = "arrow-1.2.2-py3-none-any.whl", hash = "sha256:d622c46ca681b5b3e3574fcb60a04e5cc81b9625112d5fb2b44220c36c892177"},
