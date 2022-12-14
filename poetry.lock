@@ -11,7 +11,7 @@ ansible-core = ">=2.13.6,<2.14.0"
 
 [[package]]
 name = "ansible-compat"
-version = "2.2.4"
+version = "2.2.7"
 description = "Ansible compatibility goodies"
 category = "dev"
 optional = false
@@ -25,7 +25,7 @@ subprocess-tee = ">=0.3.5"
 
 [package.extras]
 docs = ["myst-parser", "sphinx (>=5.3.0)", "sphinx-ansible-theme", "sphinx-autobuild (>=2021.3.14)"]
-test = ["coverage", "flaky", "pip-tools", "pytest (>=7.2.0)", "pytest-mock", "pytest-plus"]
+test = ["coverage", "pip-tools", "pytest (>=7.2.0)", "pytest-mock", "pytest-plus"]
 
 [[package]]
 name = "ansible-core"
@@ -44,27 +44,27 @@ resolvelib = ">=0.5.3,<0.9.0"
 
 [[package]]
 name = "ansible-lint"
-version = "6.8.6"
+version = "6.8.7"
 description = "Checks playbooks for practices and behavior that could potentially be improved"
 category = "dev"
 optional = false
 python-versions = ">=3.8"
 
 [package.dependencies]
-ansible-compat = ">=2.2.4"
-ansible-core = ">=2.12.0"
+ansible-compat = ">=2.2.5"
+ansible-core = {version = ">=2.12.0", markers = "python_version >= \"3.9\""}
 black = ">=22.1.0"
 filelock = "*"
-jsonschema = ">=4.9.0"
+jsonschema = ">=4.17.0"
 packaging = "*"
-pyyaml = "*"
-rich = ">=9.5.1"
-"ruamel.yaml" = ">=0.15.34,<0.18"
-wcmatch = ">=7.0"
-yamllint = ">=1.25.0"
+pyyaml = ">=5.4.1"
+rich = ">=12.6.0"
+"ruamel.yaml" = ">=0.17.21,<0.18"
+wcmatch = ">=8.4.1"
+yamllint = ">=1.28.0"
 
 [package.extras]
-docs = ["myst-parser (>=0.16.1)", "pipdeptree (>=2.2.1)", "sphinx (>=4.4.0)", "sphinx-ansible-theme (>=0.9.1)", "sphinx-rtd-theme (>=1.0.0,<2.0.0)", "sphinxcontrib-apidoc (>=0.3.0)", "sphinxcontrib-programoutput2 (>=2.0a1)", "yamllint (>=1.26.3)"]
+docs = ["myst-parser (>=0.16.1)", "pipdeptree (>=2.2.1)", "sphinx (>=4.4.0)", "sphinx-ansible-theme (>=0.9.1)", "sphinx-rtd-theme (>=1.0.0,<2.0.0)", "sphinxcontrib-apidoc (>=0.3.0)", "sphinxcontrib-programoutput2 (>=2.0a1)"]
 test = ["black", "coverage-enable-subprocess", "coverage[toml] (>=6.4.4)", "flake8", "flake8-future-annotations", "flaky (>=3.7.0)", "mypy", "psutil", "pylint", "pytest (>=7.2.0)", "pytest-mock", "pytest-plus (>=0.2)", "pytest-xdist (>=2.1.0)"]
 
 [[package]]
@@ -620,7 +620,7 @@ jinja2 = "*"
 
 [[package]]
 name = "jsonschema"
-version = "4.16.0"
+version = "4.17.3"
 description = "An implementation of JSON Schema validation for Python"
 category = "dev"
 optional = false
@@ -971,14 +971,13 @@ test = ["commentjson", "packaging", "pytest"]
 
 [[package]]
 name = "rich"
-version = "11.2.0"
+version = "12.6.0"
 description = "Render rich text, tables, progress bars, syntax highlighting, markdown and more to the terminal"
 category = "dev"
 optional = false
-python-versions = ">=3.6.2,<4.0.0"
+python-versions = ">=3.6.3,<4.0.0"
 
 [package.dependencies]
-colorama = ">=0.4.0,<0.5.0"
 commonmark = ">=0.9.0,<0.10.0"
 pygments = ">=2.6.0,<3.0.0"
 
@@ -1172,11 +1171,11 @@ testing = ["coverage (>=4)", "coverage-enable-subprocess (>=1)", "flaky (>=3)", 
 
 [[package]]
 name = "wcmatch"
-version = "8.3"
+version = "8.4.1"
 description = "Wildcard/glob file name matcher."
 category = "dev"
 optional = false
-python-versions = ">=3.6"
+python-versions = ">=3.7"
 
 [package.dependencies]
 bracex = ">=2.1.1"
@@ -1218,7 +1217,7 @@ setuptools = "*"
 [metadata]
 lock-version = "1.1"
 python-versions = "<3.11,>=3.10"
-content-hash = "24732e457bab5f5abacc6d9a8cb1137aac294f3537a490cdf865d5d26821a64f"
+content-hash = "9fd6c4147b1be96a356c7a55232ecbd7017b12decc3d3040b937eebfb1dda046"
 
 [metadata.files]
 ansible = [
@@ -1226,16 +1225,16 @@ ansible = [
     {file = "ansible-6.6.0.tar.gz", hash = "sha256:e1b940a8d4f412123ede3c14b25cb99c3c8a4d535fd040aabf8e4fb7b0e4f092"},
 ]
 ansible-compat = [
-    {file = "ansible-compat-2.2.4.tar.gz", hash = "sha256:6a2c3ade5005530cdfdd8e961c784b1718f17ad480a1be5a8014bff89c9c9c2e"},
-    {file = "ansible_compat-2.2.4-py3-none-any.whl", hash = "sha256:5589582a165a44a7ab012dabd91a28a897e63daf96ffea655b7e9db38517b648"},
+    {file = "ansible-compat-2.2.7.tar.gz", hash = "sha256:08deddcd0a1dc6baabe674b07c6ff882118492c123d281f56f01905271a7ffc4"},
+    {file = "ansible_compat-2.2.7-py3-none-any.whl", hash = "sha256:77fd80841279d8b0664df61faab65c32275d1a2b0079f60bf30c3d44251f6301"},
 ]
 ansible-core = [
     {file = "ansible-core-2.13.6.tar.gz", hash = "sha256:31fe322b63290674a8f7386110df501f0044aa44890be3ab313a6e225b9a29cf"},
     {file = "ansible_core-2.13.6-py3-none-any.whl", hash = "sha256:e31fd550a5ea9423f1fc1391de6b41bb0d264a83bbfc9c7edfef0f78b7624fd3"},
 ]
 ansible-lint = [
-    {file = "ansible-lint-6.8.6.tar.gz", hash = "sha256:171fe8dad62078b9819b5c74d60eb5afaa30ea9cb9c9ba8706149e56c55a9b6e"},
-    {file = "ansible_lint-6.8.6-py3-none-any.whl", hash = "sha256:bac923e2fa805973838390565e2ddd792ca4ffd33d66f21ab629dd6a84407d67"},
+    {file = "ansible-lint-6.8.7.tar.gz", hash = "sha256:de3de4e57cd54e17c1ec3a0b4a21d4811838e77d67b56cbe8f91107f2a434432"},
+    {file = "ansible_lint-6.8.7-py3-none-any.whl", hash = "sha256:1824afce2a5619b47c19f6377a0d85b4f39e80b1fc1857191d6a908d68396bf9"},
 ]
 arrow = [
     {file = "arrow-1.2.2-py3-none-any.whl", hash = "sha256:d622c46ca681b5b3e3574fcb60a04e5cc81b9625112d5fb2b44220c36c892177"},
@@ -1505,8 +1504,8 @@ jinja2-time = [
     {file = "jinja2_time-0.2.0-py2.py3-none-any.whl", hash = "sha256:d3eab6605e3ec8b7a0863df09cc1d23714908fa61aa6986a845c20ba488b4efa"},
 ]
 jsonschema = [
-    {file = "jsonschema-4.16.0-py3-none-any.whl", hash = "sha256:9e74b8f9738d6a946d70705dc692b74b5429cd0960d58e79ffecfc43b2221eb9"},
-    {file = "jsonschema-4.16.0.tar.gz", hash = "sha256:165059f076eff6971bae5b742fc029a7b4ef3f9bcf04c14e4776a7605de14b23"},
+    {file = "jsonschema-4.17.3-py3-none-any.whl", hash = "sha256:a870ad254da1a8ca84b6a2905cac29d265f805acc57af304784962a2aa6508f6"},
+    {file = "jsonschema-4.17.3.tar.gz", hash = "sha256:0f864437ab8b6076ba6707453ef8f98a6a0d512a80e93f8abdb676f737ecb60d"},
 ]
 lazy-object-proxy = [
     {file = "lazy-object-proxy-1.7.1.tar.gz", hash = "sha256:d609c75b986def706743cdebe5e47553f4a5a1da9c5ff66d76013ef396b5a8a4"},
@@ -1783,8 +1782,8 @@ resolvelib = [
     {file = "resolvelib-0.5.5.tar.gz", hash = "sha256:123de56548c90df85137425a3f51eb93df89e2ba719aeb6a8023c032758be950"},
 ]
 rich = [
-    {file = "rich-11.2.0-py3-none-any.whl", hash = "sha256:d5f49ad91fb343efcae45a2b2df04a9755e863e50413623ab8c9e74f05aee52b"},
-    {file = "rich-11.2.0.tar.gz", hash = "sha256:1a6266a5738115017bb64a66c59c717e7aa047b3ae49a011ede4abdeffc6536e"},
+    {file = "rich-12.6.0-py3-none-any.whl", hash = "sha256:a4eb26484f2c82589bd9a17c73d32a010b1e29d89f1604cd9bf3a2097b81bb5e"},
+    {file = "rich-12.6.0.tar.gz", hash = "sha256:ba3a3775974105c221d31141f2c116f4fd65c5ceb0698657a11e9f295ec93fd0"},
 ]
 "ruamel.yaml" = [
     {file = "ruamel.yaml-0.17.21-py3-none-any.whl", hash = "sha256:742b35d3d665023981bd6d16b3d24248ce5df75fdb4e2924e93a05c1f8b61ca7"},
@@ -1883,8 +1882,8 @@ virtualenv = [
     {file = "virtualenv-20.13.1.tar.gz", hash = "sha256:e0621bcbf4160e4e1030f05065c8834b4e93f4fcc223255db2a823440aca9c14"},
 ]
 wcmatch = [
-    {file = "wcmatch-8.3-py3-none-any.whl", hash = "sha256:7141d2c85314253f16b38cb3d6cc0fb612918d407e1df3ccc2be7c86cc259c22"},
-    {file = "wcmatch-8.3.tar.gz", hash = "sha256:371072912398af61d1e4e78609e18801c6faecd3cb36c54c82556a60abc965db"},
+    {file = "wcmatch-8.4.1-py3-none-any.whl", hash = "sha256:3476cd107aba7b25ba1d59406938a47dc7eec6cfd0ad09ff77193f21a964dee7"},
+    {file = "wcmatch-8.4.1.tar.gz", hash = "sha256:b1f042a899ea4c458b7321da1b5e3331e3e0ec781583434de1301946ceadb943"},
 ]
 websocket-client = [
     {file = "websocket-client-1.2.3.tar.gz", hash = "sha256:1315816c0acc508997eb3ae03b9d3ff619c9d12d544c9a9b553704b1cc4f6af5"},
