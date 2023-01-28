@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "raspberry-pi"
-version = "0.3.0"
+version = "0.5.0"
 description = "Setup and configuration of my own Raspberry Pi fleet via Ansible Collection."
 authors = ["Federico Jaureguialzo <fedejaure@gmail.com>"]
 readme = "README.md"
