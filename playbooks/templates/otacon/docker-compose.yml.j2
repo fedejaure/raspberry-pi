@@ -7,6 +7,7 @@ services:
     hostname: nginx-proxy.{{ rpi_hostname }}
     image: nginxproxy/nginx-proxy:1.0.1
     restart: always
+    privileged: {{ (molecule_yml is defined) | string | lower }}
     ports:
       - "80:80"
     volumes:
@@ -17,6 +18,7 @@ services:
     hostname: docker-proxy.{{ rpi_hostname }}
     image: tecnativa/docker-socket-proxy:0.1.1
     restart: always
+    privileged: {{ (molecule_yml is defined) | string | lower }}
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     environment:
@@ -26,6 +28,7 @@ services:
     container_name: jump
     hostname: jump.{{ rpi_hostname }}
     restart: always
+    privileged: {{ (molecule_yml is defined) | string | lower }}
     image: daledavies/jump:v1.3.0
     expose:
       - 8080
@@ -51,6 +54,7 @@ services:
     hostname: whoami.{{ rpi_hostname }}
     image: traefik/whoami:v1.8.7
     restart: always
+    privileged: {{ (molecule_yml is defined) | string | lower }}
     environment:
       - VIRTUAL_HOST={{ rpi_docker_compose_project_config.virtual_hosts.whoami }}
       - WHOAMI_NAME={{ rpi_hostname }}
@@ -60,6 +64,7 @@ services:
     hostname: netdata.{{ rpi_hostname }}
     image: netdata/netdata:v1.36.1
     restart: always
+    privileged: {{ (molecule_yml is defined) | string | lower }}
     expose:
       - "19999"
     volumes:
@@ -88,6 +93,7 @@ services:
     hostname: pihole.{{ rpi_hostname }}
     image: pihole/pihole:2022.10
     restart: always
+    privileged: {{ (molecule_yml is defined) | string | lower }}
     ports:
       - "53:53/tcp"
       - "53:53/udp"
