@@ -12,6 +12,8 @@
       ansible.builtin.copy:
         content: |
           {
+            "debug": false,
+            "default-cgroupns-mode": "host",
             "storage-driver": "vfs"
           }
         dest: /etc/docker/daemon.json
