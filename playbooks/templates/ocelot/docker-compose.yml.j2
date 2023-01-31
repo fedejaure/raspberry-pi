@@ -5,7 +5,7 @@ services:
   nginx-proxy:
     container_name: nginx-proxy
     hostname: nginx-proxy.{{ rpi_hostname }}
-    image: nginxproxy/nginx-proxy:1.0.1
+    image: nginxproxy/nginx-proxy:1.1.0
     restart: always
     privileged: {{ (molecule_yml is defined) | string | lower }}
     ports:
@@ -94,7 +94,7 @@ services:
   octoprint:
     container_name: octoprint
     hostname: octoprint.{{ rpi_hostname }}
-    image: octoprint/octoprint:1.8.4
+    image: octoprint/octoprint:1.8.6
     restart: always
     privileged: {{ (molecule_yml is defined) | string | lower }}
     environment:
