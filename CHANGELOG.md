@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Changed
 - Update ansible requirements versions.
+- Update `community.docker` to `3.4.0`.
+- Update `community.general` to `6.3.0`.
+- Upgrade Otacon/Ocelot `mdns-beacon` to `0.7.1`.
+- Otacon/Ocelot `nginxproxy/nginx-proxy` to `1.1.0`.
+- Otacon/Ocelot `netdata/netdata` to `v1.37.1`.
+- Ocelot `octoprint/octoprint` to `1.8.6`.
+- Otacon `pihole/pihole` to `2023.01.10`.
 
 ## [0.5.0] - 2022-10-15
 ### Added
