@@ -27,10 +27,10 @@ jobs:
           poetry install --no-root
 
       - name: Run autoupdate
-        run: pre-commit autoupdate
+        run: poetry run pre-commit autoupdate
 
       - name: Run pre-commit
-        run: pre-commit run --all-files
+        run: poetry run pre-commit run --all-files
 
       - uses: peter-evans/create-pull-request@v4.2.3
         with:
