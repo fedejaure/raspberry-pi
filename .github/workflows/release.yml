@@ -16,6 +16,7 @@ jobs:
         shell: bash
         run: |
           echo ::set-output name=current_version::${GITHUB_REF#refs/tags/v}
+
       - name: Get Changelog Entry
         id: changelog_reader
         uses: mindsers/changelog-reader-action@v2.2.2

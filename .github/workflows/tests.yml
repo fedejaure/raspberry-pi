@@ -20,10 +20,17 @@ jobs:
         with:
           python-version: "3.10"
 
-      - name: Linting
+      - name: Install system deps
+        shell: bash
         run: |
-          pip install pre-commit
-          pre-commit run --all-files
+          pip install poetry
+          poetry config virtualenvs.in-project true
+          poetry install --no-root
+
+      - name: Linting
+        shell: bash
+        run: poetry run inv hooks
+
   tests:
     needs: linting
     name: molecule-${{ matrix.target }}-${{ matrix.distro }}
@@ -52,6 +59,7 @@ jobs:
           pip install poetry
           poetry config virtualenvs.in-project true
           poetry install --no-root
+
       - name: Install playbooks requirements
         shell: bash
         run: poetry run inv galaxy-install
