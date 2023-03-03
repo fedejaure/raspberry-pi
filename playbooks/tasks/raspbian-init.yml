@@ -12,6 +12,7 @@
 - name: Expand filesystem to fill disk
   ansible.builtin.command: raspi-config --expand-rootfs
   when: unpartitioned.stdout != "0.00GB"
+  changed_when: unpartitioned.stdout != "0.00GB"
 
 - name: Reboot after file system change
   ansible.builtin.reboot:
@@ -34,10 +35,12 @@
 - name: Set locale
   ansible.builtin.command: raspi-config nonint do_change_locale {{ rpi_locale }}
   when: current_locale != rpi_locale
+  changed_when: current_locale != rpi_locale
 
 - name: Set keyboard layout
   ansible.builtin.command: raspi-config nonint do_configure_keyboard {{ rpi_layout }}
   when: current_layout != rpi_layout
+  changed_when: current_layout != rpi_layout
 
 - name: Get current wifi country
   ansible.builtin.command: raspi-config nonint get_wifi_country
@@ -47,6 +50,7 @@
 - name: Set wifi country
   ansible.builtin.command: raspi-config nonint do_wifi_country {{ rpi_wifi_country }}
   when: current_wifi_country.stdout != rpi_wifi_country
+  changed_when: current_wifi_country.stdout != rpi_wifi_country
 
 - name: Set the hostname
   become: true
