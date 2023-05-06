@@ -9,7 +9,11 @@
   vars:
     pip_package: python3-pip
     pip_executable: pip3
-    docker_pip_executable: "{{ pip_executable }}"
+    pip_install_packages:
+      - name: docker
+      - name: docker-compose
+      - name: requests
+        version: 2.29.0
 
     rpi_hostname: ocelot
     rpi_docker_compose_project: "{{ rpi_hostname }}"
@@ -76,7 +80,7 @@
       tags: [git]
     - role: geerlingguy.pip
       tags: [pip]
-    - role: geerlingguy.docker_arm
+    - role: geerlingguy.docker
       tags: [docker]
     - role: geerlingguy.supervisor
       tags: [supervisor, mdns-beacon]
