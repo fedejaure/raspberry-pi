@@ -30,11 +30,11 @@ repos:
         types: [python]
         require_serial: true
   - repo: https://github.com/adrienverge/yamllint.git
-    rev: v1.30.0
+    rev: v1.31.0
     hooks:
       - id: yamllint
   - repo: https://github.com/ansible-community/ansible-lint.git
-    rev: v6.14.3
+    rev: v6.15.0
     hooks:
       - id: ansible-lint
         files: \.(yaml|yml)$
