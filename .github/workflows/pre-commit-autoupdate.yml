@@ -26,6 +26,11 @@ jobs:
           poetry config virtualenvs.in-project true
           poetry install --no-root
 
+      - name: Install galaxy deps
+        shell: bash
+        run: |
+          poetry run ansible-galaxy install -r requirements.yml
+
       - name: Run autoupdate
         run: poetry run pre-commit autoupdate
 
