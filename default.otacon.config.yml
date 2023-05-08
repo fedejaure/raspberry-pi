@@ -31,8 +31,3 @@ firewall_flush_rules_and_chains: no
 enable_lcd: true
 lcd_type: MPI3501
 lcd_rotate: 270
-
-# Docker versions
-docker_version_armv6: "5:20.10.0~3-0~raspbian-{{ansible_distribution_release}}"
-docker_version_armv7: "5:20.10.10~3-0~raspbian-{{ansible_distribution_release}}"
-docker_version_arm64: "5:20.10.10~3-0~debian-{{ansible_distribution_release}}"
