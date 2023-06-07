@@ -103,6 +103,6 @@
     build: true
     remove_orphans: true
     restarted: true
-  when: services.changed # noqa 503
+  when: services.changed # noqa no-handler
   notify:
     - prune services is required
