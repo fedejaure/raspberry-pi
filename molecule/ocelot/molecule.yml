@@ -8,10 +8,10 @@ platforms:
     image: geerlingguy/docker-${MOLECULE_DISTRO:-debian10}-ansible:latest
     command: ${MOLECULE_DOCKER_COMMAND:-""}
     volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:rw
+      - /sys/fs/cgroup/freeipa.scope:/sys/fs/cgroup:rw
     privileged: true
     pre_build_image: true
-    cgroupns_mode: host
+    cgroupns_mode: private
 provisioner:
   name: ansible
   inventory:
