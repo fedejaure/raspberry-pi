@@ -50,6 +50,13 @@ jobs:
       fail-fast: false
 
     steps:
+      - name: Free disk space
+        run: |
+          sudo swapoff -a
+          sudo rm -f /swapfile
+          sudo apt clean
+          df -h
+
       - uses: actions/checkout@v3
 
       - name: Set up Python 3.10
