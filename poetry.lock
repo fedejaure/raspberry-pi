@@ -16,13 +16,13 @@ ansible-core = ">=2.15.1,<2.16.0"
 
 [[package]]
 name = "ansible-compat"
-version = "4.1.8"
+version = "4.1.10"
 description = "Ansible compatibility goodies"
 optional = false
 python-versions = ">=3.9"
 files = [
-    {file = "ansible-compat-4.1.8.tar.gz", hash = "sha256:f58135f5d123e08fdb7e11849b82945e1900f8c899ba0859d4b41b25c76ca955"},
-    {file = "ansible_compat-4.1.8-py3-none-any.whl", hash = "sha256:7560e511a660e286c4e8777d82e25990526e45601c37b872c1b64a62126239a5"},
+    {file = "ansible-compat-4.1.10.tar.gz", hash = "sha256:2be8c7b510d2e15eed1e9ef443209d67d9aec8f427026b88936d4535ff59863d"},
+    {file = "ansible_compat-4.1.10-py3-none-any.whl", hash = "sha256:f09c3137c9f5f65d38caed44f1a1565c0e7170df720d461e76839beda6018edb"},
 ]
 
 [package.dependencies]
@@ -2025,4 +2025,4 @@ dev = ["doc8", "flake8", "flake8-import-order", "rstcheck[sphinx]", "sphinx"]
 [metadata]
 lock-version = "2.0"
 python-versions = "<3.11,>=3.10"
-content-hash = "8447db5a6d097530d4fec96198d810092b5c5a69706ba534ac49cee440c6e6e1"
+content-hash = "1a8285b2eb482ca53a5ecf01c0f15cd770ccdeff186503319c6a2ac140a67ac8"
