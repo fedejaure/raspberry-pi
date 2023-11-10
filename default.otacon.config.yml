@@ -13,7 +13,7 @@ rpi_swap_config:
 rpi_latlong: 51.9812,5.6584
 
 # Security configuration.
-security_sudoers_passwordless: ['pi']
+security_sudoers_passworded: ['pi']
 firewall_allowed_tcp_ports:
   - 22
   - 53
