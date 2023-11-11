@@ -186,11 +186,18 @@ To display available tasks run:
 Available tasks:
 
   ansible-lint     Run ansible linter.
+  clean            Run all clean sub-tasks.
+  clean-python     Clean up python file artifacts.
+  flake8           Run flake8.
+  format           Format code.
   galaxy-install   Install ansible-galaxy requirements.
   hooks            Run pre-commit hooks.
   install-hooks    Install pre-commit hooks.
   lint             Run all linting.
-  playbook         Runs Ansible playbooks, executing the defined tasks on the targeted hosts.
+  mypy             Run mypy.
+  playbook         Run Ansible playbooks, executing the defined tasks on the targeted hosts.
+  safety           Run safety.
+  tests            Run ansible molecule test.
   version          Bump version.
   yamllint         Run yamllint, a linter for YAML files.
 ```
