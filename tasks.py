@@ -139,7 +139,11 @@ def tests(c, target="default"):
     # type: (Context, str) -> None
     """Run ansible molecule test."""
     molecule_options = ["-s", target]
-    _run(c, f"poetry run molecule test {' '.join(molecule_options)}")
+    _run(
+        c,
+        f"poetry run molecule test {' '.join(molecule_options)}",
+        env={"ANSIBLE_ROLES_PATH": "./.roles:./roles"},
+    )
 
 
 @task(
