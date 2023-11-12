@@ -74,6 +74,6 @@
     no_extra_spaces: true
     owner: root
     group: root
-    mode: 0644
+    mode: "0644"
   loop: "{{ rpi_swap_config | dict2items }}"
   notify: setup swap file is required
