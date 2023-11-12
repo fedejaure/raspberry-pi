@@ -8,7 +8,7 @@
       ansible.builtin.file:
         state: directory
         path: /etc/docker
-        mode: 0644
+        mode: "0644"
 
     - name: Set storage-driver to vfs via daemon.json.
       ansible.builtin.copy:
@@ -19,4 +19,4 @@
             "storage-driver": "vfs"
           }
         dest: /etc/docker/daemon.json
-        mode: 0644
+        mode: "0644"

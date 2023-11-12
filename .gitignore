@@ -134,6 +134,3 @@ dmypy.json
 inventory
 .roles/**
 .collections/**
-
-# flakeheaven
-.flakeheaven_cache

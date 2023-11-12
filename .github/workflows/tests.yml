@@ -1,4 +1,5 @@
 name: tests
+
 on:
   push:
     branches:
@@ -13,7 +14,7 @@ jobs:
     name: Linting
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4.1.1
 
       - name: Set up Python 3.10
         uses: actions/setup-python@v4
@@ -24,8 +25,9 @@ jobs:
         shell: bash
         run: |
           pip install poetry
+          pip install poetry-plugin-export
           poetry config virtualenvs.in-project true
-          poetry install --no-root
+          poetry install --no-root --only dev --sync
 
       - name: Install playbooks requirements
         shell: bash
@@ -57,7 +59,7 @@ jobs:
           sudo apt clean
           df -h
 
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4.1.1
 
       - name: Set up Python 3.10
         uses: actions/setup-python@v4
@@ -68,6 +70,7 @@ jobs:
         shell: bash
         run: |
           pip install poetry
+          pip install poetry-plugin-export
           poetry config virtualenvs.in-project true
           poetry install --no-root
 
@@ -75,13 +78,9 @@ jobs:
         shell: bash
         run: poetry run inv galaxy-install
 
-      - name: Install playbooks requirements
+      - name: Run security checks
         shell: bash
-        run: poetry run inv galaxy-install
-
-      - name: Run safety check
-        shell: bash
-        run: poetry run inv safety
+        run: poetry run inv security
 
       - name: Run Molecule tests
         run: poetry run inv tests --target ${{ matrix.target }}

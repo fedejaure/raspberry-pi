@@ -19,27 +19,27 @@ Fleet Members ([Metal Gear Characters][metal-gear-characters])
 -------------
 
 * [Otacon][otacon]
-    
+
     > Pi-hole DNS sinkhole instance.
-    
+
     - services:
 
         + [jump][jump]: Simple startpage. [otacon.local](http://otacon.local)
-        
+
         + [pihole][pihole]: The Pi-hole DNS sinkhole instance. Available at [pihole.otacon.local](http://pihole.otacon.local)
-        
+
         + [whoami][whoami]: Tiny Go webserver that prints os information and HTTP request to output. Available at [whoami.otacon.local](http://whoami.otacon.local)
 
         + [netdata][netdata]: Monitor everything in real time. Available at [netdata.otacon.local](http://netdata.otacon.local)
 
     - variables:
-        
+
         + `rpi_locale`: Raspberry Pi locale config. (Default: `en_US.UTF-8`)
-        
+
         + `rpi_layout`: Raspberry Pi keyboard layout config. (Default: `us`)
-        
+
         + `rpi_dist_upgrade`: If Raspberry Pi should do a dist-upgrade. (Default: `no`)
-        
+
         + `rpi_tz`: Raspberry Pi Time Zone config. (Default: `'Europe/Amsterdam'`)
 
         + `rpi_wifi_country`: Raspberry Pi Wifi Country config. (Default: `NL`)
@@ -188,7 +188,6 @@ Available tasks:
   ansible-lint     Run ansible linter.
   clean            Run all clean sub-tasks.
   clean-python     Clean up python file artifacts.
-  flake8           Run flake8.
   format           Format code.
   galaxy-install   Install ansible-galaxy requirements.
   hooks            Run pre-commit hooks.
@@ -196,7 +195,8 @@ Available tasks:
   lint             Run all linting.
   mypy             Run mypy.
   playbook         Run Ansible playbooks, executing the defined tasks on the targeted hosts.
-  safety           Run safety.
+  ruff             Run ruff.
+  security         Run security related checks.
   tests            Run ansible molecule test.
   version          Bump version.
   yamllint         Run yamllint, a linter for YAML files.

@@ -10,7 +10,7 @@ jobs:
     name: autoupdate
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4.1.1
         with:
           ref: develop
 
@@ -23,8 +23,9 @@ jobs:
         shell: bash
         run: |
           pip install poetry
+          pip install poetry-plugin-export
           poetry config virtualenvs.in-project true
-          poetry install --no-root
+          poetry install --no-root --only dev --sync
 
       - name: Install galaxy deps
         shell: bash
@@ -44,8 +45,8 @@ jobs:
           title: Update pre-commit hooks
           commit-message: "Update pre-commit hooks"
           body: |
-            # Update pre-commit hooks 
-            
+            # Update pre-commit hooks
+
             - Update pre-commit hooks to the latest version.
           delete-branch: true
           labels: |
