@@ -44,4 +44,5 @@ repos:
     rev: v6.22.1
     hooks:
       - id: ansible-lint
-        files: \.(yaml|yml)$
+        stages:
+          - pre-commit
