@@ -30,7 +30,7 @@ services:
     hostname: jump.{{ rpi_hostname }}
     restart: always
     privileged: {{ (molecule_yml is defined) | string | lower }}
-    image: daledavies/jump:v1.3.0
+    image: daledavies/jump:v1.3.2
     expose:
       - 8080
     volumes:
