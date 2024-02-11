@@ -10,8 +10,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 - Update ansible requirements versions.
-- Update `community.docker` to `3.4.10`.
-- Update `community.general` to `8.0.1`.
+- Update `community.docker` to `3.7.0`.
+- Update `community.general` to `8.3.0`.
 - Upgrade Otacon/Ocelot `mdns-beacon` to `0.7.1`.
 - Otacon/Ocelot `nginxproxy/nginx-proxy` to `1.1.0`.
 - Otacon/Ocelot `netdata/netdata` to `v1.37.1`.
