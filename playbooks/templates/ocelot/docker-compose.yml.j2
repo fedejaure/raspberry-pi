@@ -53,7 +53,7 @@ services:
   whoami:
     container_name: whoami
     hostname: whoami.{{ rpi_hostname }}
-    image: traefik/whoami:v1.8.7
+    image: traefik/whoami:v1.10.1
     restart: always
     privileged: {{ (molecule_yml is defined) | string | lower }}
     environment:

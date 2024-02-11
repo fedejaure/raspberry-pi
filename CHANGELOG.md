@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Otacon/Ocelot `nginxproxy/nginx-proxy` to `1.2.1`.
 - Otacon/Ocelot `netdata/netdata` to `v1.44.2`.
 - Otacon/Ocelot `daledavies/jump` to `v1.3.2`.
+- Otacon/Ocelot `traefik/whoami` to `v1.10.1`.
 - Ocelot `octoprint/octoprint` to `1.9.3`.
 - Otacon `pihole/pihole` to `2023.01.10`.
 
