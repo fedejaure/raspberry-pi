@@ -98,11 +98,11 @@
   register: services
 
 - name: Create and start services
-  community.docker.docker_compose:
+  community.docker.docker_compose_v2:
     project_src: "{{ rpi_docker_compose_project }}"
-    build: true
+    build: "policy"
     remove_orphans: true
-    restarted: true
+    state: "restarted"
   when: services.changed # noqa no-handler
   notify:
     - prune services is required

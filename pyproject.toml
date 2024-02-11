@@ -13,7 +13,7 @@ documentation = "https://dev-setup.readthedocs.io"
 
 [tool.poetry.dependencies]
 python = "<3.11,>=3.10"
-ansible = "^9.1.0"
+ansible = "^9.2.0"
 
 [tool.poetry.group.dev.dependencies]
 pre-commit = "^3.5.0"
@@ -29,7 +29,7 @@ isort = "^5.12.0"
 black = "^23.11"
 ruff = "^0.1.7"
 yamllint = "^1.33.0"
-ansible-lint = {version = "^6.22.1", markers = "platform_system != 'Windows'"}
+ansible-lint = {version = "^6.22.2", markers = "platform_system != 'Windows'"}
 
 [tool.poetry.group.security.dependencies]
 safety = "^2.4.0b2"

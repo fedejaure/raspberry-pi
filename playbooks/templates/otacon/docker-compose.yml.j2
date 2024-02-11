@@ -101,8 +101,8 @@ services:
       - "8053:80/tcp"
       - "443:443/tcp"
     volumes:
-      - 'pihole/:/etc/pihole/'
-      - 'dnsmasq.d/:/etc/dnsmasq.d/'
+      - pihole:/etc/pihole
+      - dnsmasq.d:/etc/dnsmasq.d
     cap_add:
       - NET_ADMIN
     environment:
