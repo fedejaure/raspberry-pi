@@ -781,13 +781,13 @@ files = [
 
 [[package]]
 name = "molecule"
-version = "6.0.2"
+version = "24.2.0"
 description = "Molecule aids in the development and testing of Ansible roles"
 optional = false
-python-versions = ">=3.9"
+python-versions = ">=3.10"
 files = [
-    {file = "molecule-6.0.2-py3-none-any.whl", hash = "sha256:f4e941017587d6aadf4c75ec55338d16c17ad6119a2f8306cfe7b9e05d49db11"},
-    {file = "molecule-6.0.2.tar.gz", hash = "sha256:b919353f799746de60b16a27575627783e39c268fdf2f2aa0372f0162c7b5478"},
+    {file = "molecule-24.2.0-py3-none-any.whl", hash = "sha256:eac7d9bf12d2bf5254e13a46a40357615c32e7003409f305c3940e93b65d7bea"},
+    {file = "molecule-24.2.0.tar.gz", hash = "sha256:47c982a7d05db7846da77fe7159deb946f26cafb2e388fc71812be0089a41776"},
 ]
 
 [package.dependencies]
@@ -805,7 +805,7 @@ rich = ">=9.5.1"
 wcmatch = ">=8.1.2"
 
 [package.extras]
-docs = ["linkchecker", "mkdocs-ansible[lock] (>=0.1.4)", "pipdeptree (>=2.4.0)"]
+docs = ["linkchecker (>=10.4.0)", "mkdocs-ansible (>=24.2.1)", "pipdeptree (>=2.4.0)"]
 test = ["ansi2html (>=1.8.0)", "ansible-lint (>=6.12.1)", "check-jsonschema", "coverage (>=7.0.3)", "filelock (>=3.9.0)", "pexpect (>=4.8.0,<5)", "pytest (>=7.2.0)", "pytest-mock (>=3.10.0)", "pytest-plus (>=0.4.0)", "pytest-xdist (>=3.1.0)"]
 testinfra = ["pytest-testinfra (>=8.1.0)"]
 
@@ -1642,4 +1642,4 @@ dev = ["doc8", "flake8", "flake8-import-order", "rstcheck[sphinx]", "sphinx"]
 [metadata]
 lock-version = "2.0"
 python-versions = "<3.11,>=3.10"
-content-hash = "87d66bc43fa47ef422930c06b64e6a2a8325f59e282a01e62e0244584edc8491"
+content-hash = "f39ab3c6579ad07e5242b2f272bca6d6b07165bccdfbca8297336f88477e03e6"
