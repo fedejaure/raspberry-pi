@@ -92,7 +92,7 @@ services:
   octoprint:
     container_name: octoprint
     hostname: octoprint.{{ rpi_hostname }}
-    image: octoprint/octoprint:1.8.6
+    image: octoprint/octoprint:1.9.3
     restart: always
     privileged: {{ (molecule_yml is defined) | string | lower }}
     environment:
