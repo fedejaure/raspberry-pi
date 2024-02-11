@@ -18,7 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Otacon/Ocelot `daledavies/jump` to `v1.3.2`.
 - Otacon/Ocelot `traefik/whoami` to `v1.10.1`.
 - Ocelot `octoprint/octoprint` to `1.9.3`.
-- Otacon `pihole/pihole` to `2023.01.10`.
+- Otacon `pihole/pihole` to `2024.01.0`.
 
 ### Removed
 - role `geerlingguy.docker_arm`
