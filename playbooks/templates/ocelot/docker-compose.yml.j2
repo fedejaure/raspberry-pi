@@ -3,7 +3,7 @@ services:
   nginx-proxy:
     container_name: nginx-proxy
     hostname: nginx-proxy.{{ rpi_hostname }}
-    image: nginxproxy/nginx-proxy:1.1.0
+    image: nginxproxy/nginx-proxy:1.2.1
     restart: always
     privileged: {{ (molecule_yml is defined) | string | lower }}
     ports:
