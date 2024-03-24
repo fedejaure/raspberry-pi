@@ -3,7 +3,7 @@ services:
   nginx-proxy:
     container_name: nginx-proxy
     hostname: nginx-proxy.{{ rpi_hostname }}
-    image: nginxproxy/nginx-proxy:1.1.0
+    image: nginxproxy/nginx-proxy:1.2.1
     restart: always
     privileged: {{ (molecule_yml is defined) | string | lower }}
     ports:
@@ -30,7 +30,7 @@ services:
     hostname: jump.{{ rpi_hostname }}
     restart: always
     privileged: {{ (molecule_yml is defined) | string | lower }}
-    image: daledavies/jump:v1.3.0
+    image: daledavies/jump:v1.3.2
     expose:
       - 8080
     volumes:
@@ -53,7 +53,7 @@ services:
   whoami:
     container_name: whoami
     hostname: whoami.{{ rpi_hostname }}
-    image: traefik/whoami:v1.8.7
+    image: traefik/whoami:v1.10.1
     restart: always
     privileged: {{ (molecule_yml is defined) | string | lower }}
     environment:
@@ -63,7 +63,7 @@ services:
   netdata:
     container_name: netdata
     hostname: netdata.{{ rpi_hostname }}
-    image: netdata/netdata:v1.36.1
+    image: netdata/netdata:v1.44.2
     restart: always
     privileged: {{ (molecule_yml is defined) | string | lower }}
     expose:
@@ -92,7 +92,7 @@ services:
   octoprint:
     container_name: octoprint
     hostname: octoprint.{{ rpi_hostname }}
-    image: octoprint/octoprint:1.8.6
+    image: octoprint/octoprint:1.9.3
     restart: always
     privileged: {{ (molecule_yml is defined) | string | lower }}
     environment:
