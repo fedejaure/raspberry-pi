@@ -1,20 +1,24 @@
-[tool.poetry]
+[project]
 name = "raspberry-pi"
 version = "0.5.0"
 description = "Setup and configuration of my own Raspberry Pi fleet via Ansible Collection."
-authors = ["Federico Jaureguialzo <fedejaure@gmail.com>"]
+authors = [
+    {name = "Federico Jaureguialzo", email = "fedejaure@gmail.com"}
+]
 readme = "README.md"
+requires-python = "<3.12,>=3.11"
+dependencies = [
+  "ansible>=11.1.0,<12.0.0",
+]
+
+[project.urls]
 homepage = "https://github.com/fedejaure/dev-setup"
 repository = "https://github.com/fedejaure/dev-setup"
-documentation = "https://dev-setup.readthedocs.io"
-package-mode = false
-
-[tool.poetry.urls]
 "Bug Tracker" = "https://github.com/fedejaure/dev-setup/issues"
+documentation = "https://dev-setup.readthedocs.io"
 
-[tool.poetry.dependencies]
-python = "<3.12,>=3.11"
-ansible = "^11.1.0"
+[tool.poetry]
+package-mode = false
 
 [tool.poetry.group.dev.dependencies]
 pre-commit = "^4.0.1"
@@ -109,5 +113,5 @@ warn_unreachable = true
 warn_no_return = true
 
 [build-system]
-requires = ["poetry>=0.12"]
-build-backend = "poetry.masonry.api"
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"

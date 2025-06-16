@@ -34,3 +34,4 @@ rules:
 
 ignore: |
   .venv/
+  .ansible/
