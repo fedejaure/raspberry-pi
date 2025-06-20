@@ -11,11 +11,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 - Update ansible requirements versions.
-- Update `community.docker` to `4.1.0`.
-- Update `community.general` to `10.1.0`.
+- Update `community.docker` to `4.6.1`.
+- Update `community.general` to `11.0.0`.
 - Update `geerlingguy.pip` to `3.1.0`.
-- Update `geerlingguy.security` to `2.4.0`.
-- Update `geerlingguy.firewall` to `2.6.0`.
+- Update `geerlingguy.security` to `3.0.0`.
+- Update `geerlingguy.firewall` to `2.7.0`.
+- Update `geerlingguy.supervisor` to `3.2.0`.
+- Update `geerlingguy.docker` to `7.4.7`.
+- Update `fedejaure.rpi_lcd` to `0.3.0`.
 - Upgrade Otacon/Ocelot `mdns-beacon` to `0.8.1`.
 - Otacon/Ocelot `nginxproxy/nginx-proxy` to `1.2.1`.
 - Otacon/Ocelot `netdata/netdata` to `v1.44.2`.
