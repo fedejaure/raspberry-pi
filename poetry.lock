@@ -968,18 +968,18 @@ files = [
 
 [[package]]
 name = "molecule"
-version = "24.12.0"
+version = "25.6.0"
 description = "Molecule aids in the development and testing of Ansible roles"
 optional = false
 python-versions = ">=3.10"
 groups = ["test"]
 files = [
-    {file = "molecule-24.12.0-py3-none-any.whl", hash = "sha256:c650d92295860ce17d79048b1dabb787f674718870668d99b52ecdc0e88af541"},
-    {file = "molecule-24.12.0.tar.gz", hash = "sha256:7243ff58e0b8159aa2cf465ba9605d657f1d614617264307bef5b32518467afe"},
+    {file = "molecule-25.6.0-py3-none-any.whl", hash = "sha256:76e968908802ad56bda4d46306da334e71e2211d4ef30429bdf4830042b3ed7c"},
+    {file = "molecule-25.6.0.tar.gz", hash = "sha256:0db208de58bececb0ca87bf2cc48e1017234e1e3ad947c179487737f884e7c7c"},
 ]
 
 [package.dependencies]
-ansible-compat = ">=24.6.1"
+ansible-compat = ">=25.1.4"
 ansible-core = ">=2.15.0"
 click = ">=8.0,<9"
 click-help-colors = "*"
@@ -993,25 +993,25 @@ rich = ">=9.5.1"
 wcmatch = ">=8.1.2"
 
 [package.extras]
-docs = ["linkchecker (>=10.4.0)", "mkdocs-ansible (>=24.3.0)", "pipdeptree (>=2.4.0)"]
-test = ["ansi2html (>=1.8.0)", "ansible-lint (>=6.12.1)", "black", "check-jsonschema", "coverage[toml]", "docker (>=7.1.0)", "filelock (>=3.9.0)", "mypy", "pexpect (>=4.8.0,<5)", "pip-tools", "pre-commit", "pydoclint", "pylint", "pytest", "pytest-mock (>=3.10.0)", "pytest-plus (>=0.4.0)", "pytest-xdist", "requests (!=2.32.0)", "ruff", "toml-sort", "tox", "types-jsonschema", "types-pexpect", "types-pyyaml"]
+docs = ["linkchecker (>=10.4.0)", "mkdocs-ansible (>=24.3.0)"]
+test = ["ansi2html (>=1.8.0)", "ansible-lint (>=6.12.1)", "ansible-navigator", "coverage[toml]", "docker (>=7.1.0)", "filelock (>=3.9.0)", "mypy", "pexpect (>=4.9.0,<5)", "pre-commit", "pydoclint", "pylint", "pytest", "pytest-instafail", "pytest-mock (>=3.10.0)", "pytest-plus (>=0.7.0)", "pytest-xdist", "requests (!=2.32.0)", "ruff", "toml-sort", "tox", "types-jsonschema", "types-pexpect", "types-pyyaml"]
 testinfra = ["pytest-testinfra (>=8.1.0)"]
 
 [[package]]
 name = "molecule-plugins"
-version = "23.6.0"
+version = "23.7.0"
 description = "Molecule Plugins"
 optional = false
-python-versions = ">=3.9"
+python-versions = ">=3.10"
 groups = ["test"]
 files = [
-    {file = "molecule_plugins-23.6.0-py3-none-any.whl", hash = "sha256:be3d15329ede00d79a0a60482e8c78cfbb2d18500ad98319c0c076cb833db340"},
-    {file = "molecule_plugins-23.6.0.tar.gz", hash = "sha256:432586a21226ef72fca5eaafb56ec7c0dc6d5e471f4e1e5272be5425357bcd2c"},
+    {file = "molecule_plugins-23.7.0-py3-none-any.whl", hash = "sha256:5e577231c7d95d7f7dc7146f3527d4692ee30a8c0ea0e8353b15ceba75f7d28e"},
+    {file = "molecule_plugins-23.7.0.tar.gz", hash = "sha256:c28b08e25c91fcc679e65d9d18d2b4bb33712aaed2fefdea72b6253c6bd19635"},
 ]
 
 [package.dependencies]
 docker = {version = ">=4.3.1", optional = true, markers = "extra == \"docker\""}
-molecule = ">=6.0.0a1"
+molecule = ">=25.1.0"
 requests = {version = "*", optional = true, markers = "extra == \"docker\""}
 selinux = {version = "*", optional = true, markers = "(sys_platform == \"linux2\" or sys_platform == \"linux\") and extra == \"docker\""}
 
@@ -1020,7 +1020,7 @@ docker = ["docker (>=4.3.1)", "requests", "selinux ; sys_platform == \"linux\"",
 gce = ["google-auth (>=2.28.2)", "requests (>=2.31.0)"]
 openstack = ["openstacksdk (>=1.1.0)"]
 selinux = ["selinux ; sys_platform == \"linux\"", "selinux ; sys_platform == \"linux2\""]
-test = ["molecule[test] (>=6.0.0a1)", "pytest-helpers-namespace (>=2019.1.8)"]
+test = ["molecule[test] (>=25.1.0)", "pytest-helpers-namespace (>=2019.1.8)"]
 vagrant = ["python-vagrant"]
 
 [[package]]
@@ -2202,4 +2202,4 @@ test = ["big-O", "importlib-resources ; python_version < \"3.9\"", "jaraco.funct
 [metadata]
 lock-version = "2.1"
 python-versions = "<3.12,>=3.11"
-content-hash = "7774a1d0540cff12d07b02f960fd0ac960294492733853ffbdeeb74f30e1aeb6"
+content-hash = "535a191627a10b5ee5bc238a989ac77722fbb49787ec865eee59e8b3a948d4b1"
