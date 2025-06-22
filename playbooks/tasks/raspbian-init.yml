@@ -2,7 +2,7 @@
 - name: Check unpartitioned space
   ansible.builtin.shell: |
     set -o pipefail
-    /sbin/parted /dev/mmcblk0 unit gb print free | grep 'Free Space' | tail -n1 | awk '{print $3}'
+    /sbin/parted /dev/mmcblk0 unit gb print free | grep 'Free Space' | tail -n1 | awk '{print $3}' | sed 's/GB//'
   register: unpartitioned
   changed_when: false
   failed_when: unpartitioned.stderr
@@ -11,13 +11,13 @@
 
 - name: Expand filesystem to fill disk
   ansible.builtin.command: raspi-config --expand-rootfs
-  when: unpartitioned.stdout != "0.00GB"
-  changed_when: unpartitioned.stdout != "0.00GB"
+  when: unpartitioned.stdout | float > 0.01
+  changed_when: unpartitioned.stdout | float > 0.01
 
 - name: Reboot after file system change
   ansible.builtin.reboot:
     reboot_timeout: 300
-  when: unpartitioned.stdout != "0.00GB"
+  when: unpartitioned.stdout | float > 0.01
 
 - name: Get current locale and layout configuration
   ansible.builtin.command: localectl status

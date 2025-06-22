@@ -16,7 +16,7 @@ services:
     hostname: docker-proxy.{{ rpi_hostname }}
     image: tecnativa/docker-socket-proxy:0.3.0
     restart: always
-    privileged: {{ (molecule_yml is defined) | string | lower }}
+    privileged: true
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     environment:
@@ -109,7 +109,8 @@ services:
       - VIRTUAL_PORT=80
       - TZ={{ rpi_tz }}
       - ServerIP={{ rpi_ipv4_address }}
-      {% if rpi_pihole_password is defined %}- WEBPASSWORD={{ rpi_pihole_password }}{% endif %}
+      - FTLCONF_dns_listeningMode=all
+      {% if rpi_pihole_password is defined %}- FTLCONF_webserver_api_password={{ rpi_pihole_password }}{% endif %}
 
 volumes:
   netdataconfig:

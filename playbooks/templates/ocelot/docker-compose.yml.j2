@@ -19,7 +19,7 @@ services:
     hostname: docker-proxy.{{ rpi_hostname }}
     image: tecnativa/docker-socket-proxy:0.3.0
     restart: always
-    privileged: {{ (molecule_yml is defined) | string | lower }}
+    privileged: true
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     environment:
