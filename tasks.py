@@ -124,7 +124,6 @@ def tests(c: Context, target: str = "default") -> None:
     _run(
         c,
         f"poetry run molecule test {' '.join(molecule_options)}",
-        env={"ANSIBLE_ROLES_PATH": "./.roles:./roles"},
     )
 
 
