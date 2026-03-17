@@ -6,7 +6,7 @@ authors = [
     {name = "Federico Jaureguialzo", email = "fedejaure@gmail.com"}
 ]
 readme = "README.md"
-requires-python = "<3.12,>=3.11"
+requires-python = ">=3.14,<3.15"
 dependencies = [
   "ansible>=11.7.0,<12.0.0",
 ]
