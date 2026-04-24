@@ -89,7 +89,7 @@ services:
   pihole:
     container_name: pihole
     hostname: pihole.{{ rpi_hostname }}
-    image: pihole/pihole:2025.06.2
+    image: pihole/pihole:2026.04.0
     restart: always
     privileged: {{ (molecule_yml is defined) | string | lower }}
     ports:
