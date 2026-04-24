@@ -20,7 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Update `geerlingguy.docker` to `8.0.0`.
 - Update `fedejaure.rpi_lcd` to `0.3.0`.
 - Upgrade Otacon/Ocelot `mdns-beacon` to `0.8.1`.
-- Otacon/Ocelot `nginxproxy/nginx-proxy` to `1.7.1`.
+- Otacon/Ocelot `nginxproxy/nginx-proxy` to `1.10.1`.
 - Otacon/Ocelot `tecnativa/docker-socket-proxy` to `0.3.0`.
 - Otacon/Ocelot `netdata/netdata` to `v2.5.3`.
 - Otacon/Ocelot `daledavies/jump` to `v1.4.1`.
