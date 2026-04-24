@@ -25,7 +25,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Otacon/Ocelot `netdata/netdata` to `v2.10.2`.
 - Otacon/Ocelot `daledavies/jump` to `v1.4.1`.
 - Otacon/Ocelot `traefik/whoami` to `v1.11.0`.
-- Ocelot `octoprint/octoprint` to `1.11.2`.
+- Ocelot `octoprint/octoprint` to `1.11.7`.
 - Otacon `pihole/pihole` to `2025.06.2`.
 
 ### Removed
