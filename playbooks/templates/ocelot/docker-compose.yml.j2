@@ -17,7 +17,7 @@ services:
   docker-proxy:
     container_name: docker-proxy
     hostname: docker-proxy.{{ rpi_hostname }}
-    image: tecnativa/docker-socket-proxy:0.3.0
+    image: tecnativa/docker-socket-proxy:v0.4.2
     restart: always
     privileged: true
     volumes:
