@@ -56,7 +56,7 @@
     - name: Init Raspbian
       ansible.builtin.import_tasks: tasks/raspbian-init.yml
       when:
-        - ansible_os_family == 'Debian'
+        - ansible_facts["os_family"] == 'Debian'
         - molecule_yml is not defined
       tags: [init]
     - name: Upgrade OS

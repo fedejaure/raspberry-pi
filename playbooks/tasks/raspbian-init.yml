@@ -5,7 +5,7 @@
     /sbin/parted /dev/mmcblk0 unit gb print free | grep 'Free Space' | tail -n1 | awk '{print $3}' | sed 's/GB//'
   register: unpartitioned
   changed_when: false
-  failed_when: unpartitioned.stderr
+  failed_when: unpartitioned.stderr | length > 0
   args:
     executable: /usr/bin/bash
 
