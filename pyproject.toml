@@ -40,7 +40,7 @@ ansible-lint = {version = "^26.4.0", markers = "platform_system != 'Windows'"}
 safety = "^3.8.1"
 
 [tool.poetry.group.typing.dependencies]
-mypy = "^1.20.2"
+mypy = "^2.1.0"
 
 [tool.ruff]
 target-version = "py311"
