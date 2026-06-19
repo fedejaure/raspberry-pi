@@ -14,7 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Update `community.docker` to `5.2.1`.
 - Update `community.general` to `12.6.0`.
 - Update `geerlingguy.pip` to `3.1.2`.
-- Update `geerlingguy.security` to `3.0.0`.
+- Update `geerlingguy.security` to `3.0.2`.
 - Update `geerlingguy.firewall` to `2.7.0`.
 - Update `geerlingguy.supervisor` to `3.3.0`.
 - Update `geerlingguy.docker` to `8.0.0`.
