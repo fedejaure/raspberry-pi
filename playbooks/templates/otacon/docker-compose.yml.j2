@@ -3,7 +3,7 @@ services:
   nginx-proxy:
     container_name: nginx-proxy
     hostname: nginx-proxy.{{ rpi_hostname }}
-    image: nginxproxy/nginx-proxy:1.10.1
+    image: nginxproxy/nginx-proxy:1.11.2
     restart: always
     privileged: {{ (molecule_yml is defined) | string | lower }}
     ports:
@@ -60,7 +60,7 @@ services:
   netdata:
     container_name: netdata
     hostname: netdata.{{ rpi_hostname }}
-    image: netdata/netdata:v2.10.2
+    image: netdata/netdata:v2.10.3
     restart: always
     privileged: {{ (molecule_yml is defined) | string | lower }}
     expose:
@@ -89,7 +89,7 @@ services:
   pihole:
     container_name: pihole
     hostname: pihole.{{ rpi_hostname }}
-    image: pihole/pihole:2026.04.0
+    image: pihole/pihole:2026.06.0
     restart: always
     privileged: {{ (molecule_yml is defined) | string | lower }}
     ports:

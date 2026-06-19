@@ -1,7 +1,7 @@
 ---
 roles:
   - name: geerlingguy.security
-    version: 3.0.0
+    version: 3.0.2
   - name: geerlingguy.firewall
     version: 2.7.0
   - name: geerlingguy.git
@@ -13,10 +13,10 @@ roles:
   - name: geerlingguy.docker
     version: 8.0.0
   - name: fedejaure.rpi_lcd
-    version: 0.3.0
+    version: 0.4.0
 
 collections:
   - name: community.docker
-    version: 5.2.0
+    version: 5.2.1
   - name: community.general
-    version: 12.6.0
+    version: 13.1.0
