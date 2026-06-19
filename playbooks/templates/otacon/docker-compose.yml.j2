@@ -60,7 +60,7 @@ services:
   netdata:
     container_name: netdata
     hostname: netdata.{{ rpi_hostname }}
-    image: netdata/netdata:v2.10.2
+    image: netdata/netdata:v2.10.3
     restart: always
     privileged: {{ (molecule_yml is defined) | string | lower }}
     expose:
