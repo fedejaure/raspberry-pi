@@ -81,15 +81,15 @@ resolvelib = ">=0.8.0,<2.0.0"
 
 [[package]]
 name = "ansible-lint"
-version = "26.4.0"
+version = "26.6.0"
 description = "Checks playbooks for practices and behavior that could potentially be improved"
 optional = false
 python-versions = ">=3.10"
 groups = ["lint"]
 markers = "platform_system != \"Windows\""
 files = [
-    {file = "ansible_lint-26.4.0-py3-none-any.whl", hash = "sha256:f33c4823544a5a8e5e36614866e111d1a929eeffee5e84481ede10d524a9d6d6"},
-    {file = "ansible_lint-26.4.0.tar.gz", hash = "sha256:29e0438f8af685a4fec96f9ea3404a3beb50d2911bc8df43f283256954ceea5b"},
+    {file = "ansible_lint-26.6.0-py3-none-any.whl", hash = "sha256:162939615eae3b59f38bd829542642b586ccee17eefb0df8718ea4b092eee222"},
+    {file = "ansible_lint-26.6.0.tar.gz", hash = "sha256:790d08ff6ee56525244677411c90a17b374245d3913bc6a462b5d913ece6d615"},
 ]
 
 [package.dependencies]
@@ -102,7 +102,7 @@ distro = ">=1.9.0"
 filelock = ">=3.8.2"
 jsonschema = ">=4.10.0"
 packaging = ">=22.0"
-pathspec = ">=1.0.3,<1.1.0"
+pathspec = ">=1.0.3,<1.2.0"
 pyyaml = {version = ">=6.0.1", markers = "python_version >= \"3.14\""}
 referencing = ">=0.36.2"
 ruamel-yaml = ">=0.18.11"
@@ -2540,4 +2540,4 @@ dev = ["doc8", "flake8", "flake8-import-order", "rstcheck[sphinx]", "ruff", "sph
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.14,<3.15"
-content-hash = "311ee40097bba03b92619641c8e7bda128159d49d8f12378702763363517a807"
+content-hash = "261213710ddf91249d25bf37e6514c1da96241dec58675b127e93c8a2767b3ed"
