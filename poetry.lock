@@ -1254,19 +1254,19 @@ files = [
 
 [[package]]
 name = "molecule"
-version = "26.6.0"
+version = "26.8.0"
 description = "Molecule aids in the development and testing of Ansible roles"
 optional = false
 python-versions = ">=3.10"
 groups = ["test"]
 files = [
-    {file = "molecule-26.6.0-py3-none-any.whl", hash = "sha256:e0d63011f1f044030a0c769178f4800271a2a8137f51124b18d673e576a88c52"},
-    {file = "molecule-26.6.0.tar.gz", hash = "sha256:1870c5f5442403d77b5953d344382265a521eb4948885260c0cac084aa3dec02"},
+    {file = "molecule-26.8.0-py3-none-any.whl", hash = "sha256:69a2a07dad27d362b9209024c9d3f0daac29da6637945fec5098deea448e3b52"},
+    {file = "molecule-26.8.0.tar.gz", hash = "sha256:506a0a0416683f4e404a42ce8c56a980cd93b7c802258222c1a9736b0f4ec37c"},
 ]
 
 [package.dependencies]
 ansible-compat = ">=25.1.4"
-ansible-core = ">=2.15.0"
+ansible-core = ">=2.15.0,<2.17.dev0 || >=2.18.dev0"
 click = ">=8.0,<9"
 enrich = ">=1.2.7"
 jinja2 = ">=2.11.3"
@@ -2547,4 +2547,4 @@ dev = ["doc8", "flake8", "flake8-import-order", "rstcheck[sphinx]", "ruff", "sph
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.14,<3.15"
-content-hash = "8d10f771ed0ee275e77a33c2293a6d6b770e0af55f91215400d3319419e34f83"
+content-hash = "80e233612765395eaeee4e2406edf5c399b74e9e9c7725ee1aa58dd4f656183d"
