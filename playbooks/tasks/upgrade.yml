@@ -7,7 +7,7 @@
 - name: Upgrade the OS
   ansible.builtin.apt:
     upgrade: dist
-  when: rpi_dist_upgrade is defined and rpi_dist_upgrade
+  when: rpi_dist_upgrade is defined and rpi_dist_upgrade | bool
 
 - name: Check if reboot is needed
   ansible.builtin.stat:

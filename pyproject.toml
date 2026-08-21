@@ -1,60 +1,85 @@
-[tool.poetry]
+[project]
 name = "raspberry-pi"
-version = "0.3.0"
+version = "0.6.0"
 description = "Setup and configuration of my own Raspberry Pi fleet via Ansible Collection."
-authors = ["Federico Jaureguialzo <fedejaure@gmail.com>"]
+authors = [
+    {name = "Federico Jaureguialzo", email = "fedejaure@gmail.com"}
+]
 readme = "README.md"
+requires-python = ">=3.14,<3.15"
+dependencies = [
+  "ansible>=13.8.0,<14.0.0",
+]
+
+[project.urls]
 homepage = "https://github.com/fedejaure/dev-setup"
 repository = "https://github.com/fedejaure/dev-setup"
+"Bug Tracker" = "https://github.com/fedejaure/dev-setup/issues"
 documentation = "https://dev-setup.readthedocs.io"
 
-[tool.poetry.urls]
-"Bug Tracker" = "https://github.com/fedejaure/dev-setup/issues"
+[tool.poetry]
+package-mode = false
 
-[tool.poetry.dependencies]
-python = "<3.11,>=3.10"
-ansible = "^6.4.0"
-
-[tool.poetry.dev-dependencies]
-pre-commit = "^2.20.0"
-invoke = "^1.7.3"
-flake8 = "^4.0.1"
-flakeheaven = "^3.0.0"
-flake8-builtins = "^1.5.3"
-flake8-blind-except = "^0.2.1"
-flake8-logging-format = "^0.8.1"
-flake8-bugbear = "^22.9.23"
-flake8-annotations = "^2.9.1"
-flake8-docstrings = "^1.6.0"
-flake8-bandit = "^3.0.0"
-darglint = "^1.8.0"
-pylint = "^2.14.5"
-isort = "^5.9.3"
-black = "^22.8"
-safety = "^2.3.1"
-mypy = "^0.982"
+[tool.poetry.group.dev.dependencies]
+pre-commit = "^4.6.2"
+invoke = "^3.0.3"
 bump2version = "^1.0.1"
-yamllint = "^1.28.0"
-ansible-lint = "^6.7.0"
-molecule = {extras = ["docker"], version = "^4.0.1"}
 
-[tool.flakeheaven]
-format = "grouped"
-max_line_length = 99
-show_source = true
-docstring-convention = "google"
-extended_default_ignore = []
+[tool.poetry.group.test.dependencies]
+molecule = "^26.8.0"
+molecule-plugins = {extras = ["docker"], version = "^26.7.15"}
 
-[tool.flakeheaven.plugins]
-pyflakes = ["+*"]
-pycodestyle = ["+*"]
-mccabe = ["+*"]
-"flake8-*" = ["+*"]
-pylint = ["-C????", "-E????", "+F????", "+I????", "-R????", "-W????"]
-darglint = ["+*"]
+[tool.poetry.group.lint.dependencies]
+isort = "^8.0.1"
+black = "^26.5"
+ruff = "^0.16.3"
+yamllint = "^1.37.1"
+ansible-lint = {version = "^26.8.0", markers = "platform_system != 'Windows'"}
 
-[tool.flakehell.exceptions."tests/"]
-flake8-bandit = ["-S101"]
+[tool.poetry.group.security.dependencies]
+safety = "^3.8.1"
+
+[tool.poetry.group.typing.dependencies]
+mypy = "^2.3.1"
+
+[tool.ruff]
+target-version = "py311"
+output-format = "full"
+line-length = 99
+fix = true
+extend-exclude = [
+    "docs/*",
+]
+
+[tool.ruff.lint]
+select = [
+  "E", "F", "W",  # flake8
+  "C",  # mccabe
+  "I",  # isort
+  "N",  # pep8-naming
+  "D",  # flake8-docstrings
+  "ANN",  # flake8-annotations
+  "S",  # flake8-bandit
+  "BLE",  # flake8-blind-except
+  "B",  # flake8-bugbear
+  "A",  # flake8-builtins
+  "G",  # flake8-logging-format
+  "ERA",  # eradicate
+  "ISC",  # flake8-implicit-str-concat
+  "RUF",  # Ruff-specific rules
+]
+ignore = ["ANN101", "D203", "D213"]
+unfixable = [
+  "ERA",  # Don't remove commented-out code
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["S101"]
+".jupyter/jupyter_lab_config.py" = ["E501", "ERA001"]
+"src/deeptune/utils.py" = ["ANN401"]
+
+[tool.ruff.lint.mccabe]
+max-complexity = 10
 
 [tool.isort]
 multi_line_output = 3
@@ -66,8 +91,27 @@ known_third_party = ["invoke", "nox"]
 
 [tool.black]
 line-length = 99
-target-version = ["py37"]
+target-version = ["py310"]
+
+[tool.mypy]
+warn_return_any = true
+warn_unused_configs = true
+
+[[tool.mypy.overrides]]
+module = ["invoke.*"]
+allow_redefinition = false
+check_untyped_defs = true
+ignore_errors = false
+ignore_missing_imports = true
+implicit_reexport = false
+local_partial_types = true
+strict_optional = true
+strict_equality = true
+no_implicit_optional = true
+warn_unused_ignores = true
+warn_unreachable = true
+warn_no_return = true
 
 [build-system]
-requires = ["poetry>=0.12"]
-build-backend = "poetry.masonry.api"
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"

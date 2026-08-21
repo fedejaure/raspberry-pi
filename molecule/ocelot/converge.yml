@@ -12,7 +12,7 @@
       ansible.builtin.apt:
         update_cache: true
         cache_valid_time: 3600
-      when: ansible_os_family == 'Debian'
+      when: ansible_facts["os_family"] == 'Debian'
 
     - name: Ensure build dependencies are installed (Debian)
       ansible.builtin.package:
@@ -20,15 +20,15 @@
           - openssh-server
           - openssh-client
         state: present
-      when: ansible_os_family == 'Debian'
+      when: ansible_facts["os_family"] == 'Debian'
 
     - name: Ensure auth.log file is present
       ansible.builtin.copy:
         dest: /var/log/auth.log
         content: ""
         force: false
-        mode: 0644
-      when: ansible_distribution == 'Debian'
+        mode: "0644"
+      when: ansible_facts["distribution"] == 'Debian'
 
 - name: Import main playbook
   ansible.builtin.import_playbook: ../../playbooks/ocelot.yml

@@ -1,12 +1,11 @@
-version: "3.8"
-
 services:
 
   nginx-proxy:
     container_name: nginx-proxy
     hostname: nginx-proxy.{{ rpi_hostname }}
-    image: nginxproxy/nginx-proxy:1.0.1
+    image: nginxproxy/nginx-proxy:1.11.2
     restart: always
+    privileged: {{ (molecule_yml is defined) | string | lower }}
     ports:
       - "80:80"
     volumes:
@@ -15,8 +14,9 @@ services:
   docker-proxy:
     container_name: docker-proxy
     hostname: docker-proxy.{{ rpi_hostname }}
-    image: tecnativa/docker-socket-proxy:0.1.1
+    image: tecnativa/docker-socket-proxy:v0.4.2
     restart: always
+    privileged: true
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     environment:
@@ -26,7 +26,8 @@ services:
     container_name: jump
     hostname: jump.{{ rpi_hostname }}
     restart: always
-    image: daledavies/jump:v1.3.0
+    privileged: {{ (molecule_yml is defined) | string | lower }}
+    image: daledavies/jump:v1.4.1
     expose:
       - 8080
     volumes:
@@ -49,8 +50,9 @@ services:
   whoami:
     container_name: whoami
     hostname: whoami.{{ rpi_hostname }}
-    image: traefik/whoami:v1.8.7
+    image: traefik/whoami:v1.11.0
     restart: always
+    privileged: {{ (molecule_yml is defined) | string | lower }}
     environment:
       - VIRTUAL_HOST={{ rpi_docker_compose_project_config.virtual_hosts.whoami }}
       - WHOAMI_NAME={{ rpi_hostname }}
@@ -58,8 +60,9 @@ services:
   netdata:
     container_name: netdata
     hostname: netdata.{{ rpi_hostname }}
-    image: netdata/netdata:v1.36.1
+    image: netdata/netdata:v2.10.3
     restart: always
+    privileged: {{ (molecule_yml is defined) | string | lower }}
     expose:
       - "19999"
     volumes:
@@ -86,8 +89,9 @@ services:
   pihole:
     container_name: pihole
     hostname: pihole.{{ rpi_hostname }}
-    image: pihole/pihole:2022.10
+    image: pihole/pihole:2026.06.0
     restart: always
+    privileged: {{ (molecule_yml is defined) | string | lower }}
     ports:
       - "53:53/tcp"
       - "53:53/udp"
@@ -95,8 +99,8 @@ services:
       - "8053:80/tcp"
       - "443:443/tcp"
     volumes:
-      - 'pihole/:/etc/pihole/'
-      - 'dnsmasq.d/:/etc/dnsmasq.d/'
+      - pihole:/etc/pihole
+      - dnsmasq.d:/etc/dnsmasq.d
     cap_add:
       - NET_ADMIN
     environment:
@@ -105,7 +109,8 @@ services:
       - VIRTUAL_PORT=80
       - TZ={{ rpi_tz }}
       - ServerIP={{ rpi_ipv4_address }}
-      {% if rpi_pihole_password is defined %}- WEBPASSWORD={{ rpi_pihole_password }}{% endif %}
+      - FTLCONF_dns_listeningMode=all
+      {% if rpi_pihole_password is defined %}- FTLCONF_webserver_api_password={{ rpi_pihole_password }}{% endif %}
 
 volumes:
   netdataconfig:

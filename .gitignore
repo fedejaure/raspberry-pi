@@ -132,5 +132,4 @@ dmypy.json
 /otacon.config.yml
 /ocelot.config.yml
 inventory
-.roles/**
-.collections/**
+.ansible/**

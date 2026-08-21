@@ -1,18 +1,22 @@
 ---
-- hosts:
+- name: Prepare docker in docker
+  hosts:
     - otacon
     - ocelot
   tasks:
-    - name: create /etc/docker.
+    - name: Create /etc/docker.
       ansible.builtin.file:
         state: directory
         path: /etc/docker
+        mode: "0644"
 
     - name: Set storage-driver to vfs via daemon.json.
       ansible.builtin.copy:
         content: |
           {
+            "debug": false,
+            "default-cgroupns-mode": "host",
             "storage-driver": "vfs"
           }
         dest: /etc/docker/daemon.json
-        mode: "600"
+        mode: "0644"

@@ -1,4 +1,5 @@
 name: tests
+
 on:
   push:
     branches:
@@ -13,17 +14,29 @@ jobs:
     name: Linting
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v7.0.1
 
-      - name: Set up Python 3.10
-        uses: actions/setup-python@v4
+      - name: Set up Python
+        uses: actions/setup-python@v7.0.0
         with:
-          python-version: "3.10"
+          python-version-file: '.python-version'
+
+      - name: Install system deps
+        shell: bash
+        run: |
+          pip install poetry
+          pip install poetry-plugin-export
+          poetry config virtualenvs.in-project true
+          poetry install --no-root --only dev --sync
+
+      - name: Install playbooks requirements
+        shell: bash
+        run: poetry run inv galaxy-install
 
       - name: Linting
-        run: |
-          pip install pre-commit
-          pre-commit run --all-files
+        shell: bash
+        run: poetry run inv hooks
+
   tests:
     needs: linting
     name: molecule-${{ matrix.target }}-${{ matrix.distro }}
@@ -31,34 +44,43 @@ jobs:
     strategy:
       matrix:
         distro:
-          - debian10
           - debian11
+          - debian12
         target:
           - otacon
           - ocelot
-      fail-fast: true
+      fail-fast: false
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Free disk space
+        run: |
+          sudo swapoff -a
+          sudo rm -f /swapfile
+          sudo apt clean
+          df -h
 
-      - name: Set up Python 3.10
-        uses: actions/setup-python@v4
+      - uses: actions/checkout@v7.0.1
+
+      - name: Set up Python
+        uses: actions/setup-python@v7.0.0
         with:
-          python-version: "3.10"
+          python-version-file: '.python-version'
 
       - name: Install system deps
         shell: bash
         run: |
           pip install poetry
+          pip install poetry-plugin-export
           poetry config virtualenvs.in-project true
           poetry install --no-root
+
       - name: Install playbooks requirements
         shell: bash
         run: poetry run inv galaxy-install
 
-      - name: Run safety check
+      - name: Run security checks
         shell: bash
-        run: poetry run inv safety
+        run: poetry run inv security
 
       - name: Run Molecule tests
         run: poetry run inv tests --target ${{ matrix.target }}

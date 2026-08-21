@@ -6,6 +6,34 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.0] - 2026-08-21
+### Added
+- role `geerlingguy.docker`.
+- Debian 12 "bookworm" support.
+
+### Changed
+- Update ansible requirements versions.
+- Update `community.docker` to `5.2.1`.
+- Update `community.general` to `13.1.0`.
+- Update `geerlingguy.pip` to `3.1.2`.
+- Update `geerlingguy.security` to `3.0.2`.
+- Update `geerlingguy.firewall` to `2.7.0`.
+- Update `geerlingguy.supervisor` to `3.3.0`.
+- Update `geerlingguy.docker` to `8.0.0`.
+- Update `fedejaure.rpi_lcd` to `0.4.0`.
+- Upgrade Otacon/Ocelot `mdns-beacon` to `0.8.1`.
+- Otacon/Ocelot `nginxproxy/nginx-proxy` to `1.11.2`.
+- Otacon/Ocelot `tecnativa/docker-socket-proxy` to `v0.4.2`.
+- Otacon/Ocelot `netdata/netdata` to `v2.10.3`.
+- Otacon/Ocelot `daledavies/jump` to `v1.4.1`.
+- Otacon/Ocelot `traefik/whoami` to `v1.11.0`.
+- Ocelot `octoprint/octoprint` to `1.11.7`.
+- Otacon `pihole/pihole` to `2026.06.0`.
+
+### Removed
+- role `geerlingguy.docker_arm`
+- Debian 10 "buster" support.
+
 ## [0.5.0] - 2022-10-15
 ### Added
 - Otacon/Ocelot jump start page.
@@ -68,7 +96,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - First `otacon` release.
 
-[Unreleased]: https://github.com/fedejaure/raspberry-pi/compare/v0.5.0...develop
+[Unreleased]: https://github.com/fedejaure/raspberry-pi/compare/v0.6.0...develop
+[0.6.0]: https://github.com/fedejaure/raspberry-pi/compare/v0.5.0...v0.6.0
 [0.5.0]: https://github.com/fedejaure/raspberry-pi/compare/v0.4.0...v0.5.0
 [0.4.0]: https://github.com/fedejaure/raspberry-pi/compare/v0.3.0...v0.4.0
 [0.3.0]: https://github.com/fedejaure/raspberry-pi/compare/v0.2.1...v0.3.0
