@@ -25,7 +25,7 @@
         netalertx: netalertx.{{ rpi_hostname }}.local
 
     rpi_virtual_hosts_aliases: "{{ rpi_docker_compose_project_config.virtual_hosts.values() | map('replace', '.local', '') | list }}"
-    rpi_ipv4_address: "{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}"
+    rpi_ipv4_address: "{{ hostvars[inventory_hostname]['ansible_facts']['default_ipv4']['address'] }}"
 
     mdns_beacon_version: "0.8.1"
 
