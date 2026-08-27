@@ -97,12 +97,14 @@
   with_items: "{{ rpi_docker_compose_project_config.templates }}"
   register: services
 
-- name: Create and start services
+- name: Create, update, and start services
   community.docker.docker_compose_v2:
     project_src: "{{ rpi_docker_compose_project }}"
     build: "policy"
+    pull: "missing"
     remove_orphans: true
-    state: "restarted"
+    state: "present"
   when: services.changed # noqa no-handler
   notify:
     - prune services is required
+    - prune unused docker images is required

@@ -7,11 +7,17 @@
 - name: Prune services
   community.docker.docker_prune:
     containers: true
-    images: true
     networks: true
     volumes: true
     builder_cache: true
   listen: prune services is required
+
+- name: Prune unused docker images
+  community.docker.docker_prune:
+    images: true
+    images_filters:
+      dangling: false
+  listen: prune unused docker images is required
 
 - name: Setup swap file
   ansible.builtin.command: dphys-swapfile setup
