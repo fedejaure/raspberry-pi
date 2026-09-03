@@ -3,9 +3,9 @@ services:
   nginx-proxy:
     container_name: nginx-proxy
     hostname: nginx-proxy.{{ rpi_hostname }}
-    image: nginxproxy/nginx-proxy:1.11.2
+    image: nginxproxy/nginx-proxy:1.11.6
     restart: always
-    privileged: {{ (molecule_yml is defined) | string | lower }}
+    privileged: {{ 'true' if molecule_yml is defined else 'false' }}
     ports:
       - "80:80"
     volumes:
@@ -14,7 +14,7 @@ services:
   docker-proxy:
     container_name: docker-proxy
     hostname: docker-proxy.{{ rpi_hostname }}
-    image: tecnativa/docker-socket-proxy:v0.4.2
+    image: tecnativa/docker-socket-proxy:v0.5.0
     restart: always
     privileged: true
     volumes:
@@ -26,7 +26,7 @@ services:
     container_name: jump
     hostname: jump.{{ rpi_hostname }}
     restart: always
-    privileged: {{ (molecule_yml is defined) | string | lower }}
+    privileged: {{ 'true' if molecule_yml is defined else 'false' }}
     image: daledavies/jump:v1.4.1
     expose:
       - 8080
@@ -50,9 +50,9 @@ services:
   whoami:
     container_name: whoami
     hostname: whoami.{{ rpi_hostname }}
-    image: traefik/whoami:v1.11.0
+    image: traefik/whoami:v1.12.0
     restart: always
-    privileged: {{ (molecule_yml is defined) | string | lower }}
+    privileged: {{ 'true' if molecule_yml is defined else 'false' }}
     environment:
       - VIRTUAL_HOST={{ rpi_docker_compose_project_config.virtual_hosts.whoami }}
       - WHOAMI_NAME={{ rpi_hostname }}
@@ -60,9 +60,9 @@ services:
   netdata:
     container_name: netdata
     hostname: netdata.{{ rpi_hostname }}
-    image: netdata/netdata:v2.10.3
+    image: netdata/netdata:v2.11.0
     restart: always
-    privileged: {{ (molecule_yml is defined) | string | lower }}
+    privileged: {{ 'true' if molecule_yml is defined else 'false' }}
     expose:
       - "19999"
     volumes:
@@ -89,9 +89,9 @@ services:
   pihole:
     container_name: pihole
     hostname: pihole.{{ rpi_hostname }}
-    image: pihole/pihole:2026.06.0
+    image: pihole/pihole:2026.07.2
     restart: always
-    privileged: {{ (molecule_yml is defined) | string | lower }}
+    privileged: {{ 'true' if molecule_yml is defined else 'false' }}
     ports:
       - "53:53/tcp"
       - "53:53/udp"
@@ -112,9 +112,94 @@ services:
       - FTLCONF_dns_listeningMode=all
       {% if rpi_pihole_password is defined %}- FTLCONF_webserver_api_password={{ rpi_pihole_password }}{% endif %}
 
+
+  netalertx-proxy-link:
+    container_name: netalertx-proxy-link
+    hostname: netalertx-proxy.{{ rpi_hostname }}
+    image: alpine/socat:1.8.0.3
+    restart: always
+    expose:
+      - "20211"
+    # This service connects the Bridge to the Host
+    command: tcp-listen:20211,fork,reuseaddr tcp:host.docker.internal:20211
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    environment:
+      - DOCKER_HOST=docker-proxy:2375
+      - VIRTUAL_HOST={{ rpi_docker_compose_project_config.virtual_hosts.netalertx }}
+      - VIRTUAL_PORT=20211
+
+  netalertx:
+    container_name: netalertx
+    hostname: netalertx.{{ rpi_hostname }}
+    image: ghcr.io/netalertx/netalertx:26.8.5
+    restart: always
+    privileged: {{ 'true' if molecule_yml is defined else 'false' }}
+    network_mode: host                              # Use host networking for ARP scanning and other services
+
+    read_only: true                                 # Make the container filesystem read-only
+    cap_drop:                                       # Drop all capabilities for enhanced security
+      - ALL
+    cap_add:                                        # Add only the necessary capabilities
+      - NET_ADMIN                                   # Required for ARP scanning
+      - NET_RAW                                     # Required for raw socket operations
+      - NET_BIND_SERVICE                            # Required to bind to privileged ports (nbtscan)
+      - CHOWN                                       # Required for root-entrypoint to chown /data + /tmp before dropping privileges
+      - SETUID                                      # Required for root-entrypoint to switch to non-root user
+      - SETGID                                      # Required for root-entrypoint to switch to non-root group
+
+    # # --- ARP FLUX MITIGATION ---
+    # # Note: When using `network_mode: host`, these sysctls require the
+    # # NET_ADMIN capability to be applied to the host namespace.
+    # #
+    # # If your environment restricts capabilities, or you prefer to configure
+    # # them on the Host OS, REMOVE the sysctls block below and apply via:
+    # # sudo sysctl -w net.ipv4.conf.all.arp_ignore=1 net.ipv4.conf.all.arp_announce=2
+    # # ---------------------------
+    # sysctls:                                        # ARP flux mitigation (reduces duplicate/ambiguous ARP behavior on host networking)
+    #   net.ipv4.conf.all.arp_ignore: 1
+    #   net.ipv4.conf.all.arp_announce: 2
+
+    volumes:
+      - type: volume                                # Persistent Docker-managed named volume for config + database
+        source: netalertx_data
+        target: /data                               # `/data/config` and `/data/db` live inside this mount
+        read_only: false
+
+      - type: bind                                  # Bind mount for timezone consistency
+        source: /etc/localtime
+        target: /etc/localtime
+        read_only: true
+
+      # Mount your DHCP server file into NetAlertX for a plugin to access
+      # - path/on/host/to/dhcp.file:/resources/dhcp.file
+
+    # tmpfs mount consolidates writable state for a read-only container and improves performance
+    # uid/gid default to the service user (NETALERTX_UID/GID, default 20211)
+    # mode=1700 grants rwx------ permissions to the runtime user only
+    tmpfs:
+      # Comment out to retain logs between container restarts - this has a server performance impact.
+      - "/tmp:uid=20211,gid=20211,mode=1700,rw,noexec,nosuid,nodev,async,noatime,nodiratime"
+
+    environment:
+      - LISTEN_ADDR=0.0.0.0                 # Listen for connections on all interfaces
+      - PORT=20211                          # Application port
+      - GRAPHQL_PORT=20212                  # GraphQL API port (passed into APP_CONF_OVERRIDE at runtime)
+
+    # Resource limits to prevent resource exhaustion
+    mem_limit: 2048m            # Maximum memory usage
+    mem_reservation: 1024m      # Soft memory limit
+    cpu_shares: 512             # Relative CPU weight for CPU contention scenarios
+    pids_limit: 512             # Limit the number of processes/threads to prevent fork bombs
+    logging:
+      options:
+        max-size: "10m"         # Rotate log files after they reach 10MB
+        max-file: "3"           # Keep a maximum of 3 log files
+
 volumes:
   netdataconfig:
   netdatalib:
   netdatacache:
   pihole:
   dnsmasq.d:
+  netalertx_data:

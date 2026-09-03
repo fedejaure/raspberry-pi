@@ -20,6 +20,8 @@ firewall_allowed_tcp_ports:
   - 80
   - 443
   - 548
+  - 20211
+  - 20212
 firewall_allowed_udp_ports:
   - 53
   - 67

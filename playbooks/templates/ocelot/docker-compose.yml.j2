@@ -3,9 +3,9 @@ services:
   nginx-proxy:
     container_name: nginx-proxy
     hostname: nginx-proxy.{{ rpi_hostname }}
-    image: nginxproxy/nginx-proxy:1.11.2
+    image: nginxproxy/nginx-proxy:1.11.6
     restart: always
-    privileged: {{ (molecule_yml is defined) | string | lower }}
+    privileged: {{ 'true' if molecule_yml is defined else 'false' }}
     ports:
       - "80:80"
     volumes:
@@ -17,7 +17,7 @@ services:
   docker-proxy:
     container_name: docker-proxy
     hostname: docker-proxy.{{ rpi_hostname }}
-    image: tecnativa/docker-socket-proxy:v0.4.2
+    image: tecnativa/docker-socket-proxy:v0.5.0
     restart: always
     privileged: true
     volumes:
@@ -29,7 +29,7 @@ services:
     container_name: jump
     hostname: jump.{{ rpi_hostname }}
     restart: always
-    privileged: {{ (molecule_yml is defined) | string | lower }}
+    privileged: {{ 'true' if molecule_yml is defined else 'false' }}
     image: daledavies/jump:v1.4.1
     expose:
       - 8080
@@ -53,9 +53,9 @@ services:
   whoami:
     container_name: whoami
     hostname: whoami.{{ rpi_hostname }}
-    image: traefik/whoami:v1.11.0
+    image: traefik/whoami:v1.12.0
     restart: always
-    privileged: {{ (molecule_yml is defined) | string | lower }}
+    privileged: {{ 'true' if molecule_yml is defined else 'false' }}
     environment:
       - VIRTUAL_HOST={{ rpi_docker_compose_project_config.virtual_hosts.whoami }}
       - WHOAMI_NAME={{ rpi_hostname }}
@@ -63,9 +63,9 @@ services:
   netdata:
     container_name: netdata
     hostname: netdata.{{ rpi_hostname }}
-    image: netdata/netdata:v2.10.2
+    image: netdata/netdata:v2.11.0
     restart: always
-    privileged: {{ (molecule_yml is defined) | string | lower }}
+    privileged: {{ 'true' if molecule_yml is defined else 'false' }}
     expose:
       - "19999"
     volumes:
@@ -92,9 +92,9 @@ services:
   octoprint:
     container_name: octoprint
     hostname: octoprint.{{ rpi_hostname }}
-    image: octoprint/octoprint:1.11.7
+    image: octoprint/octoprint:1.11.8
     restart: always
-    privileged: {{ (molecule_yml is defined) | string | lower }}
+    privileged: {{ 'true' if molecule_yml is defined else 'false' }}
     environment:
       - VIRTUAL_HOST={{ rpi_docker_compose_project_config.virtual_hosts.octoprint }}
       - ENABLE_MJPG_STREAMER=true

@@ -77,3 +77,24 @@
     mode: "0644"
   loop: "{{ rpi_swap_config | dict2items }}"
   notify: setup swap file is required
+
+- name: Ensure cgroup arguments have the correct values
+  ansible.builtin.replace:
+    path: /boot/firmware/cmdline.txt
+    # Matches key=anything, but skips if it already has the correct value
+    regexp: '^(?!.*{{ item.key }}={{ item.value }})(.*){{ item.key }}=\S+(.*)$'
+    replace: '\1{{ item.key }}={{ item.value }}\2'
+  loop: &cgroup_items
+    - { key: 'cgroup_enable', value: 'cpuset' }
+    - { key: 'cgroup_enable', value: 'memory' }
+    - { key: 'cgroup_memory', value: '1' }
+  notify: reboot raspi is required
+
+- name: Append cgroup arguments if they are completely missing
+  ansible.builtin.replace:
+    path: /boot/firmware/cmdline.txt
+    # Only matches if the key doesn't exist on the line at all
+    regexp: '^((?!.*{{ item.key }}=\S+).*)$'
+    replace: '\1 {{ item.key }}={{ item.value }}'
+  loop: *cgroup_items
+  notify: reboot raspi is required
